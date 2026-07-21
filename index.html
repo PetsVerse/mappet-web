@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MapPet</title>
+  <style>
+    :root {
+      --primary: #2d9a4e;
+      --bg: #f8faf8;
+      --text: #1a2e1d;
+      --secondary: #4a6550;
+      --muted: #8fa896;
+      --coming-soon: #f97316;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .lang-selector {
+      position: fixed;
+      top: 12px;
+      right: 16px;
+      z-index: 20;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .lang-selector a {
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: normal;
+      transition: color 0.15s ease;
+    }
+
+    .lang-selector a:hover {
+      color: var(--primary);
+    }
+
+    .lang-selector a.active {
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .lang-selector .sep {
+      color: var(--muted);
+      margin: 0 4px;
+      user-select: none;
+    }
+
+    .coming-soon {
+      position: fixed;
+      top: 44px;
+      left: 0;
+      right: 0;
+      z-index: 15;
+      background: var(--coming-soon);
+      color: #fff;
+      font-size: 14px;
+      text-align: center;
+      padding: 10px 16px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 100px;
+      max-width: 560px;
+      width: 100%;
+    }
+
+    .paw {
+      font-size: 72px;
+      line-height: 1;
+      margin-bottom: 16px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    h1 {
+      font-size: 36px;
+      color: var(--primary);
+      font-weight: bold;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .tagline {
+      font-size: 18px;
+      color: var(--secondary);
+      max-width: 400px;
+      line-height: 1.5;
+      margin-bottom: 32px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .store-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .store-btn {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: system-ui, -apple-system, sans-serif;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+
+    .store-btn:hover {
+      background: #248a42;
+      transform: translateY(-2px);
+    }
+
+    .availability {
+      font-size: 13px;
+      color: var(--secondary);
+      text-align: center;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #e8f5ec;
+      padding: 8px 16px;
+      border-radius: 999px;
+      display: inline-block;
+      max-width: 100%;
+      line-height: 1.4;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px;
+      text-align: center;
+      background: var(--bg);
+      font-size: 14px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    footer a {
+      color: var(--secondary);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    footer .sep {
+      color: var(--muted);
+      margin: 0 8px;
+    }
+
+    @media (max-width: 480px) {
+      .lang-selector {
+        right: 8px;
+        left: 8px;
+        text-align: center;
+        top: 8px;
+      }
+
+      .coming-soon {
+        top: 40px;
+        font-size: 13px;
+      }
+
+      .main {
+        padding-top: 110px;
+      }
+
+      .store-buttons {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .store-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="lang-selector" aria-label="Language">
+    <a href="#" data-lang="pt" onclick="return setLanguage('pt')">🇵🇹 PT</a><span class="sep">·</span>
+    <a href="#" data-lang="en" onclick="return setLanguage('en')">🇬🇧 EN</a><span class="sep">·</span>
+    <a href="#" data-lang="es" onclick="return setLanguage('es')">🇪🇸 ES</a><span class="sep">·</span>
+    <a href="#" data-lang="de" onclick="return setLanguage('de')">🇩🇪 DE</a><span class="sep">·</span>
+    <a href="#" data-lang="fr" onclick="return setLanguage('fr')">🇫🇷 FR</a>
+  </nav>
+
+  <div class="coming-soon" data-i18n="coming_soon"></div>
+
+  <main class="main">
+    <div class="paw" aria-hidden="true">🐾</div>
+    <h1>MapPet</h1>
+    <p class="tagline" data-i18n="tagline"></p>
+    <div class="store-buttons">
+      <a class="store-btn" href="https://apps.apple.com" data-i18n="appstore" target="_blank" rel="noopener noreferrer"></a>
+      <a class="store-btn" href="https://play.google.com" data-i18n="playstore" target="_blank" rel="noopener noreferrer"></a>
+    </div>
+    <div class="availability" data-i18n="availability"></div>
+  </main>
+
+  <footer>
+    <a href="#" data-i18n="privacy"></a><span class="sep">·</span>
+    <a href="#" data-i18n="terms"></a><span class="sep">·</span>
+    <a href="#" data-i18n="support"></a>
+  </footer>
+
+  <script>
+    const translations = {
+      pt: {
+        tagline: "Descobre cafés, parques, praias e muito mais locais que aceitam o teu animal de estimação.",
+        appstore: "App Store",
+        playstore: "Google Play",
+        privacy: "Privacidade",
+        terms: "Termos",
+        support: "Suporte",
+        coming_soon: "🚀 Em desenvolvimento — brevemente disponível nas stores",
+        availability: "📍 Disponível em Portugal · A expandir para mais países em breve"
+      },
+      en: {
+        tagline: "Discover cafés, parks, beaches and many more places that welcome your pet.",
+        appstore: "App Store",
+        playstore: "Google Play",
+        privacy: "Privacy",
+        terms: "Terms",
+        support: "Support",
+        coming_soon: "🚀 In development — coming soon to the app stores",
+        availability: "📍 Available in Portugal · Expanding to more countries soon"
+      },
+      es: {
+        tagline: "Descubre cafés, parques, playas y muchos más lugares que aceptan a tu mascota.",
+        appstore: "App Store",
+        playstore: "Google Play",
+        privacy: "Privacidad",
+        terms: "Términos",
+        support: "Soporte",
+        coming_soon: "🚀 En desarrollo — próximamente en las tiendas de apps",
+        availability: "📍 Disponible en Portugal · Próximamente en más países"
+      },
+      de: {
+        tagline: "Entdecke Cafés, Parks, Strände und viele weitere Orte, die dein Haustier willkommen heißen.",
+        appstore: "App Store",
+        playstore: "Google Play",
+        privacy: "Datenschutz",
+        terms: "Nutzungsbedingungen",
+        support: "Support",
+        coming_soon: "🚀 In Entwicklung — bald in den App Stores verfügbar",
+        availability: "📍 Verfügbar in Portugal · Bald in weiteren Ländern"
+      },
+      fr: {
+        tagline: "Découvrez des cafés, parcs, plages et bien d'autres endroits qui accueillent votre animal.",
+        appstore: "App Store",
+        playstore: "Google Play",
+        privacy: "Confidentialité",
+        terms: "Conditions",
+        support: "Support",
+        coming_soon: "🚀 En développement — bientôt disponible sur les stores",
+        availability: "📍 Disponible au Portugal · Bientôt dans d'autres pays"
+      }
+    };
+
+    const supported = ['pt', 'en', 'es', 'de', 'fr'];
+
+    function setLanguage(lang) {
+      if (!supported.includes(lang)) lang = 'pt';
+      localStorage.setItem('mappet_lang', lang);
+      document.documentElement.lang = lang;
+
+      const t = translations[lang];
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+
+      document.querySelectorAll('.lang-selector a[data-lang]').forEach(function (el) {
+        el.classList.toggle('active', el.getAttribute('data-lang') === lang);
+      });
+
+      return false;
+    }
+
+    (function init() {
+      const stored = localStorage.getItem('mappet_lang');
+      const browserLang = navigator.language.slice(0, 2);
+      const defaultLang = supported.includes(browserLang) ? browserLang : 'pt';
+      const lang = (stored && supported.includes(stored)) ? stored : defaultLang;
+      setLanguage(lang);
+    })();
+  </script>
+</body>
+</html>
