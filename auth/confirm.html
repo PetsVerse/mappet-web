@@ -1,28 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MapPet — Verificação</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MapPet – Verificar Email</title>
   <style>
-    :root {
-      --primary: #2d9a4e;
-      --bg: #f8faf8;
-      --text: #1a2e1d;
-      --secondary: #4a6550;
-      --muted: #8fa896;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f8faf8;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -30,208 +16,182 @@
       justify-content: center;
       padding: 24px;
     }
-
     .card {
-      background: #fff;
+      background: white;
       border-radius: 24px;
+      padding: 48px 40px;
       max-width: 420px;
       width: 100%;
-      padding: 40px 32px;
       text-align: center;
-      box-shadow: 0 8px 32px rgba(26, 46, 29, 0.08);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
     }
-
-    .emoji {
-      font-size: 56px;
-      line-height: 1;
-      margin-bottom: 20px;
-    }
-
-    h1 {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 24px;
-      color: var(--text);
-      margin-bottom: 16px;
-      font-weight: bold;
-      line-height: 1.3;
-    }
-
-    .message {
-      font-size: 15px;
-      color: var(--secondary);
-      line-height: 1.55;
-      margin-bottom: 6px;
-    }
-
-    .message + .message {
-      margin-bottom: 24px;
-    }
-
-    .error-detail {
-      font-size: 13px;
-      color: var(--muted);
-      margin: 12px 0 20px;
-      word-break: break-word;
-      line-height: 1.4;
-    }
-
-    .hint {
-      font-size: 14px;
-      color: var(--secondary);
-      line-height: 1.5;
-      margin-top: 8px;
-    }
-
-    .hint + .hint {
-      margin-bottom: 0;
-    }
-
+    .emoji { font-size: 56px; margin-bottom: 20px; }
+    h1 { font-size: 24px; font-weight: 700; color: #1a2e1d; margin-bottom: 8px; }
+    .subtitle { font-size: 14px; color: #8fa896; margin-bottom: 16px; }
+    p { font-size: 15px; color: #4a6550; line-height: 1.6; margin-bottom: 12px; }
     .btn {
       display: inline-block;
-      background: var(--primary);
-      color: #fff;
+      background: #2d9a4e;
+      color: white;
       text-decoration: none;
-      padding: 14px 28px;
-      border-radius: 12px;
-      font-size: 15px;
+      padding: 14px 32px;
+      border-radius: 14px;
+      font-size: 16px;
       font-weight: 600;
       margin-top: 8px;
-      transition: background 0.15s ease, transform 0.15s ease;
+      cursor: pointer;
+      border: none;
+      width: 100%;
     }
-
-    .btn:hover {
-      background: #248a42;
-      transform: translateY(-1px);
-    }
-
+    .btn:hover { background: #258a43; }
     .spinner {
       width: 36px;
       height: 36px;
-      border: 3px solid #e0ebe3;
-      border-top-color: var(--primary);
+      border: 3px solid #d6e8da;
+      border-top-color: #2d9a4e;
       border-radius: 50%;
-      margin: 8px auto 0;
       animation: spin 0.8s linear infinite;
+      margin: 16px auto;
     }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .state {
-      display: none;
-    }
-
-    .state.visible {
-      display: block;
-    }
-
-    .page-footer {
-      margin-top: 28px;
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .error-msg { font-size: 13px; color: #8fa896; margin-top: 8px; }
+    footer {
+      margin-top: 32px;
       font-size: 13px;
-      color: var(--muted);
+      color: #8fa896;
       text-align: center;
     }
-
-    .page-footer a {
-      color: var(--secondary);
-      text-decoration: none;
-    }
-
-    .page-footer a:hover {
-      color: var(--primary);
-      text-decoration: underline;
-    }
-
-    .page-footer .sep {
-      margin: 0 6px;
-      color: var(--muted);
-    }
+    footer a { color: #2d9a4e; text-decoration: none; margin: 0 8px; }
+    .hidden { display: none; }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div id="state-loading" class="state visible">
-      <div class="emoji" aria-hidden="true">🐾</div>
-      <h1>A verificar... / Verifying...</h1>
-      <div class="spinner" role="status" aria-label="Loading"></div>
-    </div>
 
-    <div id="state-success" class="state">
-      <div class="emoji" aria-hidden="true">✅</div>
-      <h1>Email verificado! / Email verified!</h1>
-      <p class="message">A tua conta MapPet foi confirmada.</p>
-      <p class="message">Your MapPet account has been confirmed.</p>
-      <a id="open-app" class="btn" href="#">Abrir o MapPet / Open MapPet</a>
-    </div>
-
-    <div id="state-error" class="state">
-      <div class="emoji" aria-hidden="true">❌</div>
-      <h1>Ligação inválida / Invalid link</h1>
-      <p class="message">Este link expirou ou já foi utilizado.</p>
-      <p class="message">This link has expired or has already been used.</p>
-      <p id="error-detail" class="error-detail"></p>
-      <p class="hint">Abre o MapPet e solicita um novo email.</p>
-      <p class="hint">Open MapPet and request a new email.</p>
-    </div>
+  <!-- STATE 1: Loading -->
+  <div class="card" id="state-loading">
+    <div class="emoji">🐾</div>
+    <h1>A verificar...</h1>
+    <div class="spinner"></div>
+    <p>Aguarda um momento.</p>
   </div>
 
-  <footer class="page-footer">
+  <!-- STATE 2: Success - Android (auto-redirect) -->
+  <div class="card hidden" id="state-success-android">
+    <div class="emoji">✅</div>
+    <h1>Email verificado!</h1>
+    <div class="subtitle">Email verified!</div>
+    <p>A tua conta MapPet foi confirmada com sucesso.</p>
+    <p>Your MapPet account has been confirmed.</p>
+    <p>A redirecionar para a app...</p>
+  </div>
+
+  <!-- STATE 3: Success - iOS (manual tap required) -->
+  <div class="card hidden" id="state-success-ios">
+    <div class="emoji">✅</div>
+    <h1>Email verificado!</h1>
+    <div class="subtitle">Email verified!</div>
+    <p>A tua conta MapPet foi confirmada com sucesso.</p>
+    <p>Your MapPet account has been confirmed.</p>
+    <a href="#" id="open-btn" class="btn">
+      Abrir o MapPet / Open MapPet
+    </a>
+    <p style="font-size:13px; color:#8fa896; margin-top:12px;">
+      Se a app não abrir, abre o MapPet manualmente.<br>
+      If the app doesn't open, open MapPet manually.
+    </p>
+  </div>
+
+  <!-- STATE 4: Error -->
+  <div class="card hidden" id="state-error">
+    <div class="emoji">❌</div>
+    <h1>Ligação inválida</h1>
+    <div class="subtitle">Invalid link</div>
+    <p>Este link expirou ou já foi utilizado.</p>
+    <p>This link has expired or has already been used.</p>
+    <p id="error-detail" class="error-msg"></p>
+    <p style="margin-top:16px;">
+      Abre o MapPet e solicita um novo email de verificação.<br>
+      Open MapPet and request a new verification email.
+    </p>
+  </div>
+
+  <footer>
     <a href="https://mappet.app">mappet.app</a>
-    <span class="sep">·</span>
-    <a href="../privacy.html">Privacidade / Privacy</a>
-    <span class="sep">·</span>
-    <a href="../terms.html">Termos / Terms</a>
+    <a href="/privacy.html">Privacidade / Privacy</a>
+    <a href="/terms.html">Termos / Terms</a>
   </footer>
 
   <script>
-    function showState(id) {
-      document.querySelectorAll('.state').forEach(function (el) {
-        el.classList.remove('visible');
-      });
-      document.getElementById(id).classList.add('visible');
+    function isIOS() {
+      return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     }
 
-    (function init() {
-      var hash = window.location.hash;
-      var params = new URLSearchParams(hash.replace('#', '?'));
+    function show(id) {
+      document.querySelectorAll('.card').forEach(function(el) {
+        el.classList.add('hidden');
+      });
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    window.addEventListener('DOMContentLoaded', function () {
+      var hash = window.location.hash || '';
+      var search = window.location.search || '';
+      
+      // Supabase can send tokens in hash or query string
+      var paramStr = hash.replace('#', '') || search.replace('?', '');
+      var params = new URLSearchParams(paramStr);
+      
       var accessToken = params.get('access_token');
       var refreshToken = params.get('refresh_token');
-      var type = params.get('type');
-      var errorCode = params.get('error_code');
+      var type = params.get('type') || 'signup';
+      var errorCode = params.get('error_code') || params.get('error');
       var errorDescription = params.get('error_description');
 
-      if (errorCode) {
+      if (errorCode || errorDescription) {
+        show('state-error');
         var detail = document.getElementById('error-detail');
-        if (errorDescription) {
-          detail.textContent = decodeURIComponent(errorDescription.replace(/\+/g, ' '));
-        } else {
-          detail.textContent = errorCode;
+        if (detail && errorDescription) {
+          detail.textContent = decodeURIComponent(
+            errorDescription.replace(/\+/g, ' ')
+          );
         }
-        showState('state-error');
         return;
       }
 
       if (accessToken && refreshToken) {
-        var deepLink =
-          'mappet://auth#access_token=' + encodeURIComponent(accessToken) +
+        var deepLink = 'mappet://auth#access_token=' + encodeURIComponent(accessToken) +
           '&refresh_token=' + encodeURIComponent(refreshToken) +
-          (type ? '&type=' + encodeURIComponent(type) : '');
+          '&type=' + encodeURIComponent(type);
 
-        var openBtn = document.getElementById('open-app');
-        openBtn.href = deepLink;
-        showState('state-success');
-
-        setTimeout(function () {
-          window.location.href = deepLink;
-        }, 1500);
+        if (isIOS()) {
+          // iOS: show button, user must tap manually
+          show('state-success-ios');
+          var btn = document.getElementById('open-btn');
+          if (btn) btn.href = deepLink;
+        } else {
+          // Android: auto-redirect works
+          show('state-success-android');
+          setTimeout(function() {
+            window.location.href = deepLink;
+          }, 1000);
+        }
         return;
       }
 
-      showState('state-error');
-      document.getElementById('error-detail').textContent =
-        'Missing verification tokens / Tokens de verificação em falta';
-    })();
+      // No tokens in URL — show generic success
+      // (Supabase may have already confirmed server-side)
+      if (isIOS()) {
+        show('state-success-ios');
+        var btn = document.getElementById('open-btn');
+        if (btn) btn.href = 'mappet://auth';
+      } else {
+        show('state-success-android');
+        setTimeout(function() {
+          window.location.href = 'mappet://auth';
+        }, 1000);
+      }
+    });
   </script>
+
 </body>
 </html>
