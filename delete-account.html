@@ -139,6 +139,29 @@
       line-height: 1.65;
     }
 
+    .note-box {
+      background: #eff6ff;
+      border: 1px solid #93c5fd;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-top: 16px;
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    .note-box h4 {
+      font-size: 15px;
+      font-weight: 700;
+      margin: 0 0 8px;
+      color: var(--text);
+    }
+
+    .note-box p {
+      margin-bottom: 0;
+      white-space: pre-line;
+    }
+
     .content-section {
       margin-bottom: 32px;
     }
@@ -296,6 +319,14 @@
     <section class="content-section">
       <h3 data-i18n="method2_title"></h3>
       <p data-i18n="method2_text"></p>
+      <div class="note-box">
+        <h4 data-i18n="method2_apple_title"></h4>
+        <p data-i18n="method2_apple_text"></p>
+      </div>
+      <div class="note-box">
+        <h4 data-i18n="method2_google_title"></h4>
+        <p data-i18n="method2_google_text"></p>
+      </div>
     </section>
 
     <section class="content-section">
@@ -338,7 +369,11 @@
           "A tua conta é eliminada imediatamente"
         ],
         method2_title: "Método 2: Por email",
-        method2_text: "Envia um email para support@mappet.app com o assunto 'Eliminar conta' e o endereço de email associado à tua conta. Processamos o pedido em até 30 dias.",
+        method2_text: "Envia um email a partir do endereço de email associado à tua conta para support@mappet.app com o assunto 'Eliminar conta'. Processamos o pedido em até 30 dias.",
+        method2_apple_title: "Apple Sign In",
+        method2_apple_text: "Se criaste conta com Apple Sign In e o teu email está mascarado (relay da Apple), podes revogar o acesso directamente em:\nDefinições do iPhone → [O teu nome] → Sign in with Apple → MapPet → Parar de usar Apple ID\nPara eliminação completa dos dados, contacta-nos em support@mappet.app indicando que usas Apple Sign In.",
+        method2_google_title: "Google Sign In",
+        method2_google_text: "Se criaste conta com Google, usa o endereço de email da tua conta Google para enviar o pedido.",
         deleted_title: "O que é eliminado:",
         deleted_items: [
           "A tua conta e dados de perfil",
@@ -371,7 +406,11 @@
           "Your account is deleted immediately"
         ],
         method2_title: "Method 2: By email",
-        method2_text: "Send an email to support@mappet.app with the subject 'Delete account' and the email address associated with your account. We process the request within 30 days.",
+        method2_text: "Send an email from the address associated with your account to support@mappet.app with the subject 'Delete account'. We process requests within 30 days.",
+        method2_apple_title: "Apple Sign In",
+        method2_apple_text: "If you signed in with Apple and your email is masked (Apple relay), you can revoke access directly at:\niPhone Settings → [Your name] → Sign in with Apple → MapPet → Stop using Apple ID\nFor complete data deletion, contact us at support@mappet.app indicating that you use Apple Sign In.",
+        method2_google_title: "Google Sign In",
+        method2_google_text: "If you signed in with Google, use your Google account email address to send the request.",
         deleted_title: "What gets deleted:",
         deleted_items: [
           "Your account and profile data",
@@ -404,7 +443,11 @@
           "Tu cuenta se elimina inmediatamente"
         ],
         method2_title: "Método 2: Por email",
-        method2_text: "Envía un email a support@mappet.app con el asunto 'Eliminar cuenta' y la dirección de email asociada a tu cuenta. Procesamos la solicitud en un plazo de 30 días.",
+        method2_text: "Envía un email desde la dirección de email asociada a tu cuenta a support@mappet.app con el asunto 'Eliminar cuenta'. Procesamos la solicitud en un plazo de 30 días.",
+        method2_apple_title: "Apple Sign In",
+        method2_apple_text: "Si creaste la cuenta con Apple Sign In y tu email está enmascarado (relay de Apple), puedes revocar el acceso directamente en:\nAjustes del iPhone → [Tu nombre] → Iniciar sesión con Apple → MapPet → Dejar de usar Apple ID\nPara la eliminación completa de los datos, contáctanos en support@mappet.app indicando que usas Apple Sign In.",
+        method2_google_title: "Google Sign In",
+        method2_google_text: "Si creaste la cuenta con Google, usa la dirección de email de tu cuenta de Google para enviar la solicitud.",
         deleted_title: "Qué se elimina:",
         deleted_items: [
           "Tu cuenta y datos de perfil",
@@ -437,7 +480,11 @@
           "Dein Konto wird sofort gelöscht"
         ],
         method2_title: "Methode 2: Per E-Mail",
-        method2_text: "Sende eine E-Mail an support@mappet.app mit dem Betreff 'Konto löschen' und der mit deinem Konto verknüpften E-Mail-Adresse. Wir bearbeiten die Anfrage innerhalb von 30 Tagen.",
+        method2_text: "Sende eine E-Mail von der mit deinem Konto verknüpften E-Mail-Adresse an support@mappet.app mit dem Betreff 'Konto löschen'. Wir bearbeiten Anfragen innerhalb von 30 Tagen.",
+        method2_apple_title: "Apple Sign In",
+        method2_apple_text: "Wenn du dich mit Apple Sign In angemeldet hast und deine E-Mail maskiert ist (Apple-Relay), kannst du den Zugriff direkt widerrufen unter:\niPhone-Einstellungen → [Dein Name] → Mit Apple anmelden → MapPet → Apple-ID nicht mehr verwenden\nFür die vollständige Löschung der Daten kontaktiere uns unter support@mappet.app und gib an, dass du Apple Sign In verwendest.",
+        method2_google_title: "Google Sign In",
+        method2_google_text: "Wenn du dich mit Google angemeldet hast, verwende die E-Mail-Adresse deines Google-Kontos, um die Anfrage zu senden.",
         deleted_title: "Was gelöscht wird:",
         deleted_items: [
           "Dein Konto und Profildaten",
@@ -470,7 +517,11 @@
           "Votre compte est supprimé immédiatement"
         ],
         method2_title: "Méthode 2 : Par email",
-        method2_text: "Envoyez un email à support@mappet.app avec l'objet 'Supprimer le compte' et l'adresse email associée à votre compte. Nous traitons la demande sous 30 jours.",
+        method2_text: "Envoyez un email depuis l'adresse associée à votre compte à support@mappet.app avec l'objet 'Supprimer le compte'. Nous traitons les demandes sous 30 jours.",
+        method2_apple_title: "Apple Sign In",
+        method2_apple_text: "Si vous avez créé votre compte avec Apple Sign In et que votre email est masqué (relais Apple), vous pouvez révoquer l'accès directement dans :\nRéglages iPhone → [Votre nom] → Connexion avec Apple → MapPet → Arrêter d'utiliser l'Apple ID\nPour la suppression complète des données, contactez-nous à support@mappet.app en indiquant que vous utilisez Apple Sign In.",
+        method2_google_title: "Google Sign In",
+        method2_google_text: "Si vous avez créé votre compte avec Google, utilisez l'adresse email de votre compte Google pour envoyer la demande.",
         deleted_title: "Ce qui est supprimé :",
         deleted_items: [
           "Votre compte et données de profil",
