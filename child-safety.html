@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MapPet — Segurança de Menores</title>
+  <style>
+    :root {
+      --primary: #2d9a4e;
+      --bg: #f8faf8;
+      --text: #1a2e1d;
+      --secondary: #4a6550;
+      --muted: #8fa896;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 72px;
+    }
+
+    .lang-selector {
+      position: fixed;
+      top: 12px;
+      right: 16px;
+      z-index: 20;
+      font-size: 13px;
+      line-height: 1.4;
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0;
+    }
+
+    .lang-selector a {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: normal;
+      transition: color 0.15s ease;
+    }
+
+    .lang-selector a:hover {
+      color: var(--primary);
+    }
+
+    .lang-selector a.active {
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .lang-selector img {
+      width: 16px;
+      height: 12px;
+      display: block;
+      border-radius: 1px;
+      object-fit: cover;
+    }
+
+    .lang-selector .sep {
+      color: var(--muted);
+      margin: 0 6px;
+      user-select: none;
+    }
+
+    .site-header {
+      width: 100%;
+      background: var(--primary);
+      margin-top: 44px;
+      padding: 14px 24px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .site-header a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .site-header a:hover {
+      opacity: 0.9;
+    }
+
+    .container {
+      max-width: 760px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 40px 24px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 32px;
+      color: var(--text);
+      font-weight: bold;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .intro {
+      font-size: 15px;
+      color: var(--secondary);
+      line-height: 1.65;
+      margin-bottom: 36px;
+    }
+
+    .content-section {
+      margin-bottom: 32px;
+    }
+
+    .content-section > h2 {
+      font-size: 22px;
+      color: var(--primary);
+      margin-bottom: 16px;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .content-section p {
+      font-size: 15px;
+      color: var(--secondary);
+      line-height: 1.65;
+      margin-bottom: 10px;
+    }
+
+    .content-section ul {
+      margin: 8px 0 12px 1.25em;
+      color: var(--secondary);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .content-section li {
+      margin-bottom: 4px;
+    }
+
+    .contact-line {
+      font-size: 15px;
+      color: var(--secondary);
+      line-height: 1.65;
+      margin-top: 8px;
+    }
+
+    .contact-line a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .contact-line a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px;
+      text-align: center;
+      background: var(--bg);
+      font-size: 14px;
+      font-family: system-ui, -apple-system, sans-serif;
+      border-top: 1px solid #e0ebe3;
+      z-index: 10;
+    }
+
+    footer a {
+      color: var(--secondary);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    footer .sep {
+      color: var(--muted);
+      margin: 0 8px;
+    }
+
+    @media (max-width: 480px) {
+      .lang-selector {
+        right: 8px;
+        left: 8px;
+        justify-content: center;
+        top: 8px;
+      }
+
+      .site-header {
+        margin-top: 40px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="lang-selector" aria-label="Language">
+    <a href="#" data-lang="pt" onclick="return setLanguage('pt')"><img src="https://flagcdn.com/16x12/pt.png" width="16" height="12" alt="PT"> PT</a><span class="sep">·</span>
+    <a href="#" data-lang="en" onclick="return setLanguage('en')"><img src="https://flagcdn.com/16x12/gb.png" width="16" height="12" alt="EN"> EN</a><span class="sep">·</span>
+    <a href="#" data-lang="es" onclick="return setLanguage('es')"><img src="https://flagcdn.com/16x12/es.png" width="16" height="12" alt="ES"> ES</a><span class="sep">·</span>
+    <a href="#" data-lang="de" onclick="return setLanguage('de')"><img src="https://flagcdn.com/16x12/de.png" width="16" height="12" alt="DE"> DE</a><span class="sep">·</span>
+    <a href="#" data-lang="fr" onclick="return setLanguage('fr')"><img src="https://flagcdn.com/16x12/fr.png" width="16" height="12" alt="FR"> FR</a>
+  </nav>
+
+  <header class="site-header">
+    <a href="/">🐾 MapPet</a>
+  </header>
+
+  <main class="container">
+    <div class="section-label" data-i18n="section_label"></div>
+    <h1 data-i18n="page_title"></h1>
+
+    <p class="intro" data-i18n="intro"></p>
+
+    <section class="content-section">
+      <h2 data-i18n="section1_title"></h2>
+      <p data-i18n="section1_text"></p>
+    </section>
+
+    <section class="content-section">
+      <h2 data-i18n="section2_title"></h2>
+      <ul data-i18n-list="section2_items"></ul>
+    </section>
+
+    <section class="content-section">
+      <h2 data-i18n="section3_title"></h2>
+      <p data-i18n="section3_text"></p>
+    </section>
+
+    <section class="content-section">
+      <h2 data-i18n="section4_title"></h2>
+      <p data-i18n="section4_intro"></p>
+      <ul data-i18n-list="section4_items"></ul>
+    </section>
+
+    <section class="content-section">
+      <h2 data-i18n="section5_title"></h2>
+      <p data-i18n="section5_text"></p>
+    </section>
+
+    <p class="contact-line">
+      <span data-i18n="contact_prefix"></span>
+      <a href="mailto:support@mappet.app">support@mappet.app</a>
+    </p>
+  </main>
+
+  <footer>
+    <a href="/privacy.html" data-i18n="privacy"></a><span class="sep">·</span>
+    <a href="/terms.html" data-i18n="terms"></a><span class="sep">·</span>
+    <a href="mailto:support@mappet.app" data-i18n="support"></a>
+  </footer>
+
+  <script>
+    const translations = {
+      pt: {
+        page_title: "Segurança de Menores",
+        document_title: "MapPet — Segurança de Menores",
+        section_label: "Segurança / Safety",
+        intro: "A SAVAGESIMPLICITY, UNIPESSOAL LDA está comprometida com a segurança de menores na plataforma MapPet.",
+        section1_title: "Idade mínima",
+        section1_text: "O MapPet não é dirigido a crianças com menos de 13 anos. Não recolhemos intencionalmente dados pessoais de menores de 13 anos sem consentimento parental verificável.",
+        section2_title: "Conteúdo proibido",
+        section2_items: [
+          "Conteúdo sexual ou sugestivo envolvendo menores",
+          "Conteúdo que explore, abuse ou prejudique crianças",
+          "Qualquer forma de exploração infantil"
+        ],
+        section3_title: "Moderação",
+        section3_text: "Todos os locais e conteúdos submetidos pelos utilizadores estão sujeitos a moderação. Conteúdo inapropriado pode ser reportado através da app ou por email para support@mappet.app.",
+        section4_title: "Como reportar conteúdo inadequado",
+        section4_intro: "Se encontrares conteúdo que consideres inadequado ou prejudicial para menores, reporta-o imediatamente através de:",
+        section4_items: [
+          "A app MapPet — toca em 'Reportar problema' em qualquer local",
+          "Email: support@mappet.app com o assunto 'Conteúdo inadequado'"
+        ],
+        section5_title: "Compromisso",
+        section5_text: "Respondemos a todos os reportes de conteúdo relacionado com a segurança de menores em até 24 horas e cooperamos com as autoridades competentes quando necessário.",
+        contact_prefix: "Para questões relacionadas com a segurança de menores:",
+        privacy: "Privacidade",
+        terms: "Termos",
+        support: "Suporte"
+      },
+      en: {
+        page_title: "Child Safety",
+        document_title: "MapPet — Child Safety",
+        section_label: "Segurança / Safety",
+        intro: "SAVAGESIMPLICITY, UNIPESSOAL LDA is committed to child safety on the MapPet platform.",
+        section1_title: "Minimum age",
+        section1_text: "MapPet is not directed at children under 13. We do not knowingly collect personal data from children under 13 without verifiable parental consent.",
+        section2_title: "Prohibited content",
+        section2_items: [
+          "Sexual or suggestive content involving minors",
+          "Content that exploits, abuses or harms children",
+          "Any form of child exploitation"
+        ],
+        section3_title: "Moderation",
+        section3_text: "All places and content submitted by users are subject to moderation. Inappropriate content can be reported through the app or by email to support@mappet.app.",
+        section4_title: "How to report inappropriate content",
+        section4_intro: "If you encounter content you consider inappropriate or harmful to minors, report it immediately through:",
+        section4_items: [
+          "The MapPet app — tap 'Report issue' on any place",
+          "Email: support@mappet.app with subject 'Inappropriate content'"
+        ],
+        section5_title: "Commitment",
+        section5_text: "We respond to all reports of child safety-related content within 24 hours and cooperate with competent authorities when necessary.",
+        contact_prefix: "For child safety questions:",
+        privacy: "Privacy",
+        terms: "Terms",
+        support: "Support"
+      },
+      es: {
+        page_title: "Seguridad Infantil",
+        document_title: "MapPet — Seguridad Infantil",
+        section_label: "Segurança / Safety",
+        intro: "SAVAGESIMPLICITY, UNIPESSOAL LDA está comprometida con la seguridad de los menores en la plataforma MapPet.",
+        section1_title: "Edad mínima",
+        section1_text: "MapPet no está dirigido a niños menores de 13 años. No recopilamos intencionadamente datos personales de menores de 13 años sin el consentimiento parental verificable.",
+        section2_title: "Contenido prohibido",
+        section2_items: [
+          "Contenido sexual o sugerente que involucre a menores",
+          "Contenido que explote, abuse o perjudique a niños",
+          "Cualquier forma de explotación infantil"
+        ],
+        section3_title: "Moderación",
+        section3_text: "Todos los lugares y contenidos enviados por los usuarios están sujetos a moderación. El contenido inapropiado puede reportarse a través de la app o por email a support@mappet.app.",
+        section4_title: "Cómo reportar contenido inadecuado",
+        section4_intro: "Si encuentras contenido que consideres inadecuado o perjudicial para menores, repórtalo de inmediato a través de:",
+        section4_items: [
+          "La app MapPet — toca en 'Reportar problema' en cualquier lugar",
+          "Email: support@mappet.app con el asunto 'Contenido inadecuado'"
+        ],
+        section5_title: "Compromiso",
+        section5_text: "Respondemos a todos los reportes de contenido relacionado con la seguridad de menores en un plazo de 24 horas y cooperamos con las autoridades competentes cuando sea necesario.",
+        contact_prefix: "Para consultas relacionadas con la seguridad de menores:",
+        privacy: "Privacidad",
+        terms: "Términos",
+        support: "Soporte"
+      },
+      de: {
+        page_title: "Kindersicherheit",
+        document_title: "MapPet — Kindersicherheit",
+        section_label: "Segurança / Safety",
+        intro: "SAVAGESIMPLICITY, UNIPESSOAL LDA verpflichtet sich zur Sicherheit von Minderjährigen auf der MapPet-Plattform.",
+        section1_title: "Mindestalter",
+        section1_text: "MapPet richtet sich nicht an Kinder unter 13 Jahren. Wir erheben wissentlich keine personenbezogenen Daten von Kindern unter 13 Jahren ohne überprüfbare elterliche Einwilligung.",
+        section2_title: "Verbotene Inhalte",
+        section2_items: [
+          "Sexuelle oder suggestive Inhalte mit Beteiligung von Minderjährigen",
+          "Inhalte, die Kinder ausbeuten, missbrauchen oder schädigen",
+          "Jede Form von Kindesausbeutung"
+        ],
+        section3_title: "Moderation",
+        section3_text: "Alle von Nutzern eingereichten Orte und Inhalte unterliegen der Moderation. Unangemessene Inhalte können über die App oder per E-Mail an support@mappet.app gemeldet werden.",
+        section4_title: "So meldest du unangemessene Inhalte",
+        section4_intro: "Wenn du auf Inhalte stößt, die du für unangemessen oder schädlich für Minderjährige hältst, melde sie sofort über:",
+        section4_items: [
+          "Die MapPet-App — tippe bei einem Ort auf 'Problem melden'",
+          "E-Mail: support@mappet.app mit dem Betreff 'Unangemessener Inhalt'"
+        ],
+        section5_title: "Verpflichtung",
+        section5_text: "Wir reagieren auf alle Meldungen zu kindersicherheitsbezogenen Inhalten innerhalb von 24 Stunden und arbeiten bei Bedarf mit den zuständigen Behörden zusammen.",
+        contact_prefix: "Bei Fragen zur Kindersicherheit:",
+        privacy: "Datenschutz",
+        terms: "Bedingungen",
+        support: "Support"
+      },
+      fr: {
+        page_title: "Sécurité des Mineurs",
+        document_title: "MapPet — Sécurité des Mineurs",
+        section_label: "Segurança / Safety",
+        intro: "SAVAGESIMPLICITY, UNIPESSOAL LDA s'engage en faveur de la sécurité des mineurs sur la plateforme MapPet.",
+        section1_title: "Âge minimum",
+        section1_text: "MapPet ne s'adresse pas aux enfants de moins de 13 ans. Nous ne collectons pas sciemment de données personnelles d'enfants de moins de 13 ans sans consentement parental vérifiable.",
+        section2_title: "Contenu interdit",
+        section2_items: [
+          "Contenu sexuel ou suggestif impliquant des mineurs",
+          "Contenu qui exploite, abuse ou nuit aux enfants",
+          "Toute forme d'exploitation infantile"
+        ],
+        section3_title: "Modération",
+        section3_text: "Tous les lieux et contenus soumis par les utilisateurs sont soumis à modération. Le contenu inapproprié peut être signalé via l'application ou par email à support@mappet.app.",
+        section4_title: "Comment signaler un contenu inapproprié",
+        section4_intro: "Si vous rencontrez un contenu que vous jugez inapproprié ou préjudiciable aux mineurs, signalez-le immédiatement via :",
+        section4_items: [
+          "L'application MapPet — appuyez sur 'Signaler un problème' sur n'importe quel lieu",
+          "Email : support@mappet.app avec l'objet 'Contenu inapproprié'"
+        ],
+        section5_title: "Engagement",
+        section5_text: "Nous répondons à tous les signalements de contenu lié à la sécurité des mineurs dans un délai de 24 heures et coopérons avec les autorités compétentes lorsque cela est nécessaire.",
+        contact_prefix: "Pour les questions relatives à la sécurité des mineurs :",
+        privacy: "Confidentialité",
+        terms: "Conditions",
+        support: "Support"
+      }
+    };
+
+    const supported = ['pt', 'en', 'es', 'de', 'fr'];
+
+    function setLanguage(lang) {
+      if (!supported.includes(lang)) lang = 'pt';
+      localStorage.setItem('mappet_lang', lang);
+      document.documentElement.lang = lang;
+
+      const t = translations[lang];
+
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined && typeof t[key] === 'string') {
+          el.textContent = t[key];
+        }
+      });
+
+      document.querySelectorAll('[data-i18n-list]').forEach(function (ul) {
+        const key = ul.getAttribute('data-i18n-list');
+        const items = t[key];
+        if (Array.isArray(items)) {
+          ul.innerHTML = items.map(function (item) {
+            return '<li>' + item + '</li>';
+          }).join('');
+        }
+      });
+
+      if (t.document_title) document.title = t.document_title;
+
+      document.querySelectorAll('.lang-selector a[data-lang]').forEach(function (el) {
+        el.classList.toggle('active', el.getAttribute('data-lang') === lang);
+      });
+
+      return false;
+    }
+
+    (function init() {
+      const stored = localStorage.getItem('mappet_lang');
+      const browserLang = navigator.language.slice(0, 2);
+      const defaultLang = supported.includes(browserLang) ? browserLang : 'pt';
+      const lang = (stored && supported.includes(stored)) ? stored : defaultLang;
+      setLanguage(lang);
+    })();
+  </script>
+</body>
+</html>
