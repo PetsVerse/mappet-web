@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MapPet — Verificação</title>
+  <style>
+    :root {
+      --primary: #2d9a4e;
+      --bg: #f8faf8;
+      --text: #1a2e1d;
+      --secondary: #4a6550;
+      --muted: #8fa896;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 24px;
+      max-width: 420px;
+      width: 100%;
+      padding: 40px 32px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(26, 46, 29, 0.08);
+    }
+
+    .emoji {
+      font-size: 56px;
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 24px;
+      color: var(--text);
+      margin-bottom: 16px;
+      font-weight: bold;
+      line-height: 1.3;
+    }
+
+    .message {
+      font-size: 15px;
+      color: var(--secondary);
+      line-height: 1.55;
+      margin-bottom: 6px;
+    }
+
+    .message + .message {
+      margin-bottom: 24px;
+    }
+
+    .error-detail {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 12px 0 20px;
+      word-break: break-word;
+      line-height: 1.4;
+    }
+
+    .hint {
+      font-size: 14px;
+      color: var(--secondary);
+      line-height: 1.5;
+      margin-top: 8px;
+    }
+
+    .hint + .hint {
+      margin-bottom: 0;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      margin-top: 8px;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+
+    .btn:hover {
+      background: #248a42;
+      transform: translateY(-1px);
+    }
+
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid #e0ebe3;
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      margin: 8px auto 0;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .state {
+      display: none;
+    }
+
+    .state.visible {
+      display: block;
+    }
+
+    .page-footer {
+      margin-top: 28px;
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .page-footer a {
+      color: var(--secondary);
+      text-decoration: none;
+    }
+
+    .page-footer a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    .page-footer .sep {
+      margin: 0 6px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div id="state-loading" class="state visible">
+      <div class="emoji" aria-hidden="true">🐾</div>
+      <h1>A verificar... / Verifying...</h1>
+      <div class="spinner" role="status" aria-label="Loading"></div>
+    </div>
+
+    <div id="state-success" class="state">
+      <div class="emoji" aria-hidden="true">✅</div>
+      <h1>Email verificado! / Email verified!</h1>
+      <p class="message">A tua conta MapPet foi confirmada.</p>
+      <p class="message">Your MapPet account has been confirmed.</p>
+      <a id="open-app" class="btn" href="#">Abrir o MapPet / Open MapPet</a>
+    </div>
+
+    <div id="state-error" class="state">
+      <div class="emoji" aria-hidden="true">❌</div>
+      <h1>Ligação inválida / Invalid link</h1>
+      <p class="message">Este link expirou ou já foi utilizado.</p>
+      <p class="message">This link has expired or has already been used.</p>
+      <p id="error-detail" class="error-detail"></p>
+      <p class="hint">Abre o MapPet e solicita um novo email.</p>
+      <p class="hint">Open MapPet and request a new email.</p>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    <a href="https://mappet.app">mappet.app</a>
+    <span class="sep">·</span>
+    <a href="../privacy.html">Privacidade / Privacy</a>
+    <span class="sep">·</span>
+    <a href="../terms.html">Termos / Terms</a>
+  </footer>
+
+  <script>
+    function showState(id) {
+      document.querySelectorAll('.state').forEach(function (el) {
+        el.classList.remove('visible');
+      });
+      document.getElementById(id).classList.add('visible');
+    }
+
+    (function init() {
+      var hash = window.location.hash;
+      var params = new URLSearchParams(hash.replace('#', '?'));
+      var accessToken = params.get('access_token');
+      var refreshToken = params.get('refresh_token');
+      var type = params.get('type');
+      var errorCode = params.get('error_code');
+      var errorDescription = params.get('error_description');
+
+      if (errorCode) {
+        var detail = document.getElementById('error-detail');
+        if (errorDescription) {
+          detail.textContent = decodeURIComponent(errorDescription.replace(/\+/g, ' '));
+        } else {
+          detail.textContent = errorCode;
+        }
+        showState('state-error');
+        return;
+      }
+
+      if (accessToken && refreshToken) {
+        var deepLink =
+          'mappet://auth#access_token=' + encodeURIComponent(accessToken) +
+          '&refresh_token=' + encodeURIComponent(refreshToken) +
+          (type ? '&type=' + encodeURIComponent(type) : '');
+
+        var openBtn = document.getElementById('open-app');
+        openBtn.href = deepLink;
+        showState('state-success');
+
+        setTimeout(function () {
+          window.location.href = deepLink;
+        }, 1500);
+        return;
+      }
+
+      showState('state-error');
+      document.getElementById('error-detail').textContent =
+        'Missing verification tokens / Tokens de verificação em falta';
+    })();
+  </script>
+</body>
+</html>
