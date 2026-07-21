@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MapPet — Eliminar Conta</title>
+  <style>
+    :root {
+      --primary: #2d9a4e;
+      --bg: #f8faf8;
+      --text: #1a2e1d;
+      --secondary: #4a6550;
+      --muted: #8fa896;
+      --warning: #f97316;
+      --warning-bg: #fff7ed;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 72px;
+    }
+
+    .lang-selector {
+      position: fixed;
+      top: 12px;
+      right: 16px;
+      z-index: 20;
+      font-size: 13px;
+      line-height: 1.4;
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0;
+    }
+
+    .lang-selector a {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: normal;
+      transition: color 0.15s ease;
+    }
+
+    .lang-selector a:hover {
+      color: var(--primary);
+    }
+
+    .lang-selector a.active {
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .lang-selector img {
+      width: 16px;
+      height: 12px;
+      display: block;
+      border-radius: 1px;
+      object-fit: cover;
+    }
+
+    .lang-selector .sep {
+      color: var(--muted);
+      margin: 0 6px;
+      user-select: none;
+    }
+
+    .site-header {
+      width: 100%;
+      background: var(--primary);
+      margin-top: 44px;
+      padding: 14px 24px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .site-header a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .site-header a:hover {
+      opacity: 0.9;
+    }
+
+    .container {
+      max-width: 760px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 40px 24px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 32px;
+      color: var(--text);
+      font-weight: bold;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .warning-box {
+      background: var(--warning-bg);
+      border: 1px solid var(--warning);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 36px;
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    .content-section {
+      margin-bottom: 32px;
+    }
+
+    .content-section > h2 {
+      font-size: 22px;
+      color: var(--primary);
+      margin-bottom: 16px;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .content-section h3 {
+      font-size: 16px;
+      color: var(--text);
+      margin: 0 0 14px;
+      font-weight: 700;
+    }
+
+    .content-section p {
+      font-size: 15px;
+      color: var(--secondary);
+      line-height: 1.65;
+      margin-bottom: 10px;
+    }
+
+    .content-section ul {
+      margin: 8px 0 12px 1.25em;
+      color: var(--secondary);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .content-section li {
+      margin-bottom: 4px;
+    }
+
+    .steps {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .steps li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+      font-size: 15px;
+      color: var(--secondary);
+      line-height: 1.5;
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .contact-line {
+      font-size: 15px;
+      color: var(--secondary);
+      line-height: 1.65;
+      margin-top: 8px;
+    }
+
+    .contact-line a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .contact-line a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px;
+      text-align: center;
+      background: var(--bg);
+      font-size: 14px;
+      font-family: system-ui, -apple-system, sans-serif;
+      border-top: 1px solid #e0ebe3;
+      z-index: 10;
+    }
+
+    footer a {
+      color: var(--secondary);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    footer .sep {
+      color: var(--muted);
+      margin: 0 8px;
+    }
+
+    @media (max-width: 480px) {
+      .lang-selector {
+        right: 8px;
+        left: 8px;
+        justify-content: center;
+        top: 8px;
+      }
+
+      .site-header {
+        margin-top: 40px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="lang-selector" aria-label="Language">
+    <a href="#" data-lang="pt" onclick="return setLanguage('pt')"><img src="https://flagcdn.com/16x12/pt.png" width="16" height="12" alt="PT"> PT</a><span class="sep">·</span>
+    <a href="#" data-lang="en" onclick="return setLanguage('en')"><img src="https://flagcdn.com/16x12/gb.png" width="16" height="12" alt="EN"> EN</a><span class="sep">·</span>
+    <a href="#" data-lang="es" onclick="return setLanguage('es')"><img src="https://flagcdn.com/16x12/es.png" width="16" height="12" alt="ES"> ES</a><span class="sep">·</span>
+    <a href="#" data-lang="de" onclick="return setLanguage('de')"><img src="https://flagcdn.com/16x12/de.png" width="16" height="12" alt="DE"> DE</a><span class="sep">·</span>
+    <a href="#" data-lang="fr" onclick="return setLanguage('fr')"><img src="https://flagcdn.com/16x12/fr.png" width="16" height="12" alt="FR"> FR</a>
+  </nav>
+
+  <header class="site-header">
+    <a href="/">🐾 MapPet</a>
+  </header>
+
+  <main class="container">
+    <div class="section-label" data-i18n="section_label"></div>
+    <h1 data-i18n="page_title"></h1>
+
+    <div class="warning-box" data-i18n="warning"></div>
+
+    <section class="content-section">
+      <h3 data-i18n="method1_title"></h3>
+      <ol class="steps" data-i18n-steps="method1_steps"></ol>
+    </section>
+
+    <section class="content-section">
+      <h3 data-i18n="method2_title"></h3>
+      <p data-i18n="method2_text"></p>
+    </section>
+
+    <section class="content-section">
+      <h2 data-i18n="deleted_title"></h2>
+      <ul data-i18n-list="deleted_items"></ul>
+    </section>
+
+    <section class="content-section">
+      <h2 data-i18n="retained_title"></h2>
+      <p data-i18n="retained_text"></p>
+    </section>
+
+    <p class="contact-line">
+      <span data-i18n="contact_prefix"></span>
+      <a href="mailto:support@mappet.app">support@mappet.app</a>
+    </p>
+  </main>
+
+  <footer>
+    <a href="/privacy.html" data-i18n="privacy"></a><span class="sep">·</span>
+    <a href="/terms.html" data-i18n="terms"></a><span class="sep">·</span>
+    <a href="mailto:support@mappet.app" data-i18n="support"></a>
+  </footer>
+
+  <script>
+    const translations = {
+      pt: {
+        page_title: "Eliminar Conta",
+        document_title: "MapPet — Eliminar Conta",
+        section_label: "Conta",
+        warning: "⚠️ Esta acção é irreversível. Todos os teus dados serão eliminados permanentemente.",
+        method1_title: "Método 1: Através da app (recomendado)",
+        method1_steps: [
+          "Abre o MapPet",
+          "Vai ao tab Perfil (ícone 👤)",
+          "Desce até à secção 'Conta'",
+          "Toca em 'Eliminar conta'",
+          "Confirma escrevendo DELETE",
+          "A tua conta é eliminada imediatamente"
+        ],
+        method2_title: "Método 2: Por email",
+        method2_text: "Envia um email para support@mappet.app com o assunto 'Eliminar conta' e o endereço de email associado à tua conta. Processamos o pedido em até 30 dias.",
+        deleted_title: "O que é eliminado:",
+        deleted_items: [
+          "A tua conta e dados de perfil",
+          "As tuas confirmações pet-friendly",
+          "As tuas reviews",
+          "Os teus favoritos",
+          "Os teus reportes",
+          "O teu histórico de feedback"
+        ],
+        retained_title: "O que pode ser mantido:",
+        retained_text: "Os locais que adicionaste podem ser mantidos de forma anónima para preservar a integridade da base de dados da comunidade.",
+        contact_prefix: "Dúvidas? Contacta-nos em",
+        privacy: "Privacidade",
+        terms: "Termos",
+        support: "Suporte"
+      },
+      en: {
+        page_title: "Delete Account",
+        document_title: "MapPet — Delete Account",
+        section_label: "Account",
+        warning: "⚠️ This action is irreversible. All your data will be permanently deleted.",
+        method1_title: "Method 1: Through the app (recommended)",
+        method1_steps: [
+          "Open MapPet",
+          "Go to the Profile tab (👤 icon)",
+          "Scroll down to the 'Account' section",
+          "Tap 'Delete account'",
+          "Confirm by typing DELETE",
+          "Your account is deleted immediately"
+        ],
+        method2_title: "Method 2: By email",
+        method2_text: "Send an email to support@mappet.app with the subject 'Delete account' and the email address associated with your account. We process the request within 30 days.",
+        deleted_title: "What gets deleted:",
+        deleted_items: [
+          "Your account and profile data",
+          "Your pet-friendly confirmations",
+          "Your reviews",
+          "Your favourites",
+          "Your reports",
+          "Your feedback history"
+        ],
+        retained_title: "What may be retained:",
+        retained_text: "Places you added may be retained anonymously to preserve the integrity of the community database.",
+        contact_prefix: "Questions? Contact us at",
+        privacy: "Privacy",
+        terms: "Terms",
+        support: "Support"
+      },
+      es: {
+        page_title: "Eliminar Cuenta",
+        document_title: "MapPet — Eliminar Cuenta",
+        section_label: "Cuenta",
+        warning: "⚠️ Esta acción es irreversible. Todos tus datos serán eliminados permanentemente.",
+        method1_title: "Método 1: A través de la app (recomendado)",
+        method1_steps: [
+          "Abre MapPet",
+          "Ve a la pestaña Perfil (icono 👤)",
+          "Desplázate hasta la sección 'Cuenta'",
+          "Toca 'Eliminar cuenta'",
+          "Confirma escribiendo DELETE",
+          "Tu cuenta se elimina inmediatamente"
+        ],
+        method2_title: "Método 2: Por email",
+        method2_text: "Envía un email a support@mappet.app con el asunto 'Eliminar cuenta' y la dirección de email asociada a tu cuenta. Procesamos la solicitud en un plazo de 30 días.",
+        deleted_title: "Qué se elimina:",
+        deleted_items: [
+          "Tu cuenta y datos de perfil",
+          "Tus confirmaciones pet-friendly",
+          "Tus reseñas",
+          "Tus favoritos",
+          "Tus reportes",
+          "Tu historial de feedback"
+        ],
+        retained_title: "Qué puede conservarse:",
+        retained_text: "Los lugares que añadiste pueden conservarse de forma anónima para preservar la integridad de la base de datos de la comunidad.",
+        contact_prefix: "¿Dudas? Contáctanos en",
+        privacy: "Privacidad",
+        terms: "Términos",
+        support: "Soporte"
+      },
+      de: {
+        page_title: "Konto löschen",
+        document_title: "MapPet — Konto löschen",
+        section_label: "Konto",
+        warning: "⚠️ Diese Aktion ist unwiderruflich. Alle deine Daten werden dauerhaft gelöscht.",
+        method1_title: "Methode 1: Über die App (empfohlen)",
+        method1_steps: [
+          "Öffne MapPet",
+          "Gehe zum Profil-Tab (👤-Symbol)",
+          "Scrolle zum Abschnitt 'Konto'",
+          "Tippe auf 'Konto löschen'",
+          "Bestätige durch Eingabe von DELETE",
+          "Dein Konto wird sofort gelöscht"
+        ],
+        method2_title: "Methode 2: Per E-Mail",
+        method2_text: "Sende eine E-Mail an support@mappet.app mit dem Betreff 'Konto löschen' und der mit deinem Konto verknüpften E-Mail-Adresse. Wir bearbeiten die Anfrage innerhalb von 30 Tagen.",
+        deleted_title: "Was gelöscht wird:",
+        deleted_items: [
+          "Dein Konto und Profildaten",
+          "Deine tierfreundlichen Bestätigungen",
+          "Deine Bewertungen",
+          "Deine Favoriten",
+          "Deine Meldungen",
+          "Dein Feedback-Verlauf"
+        ],
+        retained_title: "Was erhalten bleiben kann:",
+        retained_text: "Orte, die du hinzugefügt hast, können anonymisiert erhalten bleiben, um die Integrität der Community-Datenbank zu wahren.",
+        contact_prefix: "Fragen? Kontaktiere uns unter",
+        privacy: "Datenschutz",
+        terms: "Bedingungen",
+        support: "Support"
+      },
+      fr: {
+        page_title: "Supprimer le Compte",
+        document_title: "MapPet — Supprimer le Compte",
+        section_label: "Compte",
+        warning: "⚠️ Cette action est irréversible. Toutes vos données seront définitivement supprimées.",
+        method1_title: "Méthode 1 : Via l'application (recommandé)",
+        method1_steps: [
+          "Ouvrez MapPet",
+          "Allez à l'onglet Profil (icône 👤)",
+          "Descendez jusqu'à la section 'Compte'",
+          "Appuyez sur 'Supprimer le compte'",
+          "Confirmez en tapant DELETE",
+          "Votre compte est supprimé immédiatement"
+        ],
+        method2_title: "Méthode 2 : Par email",
+        method2_text: "Envoyez un email à support@mappet.app avec l'objet 'Supprimer le compte' et l'adresse email associée à votre compte. Nous traitons la demande sous 30 jours.",
+        deleted_title: "Ce qui est supprimé :",
+        deleted_items: [
+          "Votre compte et données de profil",
+          "Vos confirmations pet-friendly",
+          "Vos avis",
+          "Vos favoris",
+          "Vos signalements",
+          "Votre historique de feedback"
+        ],
+        retained_title: "Ce qui peut être conservé :",
+        retained_text: "Les lieux que vous avez ajoutés peuvent être conservés de manière anonyme afin de préserver l'intégrité de la base de données communautaire.",
+        contact_prefix: "Des questions ? Contactez-nous à",
+        privacy: "Confidentialité",
+        terms: "Conditions",
+        support: "Support"
+      }
+    };
+
+    const supported = ['pt', 'en', 'es', 'de', 'fr'];
+
+    function setLanguage(lang) {
+      if (!supported.includes(lang)) lang = 'pt';
+      localStorage.setItem('mappet_lang', lang);
+      document.documentElement.lang = lang;
+
+      const t = translations[lang];
+
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined && typeof t[key] === 'string') {
+          el.textContent = t[key];
+        }
+      });
+
+      document.querySelectorAll('[data-i18n-list]').forEach(function (ul) {
+        const key = ul.getAttribute('data-i18n-list');
+        const items = t[key];
+        if (Array.isArray(items)) {
+          ul.innerHTML = items.map(function (item) {
+            return '<li>' + item + '</li>';
+          }).join('');
+        }
+      });
+
+      document.querySelectorAll('[data-i18n-steps]').forEach(function (ol) {
+        const key = ol.getAttribute('data-i18n-steps');
+        const items = t[key];
+        if (Array.isArray(items)) {
+          ol.innerHTML = items.map(function (item, i) {
+            return '<li><span class="step-num">' + (i + 1) + '</span><span>' + item + '</span></li>';
+          }).join('');
+        }
+      });
+
+      if (t.document_title) document.title = t.document_title;
+
+      document.querySelectorAll('.lang-selector a[data-lang]').forEach(function (el) {
+        el.classList.toggle('active', el.getAttribute('data-lang') === lang);
+      });
+
+      return false;
+    }
+
+    (function init() {
+      const stored = localStorage.getItem('mappet_lang');
+      const browserLang = navigator.language.slice(0, 2);
+      const defaultLang = supported.includes(browserLang) ? browserLang : 'pt';
+      const lang = (stored && supported.includes(stored)) ? stored : defaultLang;
+      setLanguage(lang);
+    })();
+  </script>
+</body>
+</html>
