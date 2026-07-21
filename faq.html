@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MapPet — FAQ</title>
+  <style>
+    :root {
+      --primary: #2d9a4e;
+      --bg: #f8faf8;
+      --text: #1a2e1d;
+      --secondary: #4a6550;
+      --muted: #8fa896;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 72px;
+    }
+
+    .lang-selector {
+      position: fixed;
+      top: 12px;
+      right: 16px;
+      z-index: 20;
+      font-size: 13px;
+      line-height: 1.4;
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0;
+    }
+
+    .lang-selector a {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: normal;
+      transition: color 0.15s ease;
+    }
+
+    .lang-selector a:hover {
+      color: var(--primary);
+    }
+
+    .lang-selector a.active {
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .lang-selector img {
+      width: 16px;
+      height: 12px;
+      display: block;
+      border-radius: 1px;
+      object-fit: cover;
+    }
+
+    .lang-selector .sep {
+      color: var(--muted);
+      margin: 0 6px;
+      user-select: none;
+    }
+
+    .site-header {
+      width: 100%;
+      background: var(--primary);
+      margin-top: 44px;
+      padding: 14px 24px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .site-header a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .site-header a:hover {
+      opacity: 0.9;
+    }
+
+    .container {
+      max-width: 760px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 40px 24px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 32px;
+      color: var(--text);
+      font-weight: bold;
+      margin-bottom: 32px;
+      letter-spacing: -0.02em;
+    }
+
+    .faq-category {
+      margin-bottom: 28px;
+    }
+
+    .faq-category h2 {
+      font-size: 18px;
+      color: var(--primary);
+      margin-bottom: 12px;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .accordion-item {
+      background: #fff;
+      border: 1px solid #e0ebe3;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .accordion-item.open {
+      border-color: #c5e5cf;
+    }
+
+    .accordion-trigger {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 18px;
+      background: transparent;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.45;
+    }
+
+    .accordion-trigger:hover {
+      background: #f4faf6;
+    }
+
+    .accordion-item.open .accordion-trigger {
+      background: #e8f5ec;
+    }
+
+    .accordion-icon {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #e8f5ec;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1;
+      transition: transform 0.2s ease, background 0.15s ease;
+    }
+
+    .accordion-item.open .accordion-icon {
+      background: var(--primary);
+      color: #fff;
+      transform: rotate(45deg);
+    }
+
+    .accordion-panel {
+      display: none;
+      padding: 0 18px 16px;
+      font-size: 15px;
+      color: var(--secondary);
+      line-height: 1.65;
+    }
+
+    .accordion-item.open .accordion-panel {
+      display: block;
+    }
+
+    .accordion-panel a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .accordion-panel a:hover {
+      text-decoration: underline;
+    }
+
+    .contact-section {
+      margin-top: 36px;
+      background: #e8f5ec;
+      border: 1px solid #c5e5cf;
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .contact-section h2 {
+      font-size: 20px;
+      color: var(--text);
+      margin-bottom: 10px;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .contact-section p {
+      font-size: 15px;
+      color: var(--secondary);
+      line-height: 1.65;
+    }
+
+    .contact-section a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .contact-section a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px;
+      text-align: center;
+      background: var(--bg);
+      font-size: 14px;
+      font-family: system-ui, -apple-system, sans-serif;
+      border-top: 1px solid #e0ebe3;
+      z-index: 10;
+    }
+
+    footer a {
+      color: var(--secondary);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    footer .sep {
+      color: var(--muted);
+      margin: 0 8px;
+    }
+
+    @media (max-width: 480px) {
+      .lang-selector {
+        right: 8px;
+        left: 8px;
+        justify-content: center;
+        top: 8px;
+      }
+
+      .site-header {
+        margin-top: 40px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="lang-selector" aria-label="Language">
+    <a href="#" data-lang="pt" onclick="return setLanguage('pt')"><img src="https://flagcdn.com/16x12/pt.png" width="16" height="12" alt="PT"> PT</a><span class="sep">·</span>
+    <a href="#" data-lang="en" onclick="return setLanguage('en')"><img src="https://flagcdn.com/16x12/gb.png" width="16" height="12" alt="EN"> EN</a><span class="sep">·</span>
+    <a href="#" data-lang="es" onclick="return setLanguage('es')"><img src="https://flagcdn.com/16x12/es.png" width="16" height="12" alt="ES"> ES</a><span class="sep">·</span>
+    <a href="#" data-lang="de" onclick="return setLanguage('de')"><img src="https://flagcdn.com/16x12/de.png" width="16" height="12" alt="DE"> DE</a><span class="sep">·</span>
+    <a href="#" data-lang="fr" onclick="return setLanguage('fr')"><img src="https://flagcdn.com/16x12/fr.png" width="16" height="12" alt="FR"> FR</a>
+  </nav>
+
+  <header class="site-header">
+    <a href="/">🐾 MapPet</a>
+  </header>
+
+  <main class="container">
+    <div class="section-label" data-i18n="section_label"></div>
+    <h1 data-i18n="page_title"></h1>
+
+    <section class="faq-category">
+      <h2 data-i18n="cat_app"></h2>
+      <div class="accordion">
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="false">
+            <span data-i18n="q1"></span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel" data-i18n="a1"></div>
+        </div>
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="false">
+            <span data-i18n="q2"></span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel" data-i18n="a2"></div>
+        </div>
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="false">
+            <span data-i18n="q3"></span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel" data-i18n="a3"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-category">
+      <h2 data-i18n="cat_places"></h2>
+      <div class="accordion">
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="false">
+            <span data-i18n="q4"></span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel" data-i18n="a4"></div>
+        </div>
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="false">
+            <span data-i18n="q5"></span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel" data-i18n="a5"></div>
+        </div>
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="false">
+            <span data-i18n="q6"></span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel" data-i18n="a6"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-category">
+      <h2 data-i18n="cat_account"></h2>
+      <div class="accordion">
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="false">
+            <span data-i18n="q7"></span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel" data-i18n="a7"></div>
+        </div>
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="false">
+            <span data-i18n="q8"></span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel" data-i18n-html="a8"></div>
+        </div>
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="false">
+            <span data-i18n="q9"></span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel" data-i18n-html="a9"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-category">
+      <h2 data-i18n="cat_badge"></h2>
+      <div class="accordion">
+        <div class="accordion-item">
+          <button type="button" class="accordion-trigger" aria-expanded="false">
+            <span data-i18n="q10"></span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel" data-i18n="a10"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section">
+      <h2 data-i18n="contact_title"></h2>
+      <p data-i18n-html="contact_text"></p>
+    </section>
+  </main>
+
+  <footer>
+    <a href="/privacy.html" data-i18n="privacy"></a><span class="sep">·</span>
+    <a href="/terms.html" data-i18n="terms"></a><span class="sep">·</span>
+    <a href="/cookies.html" data-i18n="cookies"></a><span class="sep">·</span>
+    <a href="/faq.html" data-i18n="faq"></a><span class="sep">·</span>
+    <a href="/privacy-request.html" data-i18n="privacy_request"></a><span class="sep">·</span>
+    <a href="/delete-account.html" data-i18n="delete_account"></a><span class="sep">·</span>
+    <a href="mailto:support@mappet.app" data-i18n="support"></a>
+  </footer>
+
+  <script>
+    const translations = {
+      pt: {
+        page_title: "Perguntas Frequentes / FAQ",
+        document_title: "MapPet — FAQ",
+        section_label: "Ajuda / Help",
+        cat_app: "Sobre a app",
+        cat_places: "Locais",
+        cat_account: "Conta",
+        cat_badge: "Badge Apoiante",
+        q1: "O MapPet é gratuito?",
+        a1: "Sim, o MapPet é completamente gratuito. Podes consultar o mapa, ver locais e filtrar por categoria sem criar conta. A criação de conta é gratuita e permite-te confirmar locais, adicionar novos e escrever reviews.",
+        q2: "Preciso de criar conta para usar o MapPet?",
+        a2: "Não. Podes usar o mapa sem conta. A conta é necessária apenas para interagir com a comunidade (confirmar locais, adicionar locais, escrever reviews, guardar favoritos).",
+        q3: "Em que países está disponível o MapPet?",
+        a3: "O MapPet está disponível em Portugal e funciona em qualquer país. Estamos a trabalhar para expandir a base de dados para Espanha, França e outros países europeus em breve.",
+        q4: "Como sei se um local é realmente pet-friendly?",
+        a4: "Cada local tem um score pet-friendly baseado nas confirmações da comunidade. O badge 'Verificado' aparece quando um local tem 3 ou mais confirmações positivas com pelo menos 80% de votos positivos.",
+        q5: "Posso adicionar um local que não está no mapa?",
+        a5: "Sim! Toca no botão '+' na barra de navegação, escolhe a categoria, pesquisa a morada ou usa a tua localização actual, e preenche os detalhes. O local fica visível após ser confirmado pela comunidade.",
+        q6: "O que acontece se um local estiver incorrecto?",
+        a6: "Podes reportar um local incorrecto tocando em 'Reportar problema' no ecrã de detalhes. Após 5 reportes, o local é automaticamente ocultado pendente de revisão.",
+        q7: "Como faço login?",
+        a7: "Podes fazer login com Google, Apple (iOS) ou email e palavra-passe. O login aparece automaticamente quando tentas realizar uma acção que requer conta.",
+        q8: "Como elimino a minha conta?",
+        a8: "Vai a Perfil → Conta → Eliminar conta na app, ou consulta a nossa <a href=\"/delete-account.html\">página de eliminação de conta</a> para mais opções.",
+        q9: "Os meus dados estão seguros?",
+        a9: "Sim. Todos os dados são armazenados de forma segura com encriptação. Nunca vendemos os teus dados a terceiros. Consulta a nossa <a href=\"/privacy.html\">Política de Privacidade</a> para mais detalhes.",
+        q10: "O que é o Badge Apoiante?",
+        a10: "O Badge Apoiante é uma compra única de 2,99€ que remove anúncios permanentemente e apoia o desenvolvimento do MapPet. Não é uma subscrição — pagas uma vez e é para sempre.",
+        contact_title: "Não encontraste resposta?",
+        contact_text: "Contacta-nos em <a href=\"mailto:support@mappet.app\">support@mappet.app</a> e respondemos em até 48 horas.",
+        privacy: "Privacidade",
+        terms: "Termos",
+        cookies: "Cookies",
+        faq: "FAQ",
+        privacy_request: "Dados pessoais",
+        delete_account: "Eliminar conta",
+        support: "Suporte"
+      },
+      en: {
+        page_title: "Frequently Asked Questions",
+        document_title: "MapPet — FAQ",
+        section_label: "Help",
+        cat_app: "About the app",
+        cat_places: "Places",
+        cat_account: "Account",
+        cat_badge: "Supporter Badge",
+        q1: "Is MapPet free?",
+        a1: "Yes, MapPet is completely free. You can browse the map, view places and filter by category without creating an account. Creating an account is free and allows you to confirm places, add new ones and write reviews.",
+        q2: "Do I need to create an account to use MapPet?",
+        a2: "No. You can use the map without an account. An account is only required to interact with the community (confirm places, add places, write reviews, save favourites).",
+        q3: "Which countries is MapPet available in?",
+        a3: "MapPet is available in Portugal and works in any country. We are working to expand the database to Spain, France and other European countries soon.",
+        q4: "How do I know if a place is really pet-friendly?",
+        a4: "Each place has a pet-friendly score based on community confirmations. The 'Verified' badge appears when a place has 3 or more positive confirmations with at least 80% positive votes.",
+        q5: "Can I add a place that is not on the map?",
+        a5: "Yes! Tap the '+' button in the navigation bar, choose the category, search for the address or use your current location, and fill in the details. The place becomes visible after being confirmed by the community.",
+        q6: "What happens if a place is incorrect?",
+        a6: "You can report an incorrect place by tapping 'Report issue' on the details screen. After 5 reports, the place is automatically hidden pending review.",
+        q7: "How do I log in?",
+        a7: "You can log in with Google, Apple (iOS) or email and password. Login appears automatically when you try to perform an action that requires an account.",
+        q8: "How do I delete my account?",
+        a8: "Go to Profile → Account → Delete account in the app, or visit our <a href=\"/delete-account.html\">account deletion page</a> for more options.",
+        q9: "Is my data safe?",
+        a9: "Yes. All data is stored securely with encryption. We never sell your data to third parties. See our <a href=\"/privacy.html\">Privacy Policy</a> for more details.",
+        q10: "What is the Supporter Badge?",
+        a10: "The Supporter Badge is a one-time purchase of €2.99 that permanently removes ads and supports MapPet's development. It is not a subscription — you pay once and it is yours forever.",
+        contact_title: "Didn't find an answer?",
+        contact_text: "Contact us at <a href=\"mailto:support@mappet.app\">support@mappet.app</a> and we will reply within 48 hours.",
+        privacy: "Privacy",
+        terms: "Terms",
+        cookies: "Cookies",
+        faq: "FAQ",
+        privacy_request: "Personal data",
+        delete_account: "Delete account",
+        support: "Support"
+      },
+      es: {
+        page_title: "Preguntas Frecuentes",
+        document_title: "MapPet — FAQ",
+        section_label: "Ayuda",
+        cat_app: "Sobre la app",
+        cat_places: "Lugares",
+        cat_account: "Cuenta",
+        cat_badge: "Badge de Apoyo",
+        q1: "¿MapPet es gratuito?",
+        a1: "Sí, MapPet es completamente gratuito. Puedes consultar el mapa, ver lugares y filtrar por categoría sin crear una cuenta. Crear una cuenta es gratis y te permite confirmar lugares, añadir nuevos y escribir reseñas.",
+        q2: "¿Necesito crear una cuenta para usar MapPet?",
+        a2: "No. Puedes usar el mapa sin cuenta. La cuenta solo es necesaria para interactuar con la comunidad (confirmar lugares, añadir lugares, escribir reseñas, guardar favoritos).",
+        q3: "¿En qué países está disponible MapPet?",
+        a3: "MapPet está disponible en Portugal y funciona en cualquier país. Estamos trabajando para expandir la base de datos a España, Francia y otros países europeos pronto.",
+        q4: "¿Cómo sé si un lugar es realmente pet-friendly?",
+        a4: "Cada lugar tiene una puntuación pet-friendly basada en las confirmaciones de la comunidad. El badge 'Verificado' aparece cuando un lugar tiene 3 o más confirmaciones positivas con al menos un 80% de votos positivos.",
+        q5: "¿Puedo añadir un lugar que no está en el mapa?",
+        a5: "¡Sí! Toca el botón '+' en la barra de navegación, elige la categoría, busca la dirección o usa tu ubicación actual, y completa los detalles. El lugar se hace visible tras ser confirmado por la comunidad.",
+        q6: "¿Qué ocurre si un lugar es incorrecto?",
+        a6: "Puedes reportar un lugar incorrecto tocando en 'Reportar problema' en la pantalla de detalles. Tras 5 reportes, el lugar se oculta automáticamente pendiente de revisión.",
+        q7: "¿Cómo inicio sesión?",
+        a7: "Puedes iniciar sesión con Google, Apple (iOS) o email y contraseña. El inicio de sesión aparece automáticamente cuando intentas realizar una acción que requiere cuenta.",
+        q8: "¿Cómo elimino mi cuenta?",
+        a8: "Ve a Perfil → Cuenta → Eliminar cuenta en la app, o consulta nuestra <a href=\"/delete-account.html\">página de eliminación de cuenta</a> para más opciones.",
+        q9: "¿Mis datos están seguros?",
+        a9: "Sí. Todos los datos se almacenan de forma segura con cifrado. Nunca vendemos tus datos a terceros. Consulta nuestra <a href=\"/privacy.html\">Política de Privacidad</a> para más detalles.",
+        q10: "¿Qué es el Badge de Apoyo?",
+        a10: "El Badge de Apoyo es una compra única de 2,99€ que elimina los anuncios de forma permanente y apoya el desarrollo de MapPet. No es una suscripción: pagas una vez y es para siempre.",
+        contact_title: "¿No encontraste respuesta?",
+        contact_text: "Contáctanos en <a href=\"mailto:support@mappet.app\">support@mappet.app</a> y responderemos en un plazo de 48 horas.",
+        privacy: "Privacidad",
+        terms: "Términos",
+        cookies: "Cookies",
+        faq: "FAQ",
+        privacy_request: "Datos personales",
+        delete_account: "Eliminar cuenta",
+        support: "Soporte"
+      },
+      de: {
+        page_title: "Häufig gestellte Fragen",
+        document_title: "MapPet — FAQ",
+        section_label: "Hilfe",
+        cat_app: "Über die App",
+        cat_places: "Orte",
+        cat_account: "Konto",
+        cat_badge: "Unterstützer-Badge",
+        q1: "Ist MapPet kostenlos?",
+        a1: "Ja, MapPet ist vollständig kostenlos. Du kannst die Karte durchsuchen, Orte ansehen und nach Kategorie filtern, ohne ein Konto zu erstellen. Die Kontoerstellung ist kostenlos und ermöglicht dir, Orte zu bestätigen, neue hinzuzufügen und Bewertungen zu schreiben.",
+        q2: "Muss ich ein Konto erstellen, um MapPet zu nutzen?",
+        a2: "Nein. Du kannst die Karte ohne Konto nutzen. Ein Konto ist nur erforderlich, um mit der Community zu interagieren (Orte bestätigen, Orte hinzufügen, Bewertungen schreiben, Favoriten speichern).",
+        q3: "In welchen Ländern ist MapPet verfügbar?",
+        a3: "MapPet ist in Portugal verfügbar und funktioniert in jedem Land. Wir arbeiten daran, die Datenbank bald auf Spanien, Frankreich und andere europäische Länder auszuweiten.",
+        q4: "Woher weiß ich, ob ein Ort wirklich haustierfreundlich ist?",
+        a4: "Jeder Ort hat einen Pet-Friendly-Score basierend auf Community-Bestätigungen. Das Badge 'Verifiziert' erscheint, wenn ein Ort 3 oder mehr positive Bestätigungen mit mindestens 80 % positiven Stimmen hat.",
+        q5: "Kann ich einen Ort hinzufügen, der nicht auf der Karte ist?",
+        a5: "Ja! Tippe auf die Schaltfläche '+' in der Navigationsleiste, wähle die Kategorie, suche die Adresse oder nutze deinen aktuellen Standort und fülle die Details aus. Der Ort wird sichtbar, nachdem er von der Community bestätigt wurde.",
+        q6: "Was passiert, wenn ein Ort falsch ist?",
+        a6: "Du kannst einen falschen Ort melden, indem du auf dem Detailbildschirm auf 'Problem melden' tippst. Nach 5 Meldungen wird der Ort automatisch ausgeblendet und wartet auf eine Prüfung.",
+        q7: "Wie melde ich mich an?",
+        a7: "Du kannst dich mit Google, Apple (iOS) oder E-Mail und Passwort anmelden. Die Anmeldung erscheint automatisch, wenn du eine Aktion ausführen möchtest, die ein Konto erfordert.",
+        q8: "Wie lösche ich mein Konto?",
+        a8: "Gehe in der App zu Profil → Konto → Konto löschen, oder besuche unsere <a href=\"/delete-account.html\">Seite zur Kontolöschung</a> für weitere Optionen.",
+        q9: "Sind meine Daten sicher?",
+        a9: "Ja. Alle Daten werden sicher verschlüsselt gespeichert. Wir verkaufen deine Daten niemals an Dritte. Siehe unsere <a href=\"/privacy.html\">Datenschutzrichtlinie</a> für weitere Details.",
+        q10: "Was ist das Unterstützer-Badge?",
+        a10: "Das Unterstützer-Badge ist ein einmaliger Kauf für 2,99 €, der Werbung dauerhaft entfernt und die Entwicklung von MapPet unterstützt. Es ist kein Abonnement — du zahlst einmal und behältst es für immer.",
+        contact_title: "Keine Antwort gefunden?",
+        contact_text: "Kontaktiere uns unter <a href=\"mailto:support@mappet.app\">support@mappet.app</a> — wir antworten innerhalb von 48 Stunden.",
+        privacy: "Datenschutz",
+        terms: "Nutzungsbedingungen",
+        cookies: "Cookies",
+        faq: "FAQ",
+        privacy_request: "Personenbezogene Daten",
+        delete_account: "Konto löschen",
+        support: "Support"
+      },
+      fr: {
+        page_title: "Questions Fréquentes",
+        document_title: "MapPet — FAQ",
+        section_label: "Aide",
+        cat_app: "À propos de l'application",
+        cat_places: "Lieux",
+        cat_account: "Compte",
+        cat_badge: "Badge Soutien",
+        q1: "MapPet est-il gratuit ?",
+        a1: "Oui, MapPet est entièrement gratuit. Vous pouvez consulter la carte, voir les lieux et filtrer par catégorie sans créer de compte. La création de compte est gratuite et vous permet de confirmer des lieux, d'en ajouter de nouveaux et d'écrire des avis.",
+        q2: "Dois-je créer un compte pour utiliser MapPet ?",
+        a2: "Non. Vous pouvez utiliser la carte sans compte. Un compte est uniquement nécessaire pour interagir avec la communauté (confirmer des lieux, ajouter des lieux, écrire des avis, enregistrer des favoris).",
+        q3: "Dans quels pays MapPet est-il disponible ?",
+        a3: "MapPet est disponible au Portugal et fonctionne dans n'importe quel pays. Nous travaillons à étendre la base de données à l'Espagne, la France et d'autres pays européens bientôt.",
+        q4: "Comment savoir si un lieu est vraiment pet-friendly ?",
+        a4: "Chaque lieu a un score pet-friendly basé sur les confirmations de la communauté. Le badge 'Vérifié' apparaît lorsqu'un lieu a 3 confirmations positives ou plus avec au moins 80 % de votes positifs.",
+        q5: "Puis-je ajouter un lieu qui n'est pas sur la carte ?",
+        a5: "Oui ! Appuyez sur le bouton '+' dans la barre de navigation, choisissez la catégorie, recherchez l'adresse ou utilisez votre position actuelle, puis remplissez les détails. Le lieu devient visible après confirmation par la communauté.",
+        q6: "Que se passe-t-il si un lieu est incorrect ?",
+        a6: "Vous pouvez signaler un lieu incorrect en appuyant sur 'Signaler un problème' sur l'écran de détails. Après 5 signalements, le lieu est automatiquement masqué en attendant une révision.",
+        q7: "Comment me connecter ?",
+        a7: "Vous pouvez vous connecter avec Google, Apple (iOS) ou email et mot de passe. La connexion apparaît automatiquement lorsque vous essayez d'effectuer une action qui nécessite un compte.",
+        q8: "Comment supprimer mon compte ?",
+        a8: "Allez dans Profil → Compte → Supprimer le compte dans l'application, ou consultez notre <a href=\"/delete-account.html\">page de suppression de compte</a> pour plus d'options.",
+        q9: "Mes données sont-elles en sécurité ?",
+        a9: "Oui. Toutes les données sont stockées de manière sécurisée avec chiffrement. Nous ne vendons jamais vos données à des tiers. Consultez notre <a href=\"/privacy.html\">Politique de Confidentialité</a> pour plus de détails.",
+        q10: "Qu'est-ce que le Badge Soutien ?",
+        a10: "Le Badge Soutien est un achat unique de 2,99 € qui supprime définitivement les publicités et soutient le développement de MapPet. Ce n'est pas un abonnement — vous payez une fois et c'est pour toujours.",
+        contact_title: "Vous n'avez pas trouvé de réponse ?",
+        contact_text: "Contactez-nous à <a href=\"mailto:support@mappet.app\">support@mappet.app</a> et nous répondrons sous 48 heures.",
+        privacy: "Confidentialité",
+        terms: "Conditions",
+        cookies: "Cookies",
+        faq: "FAQ",
+        privacy_request: "Données personnelles",
+        delete_account: "Supprimer le compte",
+        support: "Support"
+      }
+    };
+
+    const supported = ['pt', 'en', 'es', 'de', 'fr'];
+
+    function setLanguage(lang) {
+      if (!supported.includes(lang)) lang = 'pt';
+      localStorage.setItem('mappet_lang', lang);
+      document.documentElement.lang = lang;
+
+      const t = translations[lang];
+
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined && typeof t[key] === 'string') {
+          el.textContent = t[key];
+        }
+      });
+
+      document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
+        const key = el.getAttribute('data-i18n-html');
+        if (t[key] !== undefined && typeof t[key] === 'string') {
+          el.innerHTML = t[key];
+        }
+      });
+
+      if (t.document_title) document.title = t.document_title;
+
+      document.querySelectorAll('.lang-selector a[data-lang]').forEach(function (el) {
+        el.classList.toggle('active', el.getAttribute('data-lang') === lang);
+      });
+
+      return false;
+    }
+
+    function initAccordion() {
+      document.querySelectorAll('.accordion-trigger').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const item = btn.closest('.accordion-item');
+          const isOpen = item.classList.contains('open');
+
+          item.parentElement.querySelectorAll('.accordion-item.open').forEach(function (openItem) {
+            if (openItem !== item) {
+              openItem.classList.remove('open');
+              openItem.querySelector('.accordion-trigger').setAttribute('aria-expanded', 'false');
+            }
+          });
+
+          item.classList.toggle('open', !isOpen);
+          btn.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
+        });
+      });
+    }
+
+    (function init() {
+      const stored = localStorage.getItem('mappet_lang');
+      const browserLang = navigator.language.slice(0, 2);
+      const defaultLang = supported.includes(browserLang) ? browserLang : 'pt';
+      const lang = (stored && supported.includes(stored)) ? stored : defaultLang;
+      setLanguage(lang);
+      initAccordion();
+    })();
+  </script>
+</body>
+</html>
