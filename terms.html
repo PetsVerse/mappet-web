@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MapPet — Termos</title>
+  <style>
+    :root {
+      --primary: #2d9a4e;
+      --bg: #f8faf8;
+      --text: #1a2e1d;
+      --secondary: #4a6550;
+      --muted: #8fa896;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 72px;
+    }
+
+    .lang-selector {
+      position: fixed;
+      top: 12px;
+      right: 16px;
+      z-index: 20;
+      font-size: 13px;
+      line-height: 1.4;
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0;
+    }
+
+    .lang-selector a {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: normal;
+      transition: color 0.15s ease;
+    }
+
+    .lang-selector a:hover {
+      color: var(--primary);
+    }
+
+    .lang-selector a.active {
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .lang-selector img {
+      width: 16px;
+      height: 12px;
+      display: block;
+      border-radius: 1px;
+      object-fit: cover;
+    }
+
+    .lang-selector .sep {
+      color: var(--muted);
+      margin: 0 6px;
+      user-select: none;
+    }
+
+    .site-header {
+      width: 100%;
+      background: var(--primary);
+      margin-top: 44px;
+      padding: 14px 24px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .site-header a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .site-header a:hover {
+      opacity: 0.9;
+    }
+
+    .container {
+      max-width: 760px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 40px 24px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 32px;
+      color: var(--text);
+      font-weight: bold;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .meta-box {
+      background: #fff;
+      border: 1px solid #e0ebe3;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 36px;
+      font-size: 14px;
+      color: var(--secondary);
+      line-height: 1.7;
+    }
+
+    .meta-box div {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 8px;
+    }
+
+    .meta-box .label {
+      color: var(--muted);
+      min-width: 120px;
+    }
+
+    .meta-box a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .meta-box a:hover {
+      text-decoration: underline;
+    }
+
+    .terms-section {
+      margin-bottom: 32px;
+    }
+
+    .terms-section > h2 {
+      font-size: 22px;
+      color: var(--primary);
+      margin-bottom: 16px;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .terms-section h3 {
+      font-size: 16px;
+      color: var(--text);
+      margin: 16px 0 8px;
+      font-weight: 700;
+    }
+
+    .terms-section p {
+      font-size: 15px;
+      color: var(--secondary);
+      line-height: 1.65;
+      margin-bottom: 10px;
+    }
+
+    .terms-section ul {
+      margin: 8px 0 12px 1.25em;
+      color: var(--secondary);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .terms-section li {
+      margin-bottom: 4px;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px;
+      text-align: center;
+      background: var(--bg);
+      font-size: 14px;
+      font-family: system-ui, -apple-system, sans-serif;
+      border-top: 1px solid #e0ebe3;
+      z-index: 10;
+    }
+
+    footer a {
+      color: var(--secondary);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    footer .sep {
+      color: var(--muted);
+      margin: 0 8px;
+    }
+
+    @media (max-width: 480px) {
+      .lang-selector {
+        right: 8px;
+        left: 8px;
+        justify-content: center;
+        top: 8px;
+      }
+
+      .site-header {
+        margin-top: 40px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .meta-box .label {
+        min-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="lang-selector" aria-label="Language">
+    <a href="#" data-lang="pt" onclick="return setLanguage('pt')"><img src="https://flagcdn.com/16x12/pt.png" width="16" height="12" alt="PT"> PT</a><span class="sep">·</span>
+    <a href="#" data-lang="en" onclick="return setLanguage('en')"><img src="https://flagcdn.com/16x12/gb.png" width="16" height="12" alt="EN"> EN</a><span class="sep">·</span>
+    <a href="#" data-lang="es" onclick="return setLanguage('es')"><img src="https://flagcdn.com/16x12/es.png" width="16" height="12" alt="ES"> ES</a><span class="sep">·</span>
+    <a href="#" data-lang="de" onclick="return setLanguage('de')"><img src="https://flagcdn.com/16x12/de.png" width="16" height="12" alt="DE"> DE</a><span class="sep">·</span>
+    <a href="#" data-lang="fr" onclick="return setLanguage('fr')"><img src="https://flagcdn.com/16x12/fr.png" width="16" height="12" alt="FR"> FR</a>
+  </nav>
+
+  <header class="site-header">
+    <a href="index.html">🐾 MapPet</a>
+  </header>
+
+  <main class="container">
+    <div class="section-label" data-i18n="legal_label"></div>
+    <h1 data-i18n="page_title"></h1>
+
+    <div class="meta-box">
+      <div><span class="label" data-i18n="updated_label"></span> <span data-i18n="updated_date"></span></div>
+      <div><span class="label" data-i18n="company_label"></span> <span>SAVAGESIMPLICITY, UNIPESSOAL LDA</span></div>
+      <div><span class="label" data-i18n="contact_label"></span> <a href="mailto:support@mappet.app">support@mappet.app</a></div>
+    </div>
+
+    <section class="terms-section">
+      <h2 data-i18n="section1_title"></h2>
+      <h3 data-i18n="section1_what_title"></h3>
+      <p data-i18n="section1_what_text"></p>
+      <h3 data-i18n="section1_free_title"></h3>
+      <p data-i18n="section1_free_text"></p>
+    </section>
+
+    <section class="terms-section">
+      <h2 data-i18n="section2_title"></h2>
+      <h3 data-i18n="section2_create_title"></h3>
+      <p data-i18n="section2_create_text"></p>
+      <h3 data-i18n="section2_age_title"></h3>
+      <p data-i18n="section2_age_text"></p>
+      <h3 data-i18n="section2_suspend_title"></h3>
+      <p data-i18n="section2_suspend_text"></p>
+    </section>
+
+    <section class="terms-section">
+      <h2 data-i18n="section3_title"></h2>
+      <h3 data-i18n="section3_resp_title"></h3>
+      <p data-i18n="section3_resp_intro"></p>
+      <ul data-i18n-list="section3_resp_items"></ul>
+      <h3 data-i18n="section3_license_title"></h3>
+      <p data-i18n="section3_license_text"></p>
+      <h3 data-i18n="section3_prohibited_title"></h3>
+      <p data-i18n="section3_prohibited_intro"></p>
+      <ul data-i18n-list="section3_prohibited_items"></ul>
+    </section>
+
+    <section class="terms-section">
+      <h2 data-i18n="section4_title"></h2>
+      <p data-i18n="section4_text"></p>
+    </section>
+
+    <section class="terms-section">
+      <h2 data-i18n="section5_title"></h2>
+      <h3 data-i18n="section5_badge_title"></h3>
+      <p data-i18n="section5_badge_text"></p>
+      <h3 data-i18n="section5_coffee_title"></h3>
+      <p data-i18n="section5_coffee_text"></p>
+    </section>
+
+    <section class="terms-section">
+      <h2 data-i18n="section6_title"></h2>
+      <p data-i18n="section6_text"></p>
+    </section>
+
+    <section class="terms-section">
+      <h2 data-i18n="section7_title"></h2>
+      <p data-i18n="section7_p1"></p>
+      <p data-i18n="section7_p2"></p>
+    </section>
+
+    <section class="terms-section">
+      <h2 data-i18n="section8_title"></h2>
+      <p data-i18n="section8_text"></p>
+    </section>
+
+    <section class="terms-section">
+      <h2 data-i18n="section9_title"></h2>
+      <p data-i18n="section9_text"></p>
+    </section>
+
+    <section class="terms-section">
+      <h2 data-i18n="section10_title"></h2>
+      <p data-i18n="section10_text"></p>
+    </section>
+
+    <section class="terms-section">
+      <h2 data-i18n="section11_title"></h2>
+      <p data-i18n="section11_text"></p>
+    </section>
+  </main>
+
+  <footer>
+    <a href="privacy.html" data-i18n="privacy"></a><span class="sep">·</span>
+    <a href="terms.html" data-i18n="terms"></a><span class="sep">·</span>
+    <a href="mailto:support@mappet.app" data-i18n="support"></a>
+  </footer>
+
+  <script>
+    const translations = {
+      pt: {
+        page_title: "Termos de Utilização",
+        document_title: "MapPet — Termos",
+        legal_label: "Legal",
+        updated_label: "Última actualização:",
+        company_label: "Empresa:",
+        contact_label: "Contacto:",
+        updated_date: "21 de Julho de 2026",
+        privacy: "Privacidade",
+        terms: "Termos",
+        support: "Suporte",
+        section1_title: "O Serviço",
+        section1_what_title: "O que é o MapPet",
+        section1_what_text: "O MapPet é uma aplicação móvel que permite descobrir, confirmar e partilhar locais pet-friendly em Portugal e noutros países. A aplicação é operada pela SAVAGESIMPLICITY, UNIPESSOAL LDA, com sede em Portugal.",
+        section1_free_title: "Acesso gratuito",
+        section1_free_text: "A consulta do mapa e dos locais é gratuita e não requer criação de conta. A criação de conta é necessária para interagir com a comunidade (confirmar locais, adicionar locais, escrever reviews e guardar favoritos).",
+        section2_title: "Conta de Utilizador",
+        section2_create_title: "Criar uma conta",
+        section2_create_text: "Podes criar uma conta com email e palavra-passe, ou através da tua conta Google ou Apple. És responsável por manter a confidencialidade das tuas credenciais de acesso.",
+        section2_age_title: "Elegibilidade",
+        section2_age_text: "Ao criar uma conta, confirmas que tens pelo menos 13 anos de idade. Se tiveres menos de 18 anos, deves ter autorização dos teus pais ou responsável legal.",
+        section2_suspend_title: "Suspensão de conta",
+        section2_suspend_text: "Reservamo-nos o direito de suspender ou eliminar contas que violem estes Termos, sem aviso prévio, em casos de abuso, spam, ou conteúdo falso ou inadequado.",
+        section3_title: "Conteúdo Gerado pelos Utilizadores",
+        section3_resp_title: "A tua responsabilidade",
+        section3_resp_intro: "Ao adicionar locais, confirmações, reviews ou fotografias, confirmas que:",
+        section3_resp_items: [
+          "O local aceita genuinamente animais de estimação",
+          "A informação partilhada é verdadeira e actualizada",
+          "As fotografias são do local e servem apenas para identificação",
+          "Não estás a promover publicidade ou serviços pagos",
+          "Tens os direitos necessários sobre o conteúdo partilhado"
+        ],
+        section3_license_title: "Licença de conteúdo",
+        section3_license_text: "Ao submeter conteúdo, concedes ao MapPet uma licença mundial, não exclusiva, gratuita e transferível para usar, reproduzir, modificar e exibir esse conteúdo no âmbito do serviço.",
+        section3_prohibited_title: "Conteúdo proibido",
+        section3_prohibited_intro: "É proibido submeter conteúdo que seja:",
+        section3_prohibited_items: [
+          "Falso, enganoso ou fraudulento",
+          "Ofensivo, discriminatório ou que incite ao ódio",
+          "Spam ou publicidade não autorizada",
+          "Que viole direitos de terceiros",
+          "Que contenha dados pessoais de terceiros sem consentimento"
+        ],
+        section4_title: "Moderação e Remoção",
+        section4_text: "O MapPet reserva-se o direito de remover qualquer conteúdo que viole estes Termos, sem necessidade de justificação. Locais com 5 ou mais reportes de utilizadores podem ser automaticamente ocultados pendente de revisão.",
+        section5_title: "Compras na Aplicação",
+        section5_badge_title: "Badge Apoiante",
+        section5_badge_text: "O Badge Apoiante é uma compra única não reembolsável que remove anúncios e desbloqueia funcionalidades adicionais. O processamento de pagamentos é realizado pela Apple App Store ou Google Play Store, sujeito às respectivas políticas.",
+        section5_coffee_title: "Deixar um Café",
+        section5_coffee_text: "A opção 'Deixar um Café' é uma contribuição voluntária sem qualquer benefício funcional associado. Não é reembolsável.",
+        section6_title: "Propriedade Intelectual",
+        section6_text: "Todo o conteúdo original do MapPet — incluindo o design, logótipo, código e textos — é propriedade exclusiva da SAVAGESIMPLICITY, UNIPESSOAL LDA e está protegido por direitos de autor. Os dados cartográficos são fornecidos pelo Mapbox e pelo OpenStreetMap.",
+        section7_title: "Limitação de Responsabilidade",
+        section7_p1: "O MapPet não garante a exactidão, completude ou actualidade das informações sobre locais. As informações são fornecidas pela comunidade e podem estar desactualizadas. Antes de visitar um local com o teu animal, recomendamos que confirmes directamente com o estabelecimento.",
+        section7_p2: "O MapPet não se responsabiliza por quaisquer danos directos ou indirectos resultantes da utilização da aplicação ou da confiança nas informações nela contidas.",
+        section8_title: "Privacidade",
+        section8_text: "O tratamento dos teus dados pessoais é descrito na nossa Política de Privacidade, que faz parte integrante destes Termos.",
+        section9_title: "Alterações aos Termos",
+        section9_text: "Podemos actualizar estes Termos periodicamente. Quando o fizermos, actualizaremos a data no topo desta página. O uso continuado da aplicação após alterações constitui aceitação dos novos Termos.",
+        section10_title: "Lei Aplicável",
+        section10_text: "Estes Termos são regidos pela lei portuguesa. Qualquer litígio será submetido à jurisdição exclusiva dos tribunais portugueses.",
+        section11_title: "Contacto",
+        section11_text: "Para questões relacionadas com estes Termos, contacta-nos em support@mappet.app."
+      },
+      en: {
+        page_title: "Terms of Use",
+        document_title: "MapPet — Terms",
+        legal_label: "Legal",
+        updated_label: "Last updated:",
+        company_label: "Company:",
+        contact_label: "Contact:",
+        updated_date: "21 July 2026",
+        privacy: "Privacy",
+        terms: "Terms",
+        support: "Support",
+        section1_title: "The Service",
+        section1_what_title: "What is MapPet",
+        section1_what_text: "MapPet is a mobile app that helps you discover, confirm and share pet-friendly places in Portugal and other countries. The app is operated by SAVAGESIMPLICITY, UNIPESSOAL LDA, based in Portugal.",
+        section1_free_title: "Free access",
+        section1_free_text: "Browsing the map and viewing places is free and does not require an account. An account is required to interact with the community (confirm places, add places, write reviews and save favourites).",
+        section2_title: "User Account",
+        section2_create_title: "Creating an account",
+        section2_create_text: "You can create an account with email and password, or via your Google or Apple account. You are responsible for maintaining the confidentiality of your credentials.",
+        section2_age_title: "Eligibility",
+        section2_age_text: "By creating an account, you confirm that you are at least 13 years old. If you are under 18, you must have parental or guardian consent.",
+        section2_suspend_title: "Account suspension",
+        section2_suspend_text: "We reserve the right to suspend or delete accounts that violate these Terms, without prior notice, in cases of abuse, spam, or false or inappropriate content.",
+        section3_title: "User Generated Content",
+        section3_resp_title: "Your responsibility",
+        section3_resp_intro: "By adding places, confirmations, reviews or photos, you confirm that:",
+        section3_resp_items: [
+          "The place genuinely accepts pets",
+          "The information shared is true and up to date",
+          "Photos are of the place and for identification purposes only",
+          "You are not promoting paid advertising or services",
+          "You hold the necessary rights over the content shared"
+        ],
+        section3_license_title: "Content licence",
+        section3_license_text: "By submitting content, you grant MapPet a worldwide, non-exclusive, royalty-free licence to use, reproduce, modify and display that content within the service.",
+        section3_prohibited_title: "Prohibited content",
+        section3_prohibited_intro: "It is prohibited to submit content that is:",
+        section3_prohibited_items: [
+          "False, misleading or fraudulent",
+          "Offensive, discriminatory or incites hatred",
+          "Spam or unauthorised advertising",
+          "In violation of third-party rights",
+          "Contains personal data of third parties without consent"
+        ],
+        section4_title: "Moderation and Removal",
+        section4_text: "MapPet reserves the right to remove any content that violates these Terms, without justification. Places with 5 or more user reports may be automatically hidden pending review.",
+        section5_title: "In-App Purchases",
+        section5_badge_title: "Supporter Badge",
+        section5_badge_text: "The Supporter Badge is a one-time non-refundable purchase that removes ads and unlocks additional features. Payment processing is handled by the Apple App Store or Google Play Store, subject to their respective policies.",
+        section5_coffee_title: "Buy a Coffee",
+        section5_coffee_text: "The 'Buy a Coffee' option is a voluntary contribution with no associated functional benefit. It is non-refundable.",
+        section6_title: "Intellectual Property",
+        section6_text: "All original MapPet content — including design, logo, code and text — is the exclusive property of SAVAGESIMPLICITY, UNIPESSOAL LDA and is protected by copyright. Map data is provided by Mapbox and OpenStreetMap.",
+        section7_title: "Limitation of Liability",
+        section7_p1: "MapPet does not guarantee the accuracy, completeness or currency of place information. Information is provided by the community and may be outdated. Before visiting a place with your pet, we recommend confirming directly with the establishment.",
+        section7_p2: "MapPet is not liable for any direct or indirect damages resulting from use of the app or reliance on information it contains.",
+        section8_title: "Privacy",
+        section8_text: "The processing of your personal data is described in our Privacy Policy, which forms an integral part of these Terms.",
+        section9_title: "Changes to Terms",
+        section9_text: "We may update these Terms periodically. When we do, we will update the date at the top of this page. Continued use of the app after changes constitutes acceptance of the new Terms.",
+        section10_title: "Applicable Law",
+        section10_text: "These Terms are governed by Portuguese law. Any dispute shall be submitted to the exclusive jurisdiction of the Portuguese courts.",
+        section11_title: "Contact",
+        section11_text: "For questions related to these Terms, contact us at support@mappet.app."
+      },
+      es: {
+        page_title: "Términos de Uso",
+        document_title: "MapPet — Términos",
+        legal_label: "Legal",
+        updated_label: "Última actualización:",
+        company_label: "Empresa:",
+        contact_label: "Contacto:",
+        updated_date: "21 de julio de 2026",
+        privacy: "Privacidad",
+        terms: "Términos",
+        support: "Soporte",
+        section1_title: "El Servicio",
+        section1_what_title: "Qué es MapPet",
+        section1_what_text: "MapPet es una aplicación móvil que permite descubrir, confirmar y compartir lugares pet-friendly en Portugal y en otros países. La aplicación es operada por SAVAGESIMPLICITY, UNIPESSOAL LDA, con sede en Portugal.",
+        section1_free_title: "Acceso gratuito",
+        section1_free_text: "Consultar el mapa y los lugares es gratuito y no requiere crear una cuenta. Se necesita una cuenta para interactuar con la comunidad (confirmar lugares, añadir lugares, escribir reseñas y guardar favoritos).",
+        section2_title: "Cuenta de Usuario",
+        section2_create_title: "Crear una cuenta",
+        section2_create_text: "Puedes crear una cuenta con correo electrónico y contraseña, o a través de tu cuenta de Google o Apple. Eres responsable de mantener la confidencialidad de tus credenciales de acceso.",
+        section2_age_title: "Elegibilidad",
+        section2_age_text: "Al crear una cuenta, confirmas que tienes al menos 13 años de edad. Si eres menor de 18 años, debes tener autorización de tus padres o tutor legal.",
+        section2_suspend_title: "Suspensión de cuenta",
+        section2_suspend_text: "Nos reservamos el derecho de suspender o eliminar cuentas que violen estos Términos, sin previo aviso, en casos de abuso, spam o contenido falso o inapropiado.",
+        section3_title: "Contenido Generado por los Usuarios",
+        section3_resp_title: "Tu responsabilidad",
+        section3_resp_intro: "Al añadir lugares, confirmaciones, reseñas o fotografías, confirmas que:",
+        section3_resp_items: [
+          "El lugar acepta genuinamente animales de compañía",
+          "La información compartida es verdadera y está actualizada",
+          "Las fotografías son del lugar y sirven únicamente para identificación",
+          "No estás promocionando publicidad o servicios de pago",
+          "Tienes los derechos necesarios sobre el contenido compartido"
+        ],
+        section3_license_title: "Licencia de contenido",
+        section3_license_text: "Al enviar contenido, concedes a MapPet una licencia mundial, no exclusiva, gratuita y transferible para usar, reproducir, modificar y mostrar ese contenido en el ámbito del servicio.",
+        section3_prohibited_title: "Contenido prohibido",
+        section3_prohibited_intro: "Está prohibido enviar contenido que sea:",
+        section3_prohibited_items: [
+          "Falso, engañoso o fraudulento",
+          "Ofensivo, discriminatorio o que incite al odio",
+          "Spam o publicidad no autorizada",
+          "Que vulnere derechos de terceros",
+          "Que contenga datos personales de terceros sin consentimiento"
+        ],
+        section4_title: "Moderación y Eliminación",
+        section4_text: "MapPet se reserva el derecho de eliminar cualquier contenido que viole estos Términos, sin necesidad de justificación. Los lugares con 5 o más reportes de usuarios pueden ocultarse automáticamente a la espera de revisión.",
+        section5_title: "Compras en la Aplicación",
+        section5_badge_title: "Insignia de Apoyo",
+        section5_badge_text: "La Insignia de Apoyo es una compra única no reembolsable que elimina anuncios y desbloquea funciones adicionales. El procesamiento de pagos lo realizan Apple App Store o Google Play Store, sujeto a sus respectivas políticas.",
+        section5_coffee_title: "Invitar a un Café",
+        section5_coffee_text: "La opción 'Invitar a un Café' es una contribución voluntaria sin ningún beneficio funcional asociado. No es reembolsable.",
+        section6_title: "Propiedad Intelectual",
+        section6_text: "Todo el contenido original de MapPet — incluido el diseño, el logotipo, el código y los textos — es propiedad exclusiva de SAVAGESIMPLICITY, UNIPESSOAL LDA y está protegido por derechos de autor. Los datos cartográficos son proporcionados por Mapbox y OpenStreetMap.",
+        section7_title: "Limitación de Responsabilidad",
+        section7_p1: "MapPet no garantiza la exactitud, integridad o actualidad de la información sobre los lugares. La información es proporcionada por la comunidad y puede estar desactualizada. Antes de visitar un lugar con tu mascota, recomendamos que confirmes directamente con el establecimiento.",
+        section7_p2: "MapPet no se responsabiliza de ningún daño directo o indirecto resultante del uso de la aplicación o de la confianza en la información que contiene.",
+        section8_title: "Privacidad",
+        section8_text: "El tratamiento de tus datos personales se describe en nuestra Política de Privacidad, que forma parte integrante de estos Términos.",
+        section9_title: "Cambios en los Términos",
+        section9_text: "Podemos actualizar estos Términos periódicamente. Cuando lo hagamos, actualizaremos la fecha en la parte superior de esta página. El uso continuado de la aplicación tras los cambios constituye la aceptación de los nuevos Términos.",
+        section10_title: "Ley Aplicable",
+        section10_text: "Estos Términos se rigen por la ley portuguesa. Cualquier litigio se someterá a la jurisdicción exclusiva de los tribunales portugueses.",
+        section11_title: "Contacto",
+        section11_text: "Para cuestiones relacionadas con estos Términos, contáctanos en support@mappet.app."
+      },
+      de: {
+        page_title: "Nutzungsbedingungen",
+        document_title: "MapPet — Nutzungsbedingungen",
+        legal_label: "Rechtliches",
+        updated_label: "Zuletzt aktualisiert:",
+        company_label: "Unternehmen:",
+        contact_label: "Kontakt:",
+        updated_date: "21. Juli 2026",
+        privacy: "Datenschutz",
+        terms: "Nutzungsbedingungen",
+        support: "Support",
+        section1_title: "Der Dienst",
+        section1_what_title: "Was ist MapPet",
+        section1_what_text: "MapPet ist eine mobile App, mit der du haustierfreundliche Orte in Portugal und anderen Ländern entdecken, bestätigen und teilen kannst. Die App wird von SAVAGESIMPLICITY, UNIPESSOAL LDA mit Sitz in Portugal betrieben.",
+        section1_free_title: "Kostenloser Zugang",
+        section1_free_text: "Das Anzeigen der Karte und der Orte ist kostenlos und erfordert kein Konto. Ein Konto ist erforderlich, um mit der Community zu interagieren (Orte bestätigen, Orte hinzufügen, Bewertungen schreiben und Favoriten speichern).",
+        section2_title: "Benutzerkonto",
+        section2_create_title: "Konto erstellen",
+        section2_create_text: "Du kannst ein Konto mit E-Mail und Passwort oder über dein Google- oder Apple-Konto erstellen. Du bist für die Vertraulichkeit deiner Zugangsdaten verantwortlich.",
+        section2_age_title: "Berechtigung",
+        section2_age_text: "Mit der Erstellung eines Kontos bestätigst du, dass du mindestens 13 Jahre alt bist. Wenn du unter 18 Jahre alt bist, benötigst du die Zustimmung deiner Eltern oder Erziehungsberechtigten.",
+        section2_suspend_title: "Kontosperrung",
+        section2_suspend_text: "Wir behalten uns das Recht vor, Konten, die gegen diese Bedingungen verstoßen, ohne vorherige Ankündigung zu sperren oder zu löschen — insbesondere bei Missbrauch, Spam oder falschen bzw. unangemessenen Inhalten.",
+        section3_title: "Nutzerinhalte",
+        section3_resp_title: "Deine Verantwortung",
+        section3_resp_intro: "Indem du Orte, Bestätigungen, Bewertungen oder Fotos hinzufügst, bestätigst du, dass:",
+        section3_resp_items: [
+          "Der Ort Haustiere tatsächlich akzeptiert",
+          "Die geteilten Informationen wahr und aktuell sind",
+          "Fotos vom Ort stammen und nur der Identifikation dienen",
+          "Du keine bezahlte Werbung oder Dienstleistungen bewirbst",
+          "Du die erforderlichen Rechte an den geteilten Inhalten besitzt"
+        ],
+        section3_license_title: "Inhaltslizenz",
+        section3_license_text: "Mit dem Einreichen von Inhalten gewährst du MapPet eine weltweite, nicht ausschließliche, gebührenfreie und übertragbare Lizenz, diese Inhalte im Rahmen des Dienstes zu nutzen, zu vervielfältigen, zu ändern und anzuzeigen.",
+        section3_prohibited_title: "Verbotene Inhalte",
+        section3_prohibited_intro: "Es ist verboten, Inhalte einzureichen, die:",
+        section3_prohibited_items: [
+          "Falsch, irreführend oder betrügerisch sind",
+          "Beleidigend, diskriminierend sind oder zu Hass aufstacheln",
+          "Spam oder unautorisierte Werbung darstellen",
+          "Rechte Dritter verletzen",
+          "Personenbezogene Daten Dritter ohne Einwilligung enthalten"
+        ],
+        section4_title: "Moderation und Entfernung",
+        section4_text: "MapPet behält sich das Recht vor, Inhalte, die gegen diese Bedingungen verstoßen, ohne Begründung zu entfernen. Orte mit 5 oder mehr Nutzermeldungen können automatisch ausgeblendet werden, bis sie überprüft wurden.",
+        section5_title: "In-App-Käufe",
+        section5_badge_title: "Unterstützer-Badge",
+        section5_badge_text: "Das Unterstützer-Badge ist ein einmaliger, nicht erstattungsfähiger Kauf, der Werbung entfernt und zusätzliche Funktionen freischaltet. Die Zahlungsabwicklung erfolgt über den Apple App Store oder den Google Play Store und unterliegt deren jeweiligen Richtlinien.",
+        section5_coffee_title: "Einen Kaffee ausgeben",
+        section5_coffee_text: "Die Option 'Einen Kaffee ausgeben' ist ein freiwilliger Beitrag ohne funktionalen Vorteil. Sie ist nicht erstattungsfähig.",
+        section6_title: "Geistiges Eigentum",
+        section6_text: "Alle ursprünglichen MapPet-Inhalte — einschließlich Design, Logo, Code und Texte — sind ausschließliches Eigentum von SAVAGESIMPLICITY, UNIPESSOAL LDA und urheberrechtlich geschützt. Kartendaten werden von Mapbox und OpenStreetMap bereitgestellt.",
+        section7_title: "Haftungsbeschränkung",
+        section7_p1: "MapPet garantiert nicht die Richtigkeit, Vollständigkeit oder Aktualität der Ortsinformationen. Die Informationen werden von der Community bereitgestellt und können veraltet sein. Bevor du einen Ort mit deinem Haustier besuchst, empfehlen wir, dich direkt beim Betrieb zu erkundigen.",
+        section7_p2: "MapPet haftet nicht für direkte oder indirekte Schäden, die aus der Nutzung der App oder dem Vertrauen auf die darin enthaltenen Informationen entstehen.",
+        section8_title: "Datenschutz",
+        section8_text: "Die Verarbeitung deiner personenbezogenen Daten ist in unserer Datenschutzrichtlinie beschrieben, die integraler Bestandteil dieser Bedingungen ist.",
+        section9_title: "Änderungen der Bedingungen",
+        section9_text: "Wir können diese Bedingungen regelmäßig aktualisieren. Wenn wir dies tun, aktualisieren wir das Datum oben auf dieser Seite. Die fortgesetzte Nutzung der App nach Änderungen gilt als Annahme der neuen Bedingungen.",
+        section10_title: "Anwendbares Recht",
+        section10_text: "Diese Bedingungen unterliegen portugiesischem Recht. Jede Streitigkeit unterliegt der ausschließlichen Zuständigkeit der portugiesischen Gerichte.",
+        section11_title: "Kontakt",
+        section11_text: "Bei Fragen zu diesen Bedingungen kontaktiere uns unter support@mappet.app."
+      },
+      fr: {
+        page_title: "Conditions d'Utilisation",
+        document_title: "MapPet — Conditions",
+        legal_label: "Mentions légales",
+        updated_label: "Dernière mise à jour :",
+        company_label: "Société :",
+        contact_label: "Contact :",
+        updated_date: "21 juillet 2026",
+        privacy: "Confidentialité",
+        terms: "Conditions",
+        support: "Support",
+        section1_title: "Le Service",
+        section1_what_title: "Qu'est-ce que MapPet",
+        section1_what_text: "MapPet est une application mobile qui permet de découvrir, confirmer et partager des lieux accueillant les animaux au Portugal et dans d'autres pays. L'application est exploitée par SAVAGESIMPLICITY, UNIPESSOAL LDA, basée au Portugal.",
+        section1_free_title: "Accès gratuit",
+        section1_free_text: "Consulter la carte et les lieux est gratuit et ne nécessite pas de créer un compte. Un compte est nécessaire pour interagir avec la communauté (confirmer des lieux, ajouter des lieux, écrire des avis et enregistrer des favoris).",
+        section2_title: "Compte Utilisateur",
+        section2_create_title: "Créer un compte",
+        section2_create_text: "Tu peux créer un compte avec e-mail et mot de passe, ou via ton compte Google ou Apple. Tu es responsable du maintien de la confidentialité de tes identifiants d'accès.",
+        section2_age_title: "Éligibilité",
+        section2_age_text: "En créant un compte, tu confirmes avoir au moins 13 ans. Si tu as moins de 18 ans, tu dois avoir l'autorisation de tes parents ou de ton tuteur légal.",
+        section2_suspend_title: "Suspension de compte",
+        section2_suspend_text: "Nous nous réservons le droit de suspendre ou de supprimer les comptes qui violent ces Conditions, sans préavis, en cas d'abus, de spam ou de contenu faux ou inapproprié.",
+        section3_title: "Contenu Généré par les Utilisateurs",
+        section3_resp_title: "Ta responsabilité",
+        section3_resp_intro: "En ajoutant des lieux, des confirmations, des avis ou des photos, tu confirmes que :",
+        section3_resp_items: [
+          "Le lieu accepte réellement les animaux de compagnie",
+          "Les informations partagées sont exactes et à jour",
+          "Les photos sont du lieu et servent uniquement à l'identification",
+          "Tu ne fais pas la promotion de publicité ou de services payants",
+          "Tu détiens les droits nécessaires sur le contenu partagé"
+        ],
+        section3_license_title: "Licence de contenu",
+        section3_license_text: "En soumettant du contenu, tu accordes à MapPet une licence mondiale, non exclusive, gratuite et cessible pour utiliser, reproduire, modifier et afficher ce contenu dans le cadre du service.",
+        section3_prohibited_title: "Contenu interdit",
+        section3_prohibited_intro: "Il est interdit de soumettre du contenu qui est :",
+        section3_prohibited_items: [
+          "Faux, trompeur ou frauduleux",
+          "Offensant, discriminatoire ou qui incite à la haine",
+          "Du spam ou de la publicité non autorisée",
+          "En violation des droits de tiers",
+          "Contenant des données personnelles de tiers sans consentement"
+        ],
+        section4_title: "Modération et Suppression",
+        section4_text: "MapPet se réserve le droit de supprimer tout contenu qui viole ces Conditions, sans justification. Les lieux avec 5 signalements d'utilisateurs ou plus peuvent être automatiquement masqués en attendant une révision.",
+        section5_title: "Achats In-App",
+        section5_badge_title: "Badge Soutien",
+        section5_badge_text: "Le Badge Soutien est un achat unique non remboursable qui supprime les publicités et débloque des fonctionnalités supplémentaires. Le traitement des paiements est effectué par l'Apple App Store ou le Google Play Store, sous réserve de leurs politiques respectives.",
+        section5_coffee_title: "Offrir un Café",
+        section5_coffee_text: "L'option 'Offrir un Café' est une contribution volontaire sans aucun bénéfice fonctionnel associé. Elle n'est pas remboursable.",
+        section6_title: "Propriété Intellectuelle",
+        section6_text: "Tout le contenu original de MapPet — y compris le design, le logo, le code et les textes — est la propriété exclusive de SAVAGESIMPLICITY, UNIPESSOAL LDA et est protégé par le droit d'auteur. Les données cartographiques sont fournies par Mapbox et OpenStreetMap.",
+        section7_title: "Limitation de Responsabilité",
+        section7_p1: "MapPet ne garantit pas l'exactitude, l'exhaustivité ou l'actualité des informations sur les lieux. Les informations sont fournies par la communauté et peuvent être obsolètes. Avant de visiter un lieu avec ton animal, nous recommandons de confirmer directement auprès de l'établissement.",
+        section7_p2: "MapPet n'est pas responsable des dommages directs ou indirects résultant de l'utilisation de l'application ou de la confiance accordée aux informations qu'elle contient.",
+        section8_title: "Confidentialité",
+        section8_text: "Le traitement de tes données personnelles est décrit dans notre Politique de Confidentialité, qui fait partie intégrante de ces Conditions.",
+        section9_title: "Modifications des Conditions",
+        section9_text: "Nous pouvons mettre à jour ces Conditions périodiquement. Lorsque nous le ferons, nous mettrons à jour la date en haut de cette page. L'utilisation continue de l'application après les modifications constitue l'acceptation des nouvelles Conditions.",
+        section10_title: "Droit Applicable",
+        section10_text: "Ces Conditions sont régies par le droit portugais. Tout litige sera soumis à la juridiction exclusive des tribunaux portugais.",
+        section11_title: "Contact",
+        section11_text: "Pour toute question relative à ces Conditions, contacte-nous à support@mappet.app."
+      }
+    };
+
+    const supported = ['pt', 'en', 'es', 'de', 'fr'];
+
+    function setLanguage(lang) {
+      if (!supported.includes(lang)) lang = 'pt';
+      localStorage.setItem('mappet_lang', lang);
+      document.documentElement.lang = lang;
+
+      const t = translations[lang];
+
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined && typeof t[key] === 'string') {
+          el.textContent = t[key];
+        }
+      });
+
+      document.querySelectorAll('[data-i18n-list]').forEach(function (ul) {
+        const key = ul.getAttribute('data-i18n-list');
+        const items = t[key];
+        if (Array.isArray(items)) {
+          ul.innerHTML = items.map(function (item) {
+            return '<li>' + item + '</li>';
+          }).join('');
+        }
+      });
+
+      if (t.document_title) document.title = t.document_title;
+
+      document.querySelectorAll('.lang-selector a[data-lang]').forEach(function (el) {
+        el.classList.toggle('active', el.getAttribute('data-lang') === lang);
+      });
+
+      return false;
+    }
+
+    (function init() {
+      const stored = localStorage.getItem('mappet_lang');
+      const browserLang = navigator.language.slice(0, 2);
+      const defaultLang = supported.includes(browserLang) ? browserLang : 'pt';
+      const lang = (stored && supported.includes(stored)) ? stored : defaultLang;
+      setLanguage(lang);
+    })();
+  </script>
+</body>
+</html>
