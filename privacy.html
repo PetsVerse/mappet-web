@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MapPet — Privacidade</title>
+  <style>
+    :root {
+      --primary: #2d9a4e;
+      --bg: #f8faf8;
+      --text: #1a2e1d;
+      --secondary: #4a6550;
+      --muted: #8fa896;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 72px;
+    }
+
+    .lang-selector {
+      position: fixed;
+      top: 12px;
+      right: 16px;
+      z-index: 20;
+      font-size: 13px;
+      line-height: 1.4;
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0;
+    }
+
+    .lang-selector a {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: normal;
+      transition: color 0.15s ease;
+    }
+
+    .lang-selector a:hover {
+      color: var(--primary);
+    }
+
+    .lang-selector a.active {
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .lang-selector img {
+      width: 16px;
+      height: 12px;
+      display: block;
+      border-radius: 1px;
+      object-fit: cover;
+    }
+
+    .lang-selector .sep {
+      color: var(--muted);
+      margin: 0 6px;
+      user-select: none;
+    }
+
+    .site-header {
+      width: 100%;
+      background: var(--primary);
+      margin-top: 44px;
+      padding: 14px 24px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .site-header a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .site-header a:hover {
+      opacity: 0.9;
+    }
+
+    .container {
+      max-width: 760px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 40px 24px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 32px;
+      color: var(--text);
+      font-weight: bold;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .meta-box {
+      background: #fff;
+      border: 1px solid #e0ebe3;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: var(--secondary);
+      line-height: 1.7;
+    }
+
+    .meta-box div {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 8px;
+    }
+
+    .meta-box .label {
+      color: var(--muted);
+      min-width: 120px;
+    }
+
+    .meta-box a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .meta-box a:hover {
+      text-decoration: underline;
+    }
+
+    .highlight-box {
+      background: #e8f5ec;
+      border: 1px solid #c5e5cf;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 36px;
+      font-size: 15px;
+      color: var(--secondary);
+      line-height: 1.65;
+    }
+
+    .privacy-section {
+      margin-bottom: 32px;
+    }
+
+    .privacy-section > h2 {
+      font-size: 22px;
+      color: var(--primary);
+      margin-bottom: 16px;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .privacy-section h3 {
+      font-size: 16px;
+      color: var(--text);
+      margin: 16px 0 8px;
+      font-weight: 700;
+    }
+
+    .privacy-section p {
+      font-size: 15px;
+      color: var(--secondary);
+      line-height: 1.65;
+      margin-bottom: 10px;
+    }
+
+    .privacy-section ul {
+      margin: 8px 0 12px 1.25em;
+      color: var(--secondary);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .privacy-section li {
+      margin-bottom: 4px;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px;
+      text-align: center;
+      background: var(--bg);
+      font-size: 14px;
+      font-family: system-ui, -apple-system, sans-serif;
+      border-top: 1px solid #e0ebe3;
+      z-index: 10;
+    }
+
+    footer a {
+      color: var(--secondary);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    footer .sep {
+      color: var(--muted);
+      margin: 0 8px;
+    }
+
+    @media (max-width: 480px) {
+      .lang-selector {
+        right: 8px;
+        left: 8px;
+        justify-content: center;
+        top: 8px;
+      }
+
+      .site-header {
+        margin-top: 40px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .meta-box .label {
+        min-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="lang-selector" aria-label="Language">
+    <a href="#" data-lang="pt" onclick="return setLanguage('pt')"><img src="https://flagcdn.com/16x12/pt.png" width="16" height="12" alt="PT"> PT</a><span class="sep">·</span>
+    <a href="#" data-lang="en" onclick="return setLanguage('en')"><img src="https://flagcdn.com/16x12/gb.png" width="16" height="12" alt="EN"> EN</a><span class="sep">·</span>
+    <a href="#" data-lang="es" onclick="return setLanguage('es')"><img src="https://flagcdn.com/16x12/es.png" width="16" height="12" alt="ES"> ES</a><span class="sep">·</span>
+    <a href="#" data-lang="de" onclick="return setLanguage('de')"><img src="https://flagcdn.com/16x12/de.png" width="16" height="12" alt="DE"> DE</a><span class="sep">·</span>
+    <a href="#" data-lang="fr" onclick="return setLanguage('fr')"><img src="https://flagcdn.com/16x12/fr.png" width="16" height="12" alt="FR"> FR</a>
+  </nav>
+
+  <header class="site-header">
+    <a href="index.html">🐾 MapPet</a>
+  </header>
+
+  <main class="container">
+    <div class="section-label" data-i18n="legal_label"></div>
+    <h1 data-i18n="page_title"></h1>
+
+    <div class="meta-box">
+      <div><span class="label" data-i18n="updated_label"></span> <span data-i18n="updated_date"></span></div>
+      <div><span class="label" data-i18n="company_label"></span> <span>SAVAGESIMPLICITY, UNIPESSOAL LDA</span></div>
+      <div><span class="label" data-i18n="contact_label"></span> <a href="mailto:support@mappet.app">support@mappet.app</a></div>
+    </div>
+
+    <div class="highlight-box" data-i18n="highlight"></div>
+
+    <section class="privacy-section">
+      <h2 data-i18n="section1_title"></h2>
+      <p data-i18n="section1_text"></p>
+    </section>
+
+    <section class="privacy-section">
+      <h2 data-i18n="section2_title"></h2>
+      <h3 data-i18n="section2a_title"></h3>
+      <ul data-i18n-list="section2a_items"></ul>
+      <h3 data-i18n="section2b_title"></h3>
+      <ul data-i18n-list="section2b_items"></ul>
+      <h3 data-i18n="section2c_title"></h3>
+      <ul data-i18n-list="section2c_items"></ul>
+      <h3 data-i18n="section2d_title"></h3>
+      <ul data-i18n-list="section2d_items"></ul>
+      <h3 data-i18n="section2e_title"></h3>
+      <ul data-i18n-list="section2e_items"></ul>
+    </section>
+
+    <section class="privacy-section">
+      <h2 data-i18n="section3_title"></h2>
+      <ul data-i18n-list="section3_items"></ul>
+    </section>
+
+    <section class="privacy-section">
+      <h2 data-i18n="section4_title"></h2>
+      <ul data-i18n-list="section4_items"></ul>
+    </section>
+
+    <section class="privacy-section">
+      <h2 data-i18n="section5_title"></h2>
+      <p data-i18n="section5_intro"></p>
+      <ul data-i18n-list="section5_items"></ul>
+      <p data-i18n="section5_footer"></p>
+    </section>
+
+    <section class="privacy-section">
+      <h2 data-i18n="section6_title"></h2>
+      <p data-i18n="section6_text"></p>
+    </section>
+
+    <section class="privacy-section">
+      <h2 data-i18n="section7_title"></h2>
+      <ul data-i18n-list="section7_items"></ul>
+    </section>
+
+    <section class="privacy-section">
+      <h2 data-i18n="section8_title"></h2>
+      <p data-i18n="section8_intro"></p>
+      <ul data-i18n-list="section8_items"></ul>
+      <p data-i18n="section8_note"></p>
+    </section>
+
+    <section class="privacy-section">
+      <h2 data-i18n="section9_title"></h2>
+      <p data-i18n="section9_text"></p>
+    </section>
+
+    <section class="privacy-section">
+      <h2 data-i18n="section10_title"></h2>
+      <p data-i18n="section10_text"></p>
+    </section>
+
+    <section class="privacy-section">
+      <h2 data-i18n="section11_title"></h2>
+      <p data-i18n="section11_text"></p>
+    </section>
+
+    <section class="privacy-section">
+      <h2 data-i18n="section12_title"></h2>
+      <p data-i18n="section12_text"></p>
+    </section>
+
+    <section class="privacy-section">
+      <h2 data-i18n="section13_title"></h2>
+      <p data-i18n="section13_text"></p>
+    </section>
+
+    <section class="privacy-section">
+      <h2 data-i18n="section14_title"></h2>
+      <p data-i18n="section14_text"></p>
+    </section>
+  </main>
+
+  <footer>
+    <a href="privacy.html" data-i18n="privacy"></a><span class="sep">·</span>
+    <a href="terms.html" data-i18n="terms"></a><span class="sep">·</span>
+    <a href="mailto:support@mappet.app" data-i18n="support"></a>
+  </footer>
+
+  <script>
+    const translations = {
+      pt: {
+        page_title: "Política de Privacidade",
+        document_title: "MapPet — Privacidade",
+        legal_label: "Legal",
+        updated_label: "Última actualização:",
+        company_label: "Empresa:",
+        contact_label: "Contacto:",
+        updated_date: "21 de Julho de 2026",
+        privacy: "Privacidade",
+        terms: "Termos",
+        support: "Suporte",
+        highlight: "O MapPet respeita a tua privacidade. Recolhemos apenas os dados necessários para o funcionamento do serviço e nunca vendemos os teus dados a terceiros.",
+        section1_title: "Responsável pelo Tratamento",
+        section1_text: "O responsável pelo tratamento dos teus dados pessoais é a SAVAGESIMPLICITY, UNIPESSOAL LDA, com sede em Portugal. Podes contactar-nos em support@mappet.app.",
+        section2_title: "Dados que Recolhemos",
+        section2a_title: "Dados de conta",
+        section2a_items: [
+          "Nome e endereço de email",
+          "Fotografia de perfil (opcional)",
+          "Provider de autenticação utilizado (Google, Apple ou email)"
+        ],
+        section2b_title: "Dados de localização",
+        section2b_items: [
+          "Localização GPS em tempo real — apenas para centrar o mapa na tua posição actual",
+          "Não guardamos o histórico das tuas localizações",
+          "Podes usar a app sem partilhar a localização (o mapa abre centrado em Portugal)"
+        ],
+        section2c_title: "Conteúdo gerado",
+        section2c_items: [
+          "Locais adicionados (nome, morada, categoria, fotografias)",
+          "Confirmações pet-friendly e atributos dos locais",
+          "Reviews e classificações",
+          "Lista de favoritos",
+          "Reportes de problemas"
+        ],
+        section2d_title: "Dados de feedback",
+        section2d_items: [
+          "Mensagens de feedback enviadas através da app",
+          "Versão da app e plataforma (iOS/Android)"
+        ],
+        section2e_title: "Dados técnicos",
+        section2e_items: [
+          "Relatórios de erros e crashes (via Sentry)",
+          "Dados de utilização anónimos (via PostHog, quando activado)",
+          "Versão da app e sistema operativo"
+        ],
+        section3_title: "Como Usamos",
+        section3_items: [
+          "Autenticar a tua conta e manter a tua sessão",
+          "Mostrar o mapa e os locais pet-friendly",
+          "Permitir que contribuas com locais, confirmações e reviews",
+          "Guardar os teus favoritos",
+          "Melhorar a app com base em feedback e relatórios de erro",
+          "Responder a pedidos de suporte"
+        ],
+        section4_title: "Base Legal",
+        section4_items: [
+          "Execução do contrato — necessário para prestar o serviço",
+          "Consentimento — para dados de localização e analytics",
+          "Interesse legítimo — para segurança e prevenção de fraude"
+        ],
+        section5_title: "Partilha de Dados",
+        section5_intro: "Não vendemos os teus dados pessoais. Partilhamos dados apenas com:",
+        section5_items: [
+          "Supabase — base de dados e autenticação (servidores na UE)",
+          "Mapbox — serviço de mapas (pode processar coordenadas de localização)",
+          "Sentry — relatórios de erros (dados anonimizados)",
+          "PostHog — analytics de utilização (dados anonimizados, servidores na UE)",
+          "RevenueCat — processamento de compras na app",
+          "Apple / Google — autenticação social e compras na app"
+        ],
+        section5_footer: "Todos os nossos fornecedores são seleccionados com base na sua conformidade com o RGPD.",
+        section6_title: "Transferências Internacionais",
+        section6_text: "Os teus dados são armazenados preferencialmente em servidores localizados na União Europeia. Quando são necessárias transferências para fora da UE, garantimos que existem salvaguardas adequadas, nomeadamente cláusulas contratuais-tipo aprovadas pela Comissão Europeia.",
+        section7_title: "Retenção de Dados",
+        section7_items: [
+          "Dados de conta: mantidos enquanto a conta estiver activa",
+          "Conteúdo gerado: mantido enquanto a conta estiver activa; locais adicionados podem ser mantidos com autoria anónima após eliminação de conta",
+          "Dados técnicos: máximo de 90 dias",
+          "Dados de feedback: máximo de 2 anos"
+        ],
+        section8_title: "Direitos RGPD",
+        section8_intro: "Ao abrigo do Regulamento Geral sobre a Protecção de Dados (RGPD), tens os seguintes direitos:",
+        section8_items: [
+          "Acesso — solicitar uma cópia dos teus dados pessoais",
+          "Rectificação — corrigir dados incorrectos ou incompletos",
+          "Eliminação — solicitar a eliminação dos teus dados ('direito ao esquecimento')",
+          "Portabilidade — receber os teus dados num formato estruturado",
+          "Oposição — opor-te ao tratamento baseado em interesse legítimo",
+          "Limitação — solicitar a limitação do tratamento dos teus dados"
+        ],
+        section8_note: "Para exercer qualquer um destes direitos, contacta-nos em support@mappet.app. Tens também o direito de apresentar reclamação à CNPD (Comissão Nacional de Protecção de Dados) em www.cnpd.pt.",
+        section9_title: "Eliminação de Conta",
+        section9_text: "Podes eliminar a tua conta a qualquer momento através da app (Perfil → Conta → Eliminar conta). A eliminação remove permanentemente os teus dados pessoais. O conteúdo que adicionaste (locais, reviews) pode ser mantido de forma anónima para preservar a integridade da base de dados da comunidade.",
+        section10_title: "Cookies",
+        section10_text: "A aplicação móvel não utiliza cookies. O nosso website pode utilizar cookies essenciais para o seu funcionamento. Não utilizamos cookies de rastreamento ou publicidade.",
+        section11_title: "Segurança",
+        section11_text: "Implementamos medidas técnicas e organizacionais adequadas para proteger os teus dados, incluindo encriptação em trânsito (HTTPS/TLS), controlo de acesso baseado em roles (Row Level Security) e autenticação segura.",
+        section12_title: "Menores",
+        section12_text: "O MapPet não é dirigido a menores de 13 anos. Se tomares conhecimento de que um menor nos forneceu dados pessoais sem consentimento parental, contacta-nos para que possamos tomar as medidas adequadas.",
+        section13_title: "Alterações",
+        section13_text: "Podemos actualizar esta Política periodicamente. Quando o fizermos, actualizaremos a data no topo desta página. Para alterações significativas, notificaremos os utilizadores através da app.",
+        section14_title: "Contacto",
+        section14_text: "Para questões de privacidade ou para exercer os teus direitos, contacta-nos em support@mappet.app."
+      },
+      en: {
+        page_title: "Privacy Policy",
+        document_title: "MapPet — Privacy",
+        legal_label: "Legal",
+        updated_label: "Last updated:",
+        company_label: "Company:",
+        contact_label: "Contact:",
+        updated_date: "21 July 2026",
+        privacy: "Privacy",
+        terms: "Terms",
+        support: "Support",
+        highlight: "MapPet respects your privacy. We only collect data necessary for the service to function and never sell your data to third parties.",
+        section1_title: "Data Controller",
+        section1_text: "The data controller for your personal data is SAVAGESIMPLICITY, UNIPESSOAL LDA, based in Portugal. You can contact us at support@mappet.app.",
+        section2_title: "Data We Collect",
+        section2a_title: "Account data",
+        section2a_items: [
+          "Name and email address",
+          "Profile photo (optional)",
+          "Authentication provider used (Google, Apple or email)"
+        ],
+        section2b_title: "Location data",
+        section2b_items: [
+          "Real-time GPS location — only to centre the map on your current position",
+          "We do not store your location history",
+          "You can use the app without sharing your location (the map opens centred on Portugal)"
+        ],
+        section2c_title: "User generated content",
+        section2c_items: [
+          "Places added (name, address, category, photos)",
+          "Pet-friendly confirmations and place attributes",
+          "Reviews and ratings",
+          "Favourites list",
+          "Problem reports"
+        ],
+        section2d_title: "Feedback data",
+        section2d_items: [
+          "Feedback messages sent through the app",
+          "App version and platform (iOS/Android)"
+        ],
+        section2e_title: "Technical data",
+        section2e_items: [
+          "Error and crash reports (via Sentry)",
+          "Anonymous usage data (via PostHog, when enabled)",
+          "App version and operating system"
+        ],
+        section3_title: "How We Use",
+        section3_items: [
+          "Authenticate your account and maintain your session",
+          "Display the map and pet-friendly places",
+          "Allow you to contribute places, confirmations and reviews",
+          "Save your favourites",
+          "Improve the app based on feedback and error reports",
+          "Respond to support requests"
+        ],
+        section4_title: "Legal Basis",
+        section4_items: [
+          "Contract performance — necessary to provide the service",
+          "Consent — for location data and analytics",
+          "Legitimate interest — for security and fraud prevention"
+        ],
+        section5_title: "Data Sharing",
+        section5_intro: "We do not sell your personal data. We share data only with:",
+        section5_items: [
+          "Supabase — database and authentication (EU servers)",
+          "Mapbox — mapping service (may process location coordinates)",
+          "Sentry — error reports (anonymised data)",
+          "PostHog — usage analytics (anonymised data, EU servers)",
+          "RevenueCat — in-app purchase processing",
+          "Apple / Google — social authentication and in-app purchases"
+        ],
+        section5_footer: "All our providers are selected based on their GDPR compliance.",
+        section6_title: "International Transfers",
+        section6_text: "Your data is preferably stored on servers located in the European Union. When transfers outside the EU are necessary, we ensure that adequate safeguards are in place, namely standard contractual clauses approved by the European Commission.",
+        section7_title: "Data Retention",
+        section7_items: [
+          "Account data: retained while the account is active",
+          "Generated content: retained while the account is active; places added may be retained anonymously after account deletion",
+          "Technical data: maximum 90 days",
+          "Feedback data: maximum 2 years"
+        ],
+        section8_title: "GDPR Rights",
+        section8_intro: "Under the General Data Protection Regulation (GDPR), you have the following rights:",
+        section8_items: [
+          "Access — request a copy of your personal data",
+          "Rectification — correct inaccurate or incomplete data",
+          "Erasure — request deletion of your data ('right to be forgotten')",
+          "Portability — receive your data in a structured format",
+          "Objection — object to processing based on legitimate interest",
+          "Restriction — request restriction of processing of your data"
+        ],
+        section8_note: "To exercise any of these rights, contact us at support@mappet.app. You also have the right to lodge a complaint with your national data protection authority.",
+        section9_title: "Account Deletion",
+        section9_text: "You can delete your account at any time through the app (Profile → Account → Delete account). Deletion permanently removes your personal data. Content you have added (places, reviews) may be retained anonymously to preserve the integrity of the community database.",
+        section10_title: "Cookies",
+        section10_text: "The mobile app does not use cookies. Our website may use essential cookies for its operation. We do not use tracking or advertising cookies.",
+        section11_title: "Security",
+        section11_text: "We implement appropriate technical and organisational measures to protect your data, including encryption in transit (HTTPS/TLS), role-based access control (Row Level Security) and secure authentication.",
+        section12_title: "Minors",
+        section12_text: "MapPet is not directed at children under 13. If you become aware that a minor has provided us with personal data without parental consent, please contact us so we can take appropriate action.",
+        section13_title: "Changes",
+        section13_text: "We may update this Policy periodically. When we do, we will update the date at the top of this page. For significant changes, we will notify users through the app.",
+        section14_title: "Contact",
+        section14_text: "For privacy questions or to exercise your rights, contact us at support@mappet.app."
+      },
+      es: {
+        page_title: "Política de Privacidad",
+        document_title: "MapPet — Privacidad",
+        legal_label: "Legal",
+        updated_label: "Última actualización:",
+        company_label: "Empresa:",
+        contact_label: "Contacto:",
+        updated_date: "21 de julio de 2026",
+        privacy: "Privacidad",
+        terms: "Términos",
+        support: "Soporte",
+        highlight: "MapPet respeta tu privacidad. Solo recopilamos los datos necesarios para el funcionamiento del servicio y nunca vendemos tus datos a terceros.",
+        section1_title: "Responsable del Tratamiento",
+        section1_text: "El responsable del tratamiento de tus datos personales es SAVAGESIMPLICITY, UNIPESSOAL LDA, con sede en Portugal. Puedes contactarnos en support@mappet.app.",
+        section2_title: "Datos que Recopilamos",
+        section2a_title: "Datos de cuenta",
+        section2a_items: [
+          "Nombre y dirección de email",
+          "Foto de perfil (opcional)",
+          "Proveedor de autenticación utilizado (Google, Apple o email)"
+        ],
+        section2b_title: "Datos de ubicación",
+        section2b_items: [
+          "Ubicación GPS en tiempo real — solo para centrar el mapa en tu posición actual",
+          "No guardamos el historial de tu ubicación",
+          "Puedes usar la app sin compartir tu ubicación (el mapa se abre centrado en Portugal)"
+        ],
+        section2c_title: "Contenido generado",
+        section2c_items: [
+          "Lugares añadidos (nombre, dirección, categoría, fotos)",
+          "Confirmaciones pet-friendly y atributos de lugares",
+          "Reseñas y valoraciones",
+          "Lista de favoritos",
+          "Reportes de problemas"
+        ],
+        section2d_title: "Datos de feedback",
+        section2d_items: [
+          "Mensajes de feedback enviados a través de la app",
+          "Versión de la app y plataforma (iOS/Android)"
+        ],
+        section2e_title: "Datos técnicos",
+        section2e_items: [
+          "Informes de errores y crashes (via Sentry)",
+          "Datos de uso anónimos (via PostHog, cuando está activado)",
+          "Versión de la app y sistema operativo"
+        ],
+        section3_title: "Cómo los Usamos",
+        section3_items: [
+          "Autenticar tu cuenta y mantener tu sesión",
+          "Mostrar el mapa y los lugares pet-friendly",
+          "Permitirte contribuir con lugares, confirmaciones y reseñas",
+          "Guardar tus favoritos",
+          "Mejorar la app basándonos en feedback e informes de error",
+          "Responder a solicitudes de soporte"
+        ],
+        section4_title: "Base Legal",
+        section4_items: [
+          "Ejecución del contrato — necesario para prestar el servicio",
+          "Consentimiento — para datos de ubicación y analytics",
+          "Interés legítimo — para seguridad y prevención del fraude"
+        ],
+        section5_title: "Compartición de Datos",
+        section5_intro: "No vendemos tus datos personales. Compartimos datos solo con:",
+        section5_items: [
+          "Supabase — base de datos y autenticación (servidores en la UE)",
+          "Mapbox — servicio de mapas (puede procesar coordenadas de ubicación)",
+          "Sentry — informes de errores (datos anonimizados)",
+          "PostHog — analytics de uso (datos anonimizados, servidores en la UE)",
+          "RevenueCat — procesamiento de compras en la app",
+          "Apple / Google — autenticación social y compras en la app"
+        ],
+        section5_footer: "Todos nuestros proveedores se seleccionan en función de su conformidad con el RGPD.",
+        section6_title: "Transferencias Internacionales",
+        section6_text: "Tus datos se almacenan preferentemente en servidores ubicados en la Unión Europea. Cuando son necesarias transferencias fuera de la UE, garantizamos que existen salvaguardas adecuadas, en particular cláusulas contractuales tipo aprobadas por la Comisión Europea.",
+        section7_title: "Retención de Datos",
+        section7_items: [
+          "Datos de cuenta: se mantienen mientras la cuenta esté activa",
+          "Contenido generado: se mantiene mientras la cuenta esté activa; los lugares añadidos pueden conservarse de forma anónima tras la eliminación de la cuenta",
+          "Datos técnicos: máximo de 90 días",
+          "Datos de feedback: máximo de 2 años"
+        ],
+        section8_title: "Derechos RGPD",
+        section8_intro: "En virtud del Reglamento General de Protección de Datos (RGPD), tienes los siguientes derechos:",
+        section8_items: [
+          "Acceso — solicitar una copia de tus datos personales",
+          "Rectificación — corregir datos incorrectos o incompletos",
+          "Supresión — solicitar la eliminación de tus datos ('derecho al olvido')",
+          "Portabilidad — recibir tus datos en un formato estructurado",
+          "Oposición — oponerte al tratamiento basado en interés legítimo",
+          "Limitación — solicitar la limitación del tratamiento de tus datos"
+        ],
+        section8_note: "Para ejercer cualquiera de estos derechos, contáctanos en support@mappet.app. También tienes derecho a presentar una reclamación ante tu autoridad nacional de protección de datos.",
+        section9_title: "Eliminación de Cuenta",
+        section9_text: "Puedes eliminar tu cuenta en cualquier momento a través de la app (Perfil → Cuenta → Eliminar cuenta). La eliminación elimina permanentemente tus datos personales. El contenido que hayas añadido (lugares, reseñas) puede mantenerse de forma anónima para preservar la integridad de la base de datos de la comunidad.",
+        section10_title: "Cookies",
+        section10_text: "La aplicación móvil no utiliza cookies. Nuestro sitio web puede utilizar cookies esenciales para su funcionamiento. No utilizamos cookies de seguimiento ni de publicidad.",
+        section11_title: "Seguridad",
+        section11_text: "Implementamos medidas técnicas y organizativas adecuadas para proteger tus datos, incluyendo cifrado en tránsito (HTTPS/TLS), control de acceso basado en roles (Row Level Security) y autenticación segura.",
+        section12_title: "Menores",
+        section12_text: "MapPet no está dirigido a menores de 13 años. Si tienes conocimiento de que un menor nos ha proporcionado datos personales sin consentimiento parental, contáctanos para que podamos tomar las medidas adecuadas.",
+        section13_title: "Cambios",
+        section13_text: "Podemos actualizar esta Política periódicamente. Cuando lo hagamos, actualizaremos la fecha en la parte superior de esta página. Para cambios significativos, notificaremos a los usuarios a través de la app.",
+        section14_title: "Contacto",
+        section14_text: "Para cuestiones de privacidad o para ejercer tus derechos, contáctanos en support@mappet.app."
+      },
+      de: {
+        page_title: "Datenschutzrichtlinie",
+        document_title: "MapPet — Datenschutz",
+        legal_label: "Rechtliches",
+        updated_label: "Zuletzt aktualisiert:",
+        company_label: "Unternehmen:",
+        contact_label: "Kontakt:",
+        updated_date: "21. Juli 2026",
+        privacy: "Datenschutz",
+        terms: "Nutzungsbedingungen",
+        support: "Support",
+        highlight: "MapPet respektiert deine Privatsphäre. Wir erheben nur die für den Betrieb des Dienstes notwendigen Daten und verkaufen deine Daten niemals an Dritte.",
+        section1_title: "Verantwortlicher",
+        section1_text: "Der Verantwortliche für die Verarbeitung deiner personenbezogenen Daten ist SAVAGESIMPLICITY, UNIPESSOAL LDA mit Sitz in Portugal. Du kannst uns unter support@mappet.app kontaktieren.",
+        section2_title: "Daten, die wir erheben",
+        section2a_title: "Kontodaten",
+        section2a_items: [
+          "Name und E-Mail-Adresse",
+          "Profilfoto (optional)",
+          "Verwendeter Authentifizierungsanbieter (Google, Apple oder E-Mail)"
+        ],
+        section2b_title: "Standortdaten",
+        section2b_items: [
+          "Echtzeit-GPS-Standort — nur um die Karte auf deinen aktuellen Standort zu zentrieren",
+          "Wir speichern keinen Standortverlauf",
+          "Du kannst die App ohne Standortfreigabe nutzen (die Karte öffnet sich auf Portugal zentriert)"
+        ],
+        section2c_title: "Nutzerinhalte",
+        section2c_items: [
+          "Hinzugefügte Orte (Name, Adresse, Kategorie, Fotos)",
+          "Tierfreundliche Bestätigungen und Ortsattribute",
+          "Bewertungen",
+          "Favoritenliste",
+          "Problemmeldungen"
+        ],
+        section2d_title: "Feedback-Daten",
+        section2d_items: [
+          "Feedback-Nachrichten, die über die App gesendet werden",
+          "App-Version und Plattform (iOS/Android)"
+        ],
+        section2e_title: "Technische Daten",
+        section2e_items: [
+          "Fehler- und Absturzberichte (via Sentry)",
+          "Anonyme Nutzungsdaten (via PostHog, wenn aktiviert)",
+          "App-Version und Betriebssystem"
+        ],
+        section3_title: "Wie wir Daten verwenden",
+        section3_items: [
+          "Dein Konto authentifizieren und deine Sitzung aufrechterhalten",
+          "Die Karte und haustierfreundliche Orte anzeigen",
+          "Dir ermöglichen, Orte, Bestätigungen und Bewertungen beizutragen",
+          "Deine Favoriten speichern",
+          "Die App anhand von Feedback und Fehlerberichten verbessern",
+          "Auf Support-Anfragen antworten"
+        ],
+        section4_title: "Rechtsgrundlage",
+        section4_items: [
+          "Vertragserfüllung — erforderlich zur Erbringung des Dienstes",
+          "Einwilligung — für Standortdaten und Analytics",
+          "Berechtigtes Interesse — für Sicherheit und Betrugsprävention"
+        ],
+        section5_title: "Datenweitergabe",
+        section5_intro: "Wir verkaufen deine personenbezogenen Daten nicht. Wir teilen Daten nur mit:",
+        section5_items: [
+          "Supabase — Datenbank und Authentifizierung (EU-Server)",
+          "Mapbox — Kartendienst (kann Standortkoordinaten verarbeiten)",
+          "Sentry — Fehlerberichte (anonymisierte Daten)",
+          "PostHog — Nutzungsanalysen (anonymisierte Daten, EU-Server)",
+          "RevenueCat — Verarbeitung von In-App-Käufen",
+          "Apple / Google — soziale Authentifizierung und In-App-Käufe"
+        ],
+        section5_footer: "Alle unsere Anbieter werden anhand ihrer DSGVO-Konformität ausgewählt.",
+        section6_title: "Internationale Übermittlungen",
+        section6_text: "Deine Daten werden vorzugsweise auf Servern in der Europäischen Union gespeichert. Wenn Übermittlungen außerhalb der EU erforderlich sind, stellen wir sicher, dass angemessene Garantien bestehen, insbesondere von der Europäischen Kommission genehmigte Standardvertragsklauseln.",
+        section7_title: "Datenspeicherung",
+        section7_items: [
+          "Kontodaten: werden gespeichert, solange das Konto aktiv ist",
+          "Generierte Inhalte: werden gespeichert, solange das Konto aktiv ist; hinzugefügte Orte können nach Kontolöschung anonymisiert erhalten bleiben",
+          "Technische Daten: maximal 90 Tage",
+          "Feedback-Daten: maximal 2 Jahre"
+        ],
+        section8_title: "DSGVO-Rechte",
+        section8_intro: "Gemäß der Datenschutz-Grundverordnung (DSGVO) hast du folgende Rechte:",
+        section8_items: [
+          "Auskunft — eine Kopie deiner personenbezogenen Daten anfordern",
+          "Berichtigung — unrichtige oder unvollständige Daten korrigieren",
+          "Löschung — die Löschung deiner Daten verlangen ('Recht auf Vergessenwerden')",
+          "Datenübertragbarkeit — deine Daten in einem strukturierten Format erhalten",
+          "Widerspruch — der Verarbeitung auf Grundlage berechtigter Interessen widersprechen",
+          "Einschränkung — die Einschränkung der Verarbeitung deiner Daten verlangen"
+        ],
+        section8_note: "Um eines dieser Rechte auszuüben, kontaktiere uns unter support@mappet.app. Du hast auch das Recht, eine Beschwerde bei deiner nationalen Datenschutzbehörde einzureichen.",
+        section9_title: "Kontolöschung",
+        section9_text: "Du kannst dein Konto jederzeit über die App löschen (Profil → Konto → Konto löschen). Die Löschung entfernt dauerhaft deine personenbezogenen Daten. Inhalte, die du hinzugefügt hast (Orte, Bewertungen), können anonymisiert erhalten bleiben, um die Integrität der Community-Datenbank zu wahren.",
+        section10_title: "Cookies",
+        section10_text: "Die mobile App verwendet keine Cookies. Unsere Website kann essenzielle Cookies für ihren Betrieb verwenden. Wir verwenden keine Tracking- oder Werbe-Cookies.",
+        section11_title: "Sicherheit",
+        section11_text: "Wir implementieren angemessene technische und organisatorische Maßnahmen zum Schutz deiner Daten, einschließlich Verschlüsselung bei der Übertragung (HTTPS/TLS), rollenbasierter Zugriffskontrolle (Row Level Security) und sicherer Authentifizierung.",
+        section12_title: "Minderjährige",
+        section12_text: "MapPet richtet sich nicht an Kinder unter 13 Jahren. Wenn du erfährst, dass ein Minderjähriger uns ohne elterliche Einwilligung personenbezogene Daten übermittelt hat, kontaktiere uns, damit wir geeignete Maßnahmen ergreifen können.",
+        section13_title: "Änderungen",
+        section13_text: "Wir können diese Richtlinie regelmäßig aktualisieren. Wenn wir dies tun, aktualisieren wir das Datum oben auf dieser Seite. Bei wesentlichen Änderungen benachrichtigen wir die Nutzer über die App.",
+        section14_title: "Kontakt",
+        section14_text: "Bei Datenschutzfragen oder zur Ausübung deiner Rechte kontaktiere uns unter support@mappet.app."
+      },
+      fr: {
+        page_title: "Politique de Confidentialité",
+        document_title: "MapPet — Confidentialité",
+        legal_label: "Mentions légales",
+        updated_label: "Dernière mise à jour :",
+        company_label: "Société :",
+        contact_label: "Contact :",
+        updated_date: "21 juillet 2026",
+        privacy: "Confidentialité",
+        terms: "Conditions",
+        support: "Support",
+        highlight: "MapPet respecte votre vie privée. Nous ne collectons que les données nécessaires au fonctionnement du service et ne vendons jamais vos données à des tiers.",
+        section1_title: "Responsable du Traitement",
+        section1_text: "Le responsable du traitement de vos données personnelles est SAVAGESIMPLICITY, UNIPESSOAL LDA, basé au Portugal. Vous pouvez nous contacter à support@mappet.app.",
+        section2_title: "Données que Nous Collectons",
+        section2a_title: "Données de compte",
+        section2a_items: [
+          "Nom et adresse email",
+          "Photo de profil (optionnelle)",
+          "Fournisseur d'authentification utilisé (Google, Apple ou email)"
+        ],
+        section2b_title: "Données de localisation",
+        section2b_items: [
+          "Localisation GPS en temps réel — uniquement pour centrer la carte sur votre position actuelle",
+          "Nous ne stockons pas l'historique de vos localisations",
+          "Vous pouvez utiliser l'application sans partager votre localisation (la carte s'ouvre centrée sur le Portugal)"
+        ],
+        section2c_title: "Contenu généré",
+        section2c_items: [
+          "Lieux ajoutés (nom, adresse, catégorie, photos)",
+          "Confirmations pet-friendly et attributs des lieux",
+          "Avis et évaluations",
+          "Liste de favoris",
+          "Signalements de problèmes"
+        ],
+        section2d_title: "Données de feedback",
+        section2d_items: [
+          "Messages de feedback envoyés via l'application",
+          "Version de l'application et plateforme (iOS/Android)"
+        ],
+        section2e_title: "Données techniques",
+        section2e_items: [
+          "Rapports d'erreurs et de plantages (via Sentry)",
+          "Données d'utilisation anonymes (via PostHog, si activé)",
+          "Version de l'application et système d'exploitation"
+        ],
+        section3_title: "Comment Nous les Utilisons",
+        section3_items: [
+          "Authentifier votre compte et maintenir votre session",
+          "Afficher la carte et les lieux pet-friendly",
+          "Vous permettre de contribuer avec des lieux, confirmations et avis",
+          "Enregistrer vos favoris",
+          "Améliorer l'application sur la base du feedback et des rapports d'erreurs",
+          "Répondre aux demandes de support"
+        ],
+        section4_title: "Base Légale",
+        section4_items: [
+          "Exécution du contrat — nécessaire pour fournir le service",
+          "Consentement — pour les données de localisation et les analytics",
+          "Intérêt légitime — pour la sécurité et la prévention de la fraude"
+        ],
+        section5_title: "Partage des Données",
+        section5_intro: "Nous ne vendons pas vos données personnelles. Nous partageons des données uniquement avec :",
+        section5_items: [
+          "Supabase — base de données et authentification (serveurs dans l'UE)",
+          "Mapbox — service de cartes (peut traiter des coordonnées de localisation)",
+          "Sentry — rapports d'erreurs (données anonymisées)",
+          "PostHog — analytics d'utilisation (données anonymisées, serveurs dans l'UE)",
+          "RevenueCat — traitement des achats in-app",
+          "Apple / Google — authentification sociale et achats in-app"
+        ],
+        section5_footer: "Tous nos prestataires sont sélectionnés sur la base de leur conformité au RGPD.",
+        section6_title: "Transferts Internationaux",
+        section6_text: "Vos données sont préférentiellement stockées sur des serveurs situés dans l'Union européenne. Lorsque des transferts hors de l'UE sont nécessaires, nous veillons à ce que des garanties appropriées soient en place, notamment des clauses contractuelles types approuvées par la Commission européenne.",
+        section7_title: "Conservation des Données",
+        section7_items: [
+          "Données de compte : conservées tant que le compte est actif",
+          "Contenu généré : conservé tant que le compte est actif ; les lieux ajoutés peuvent être conservés de manière anonyme après suppression du compte",
+          "Données techniques : maximum 90 jours",
+          "Données de feedback : maximum 2 ans"
+        ],
+        section8_title: "Droits RGPD",
+        section8_intro: "En vertu du Règlement Général sur la Protection des Données (RGPD), vous disposez des droits suivants :",
+        section8_items: [
+          "Accès — demander une copie de vos données personnelles",
+          "Rectification — corriger des données inexactes ou incomplètes",
+          "Effacement — demander la suppression de vos données ('droit à l'oubli')",
+          "Portabilité — recevoir vos données dans un format structuré",
+          "Opposition — vous opposer au traitement fondé sur l'intérêt légitime",
+          "Limitation — demander la limitation du traitement de vos données"
+        ],
+        section8_note: "Pour exercer l'un de ces droits, contactez-nous à support@mappet.app. Vous avez également le droit d'introduire une réclamation auprès de votre autorité nationale de protection des données.",
+        section9_title: "Suppression de Compte",
+        section9_text: "Vous pouvez supprimer votre compte à tout moment via l'application (Profil → Compte → Supprimer le compte). La suppression efface définitivement vos données personnelles. Le contenu que vous avez ajouté (lieux, avis) peut être conservé de manière anonyme afin de préserver l'intégrité de la base de données communautaire.",
+        section10_title: "Cookies",
+        section10_text: "L'application mobile n'utilise pas de cookies. Notre site web peut utiliser des cookies essentiels pour son fonctionnement. Nous n'utilisons pas de cookies de suivi ou de publicité.",
+        section11_title: "Sécurité",
+        section11_text: "Nous mettons en œuvre des mesures techniques et organisationnelles appropriées pour protéger vos données, notamment le chiffrement en transit (HTTPS/TLS), le contrôle d'accès basé sur les rôles (Row Level Security) et une authentification sécurisée.",
+        section12_title: "Mineurs",
+        section12_text: "MapPet n'est pas destiné aux enfants de moins de 13 ans. Si vous apprenez qu'un mineur nous a fourni des données personnelles sans consentement parental, contactez-nous afin que nous puissions prendre les mesures appropriées.",
+        section13_title: "Modifications",
+        section13_text: "Nous pouvons mettre à jour cette Politique périodiquement. Lorsque nous le ferons, nous mettrons à jour la date en haut de cette page. Pour les modifications importantes, nous informerons les utilisateurs via l'application.",
+        section14_title: "Contact",
+        section14_text: "Pour toute question de confidentialité ou pour exercer vos droits, contactez-nous à support@mappet.app."
+      }
+    };
+
+    const supported = ['pt', 'en', 'es', 'de', 'fr'];
+
+    function setLanguage(lang) {
+      if (!supported.includes(lang)) lang = 'pt';
+      localStorage.setItem('mappet_lang', lang);
+      document.documentElement.lang = lang;
+
+      const t = translations[lang];
+
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined && typeof t[key] === 'string') {
+          el.textContent = t[key];
+        }
+      });
+
+      document.querySelectorAll('[data-i18n-list]').forEach(function (ul) {
+        const key = ul.getAttribute('data-i18n-list');
+        const items = t[key];
+        if (Array.isArray(items)) {
+          ul.innerHTML = items.map(function (item) {
+            return '<li>' + item + '</li>';
+          }).join('');
+        }
+      });
+
+      if (t.document_title) document.title = t.document_title;
+
+      document.querySelectorAll('.lang-selector a[data-lang]').forEach(function (el) {
+        el.classList.toggle('active', el.getAttribute('data-lang') === lang);
+      });
+
+      return false;
+    }
+
+    (function init() {
+      const stored = localStorage.getItem('mappet_lang');
+      const browserLang = navigator.language.slice(0, 2);
+      const defaultLang = supported.includes(browserLang) ? browserLang : 'pt';
+      const lang = (stored && supported.includes(stored)) ? stored : defaultLang;
+      setLanguage(lang);
+    })();
+  </script>
+</body>
+</html>
