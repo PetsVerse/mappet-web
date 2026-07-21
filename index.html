@@ -37,9 +37,18 @@
       z-index: 20;
       font-size: 13px;
       line-height: 1.4;
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0;
     }
 
     .lang-selector a {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
       text-decoration: none;
       color: var(--muted);
       font-weight: normal;
@@ -55,9 +64,17 @@
       font-weight: bold;
     }
 
+    .lang-selector img {
+      width: 16px;
+      height: 12px;
+      display: block;
+      border-radius: 1px;
+      object-fit: cover;
+    }
+
     .lang-selector .sep {
       color: var(--muted);
-      margin: 0 4px;
+      margin: 0 6px;
       user-select: none;
     }
 
@@ -212,11 +229,11 @@
 </head>
 <body>
   <nav class="lang-selector" aria-label="Language">
-    <a href="#" data-lang="pt" onclick="return setLanguage('pt')">🇵🇹 PT</a><span class="sep">·</span>
-    <a href="#" data-lang="en" onclick="return setLanguage('en')">🇬🇧 EN</a><span class="sep">·</span>
-    <a href="#" data-lang="es" onclick="return setLanguage('es')">🇪🇸 ES</a><span class="sep">·</span>
-    <a href="#" data-lang="de" onclick="return setLanguage('de')">🇩🇪 DE</a><span class="sep">·</span>
-    <a href="#" data-lang="fr" onclick="return setLanguage('fr')">🇫🇷 FR</a>
+    <a href="#" data-lang="pt" onclick="return setLanguage('pt')"><img src="https://flagcdn.com/16x12/pt.png" width="16" height="12" alt="PT"> PT</a><span class="sep">·</span>
+    <a href="#" data-lang="en" onclick="return setLanguage('en')"><img src="https://flagcdn.com/16x12/gb.png" width="16" height="12" alt="EN"> EN</a><span class="sep">·</span>
+    <a href="#" data-lang="es" onclick="return setLanguage('es')"><img src="https://flagcdn.com/16x12/es.png" width="16" height="12" alt="ES"> ES</a><span class="sep">·</span>
+    <a href="#" data-lang="de" onclick="return setLanguage('de')"><img src="https://flagcdn.com/16x12/de.png" width="16" height="12" alt="DE"> DE</a><span class="sep">·</span>
+    <a href="#" data-lang="fr" onclick="return setLanguage('fr')"><img src="https://flagcdn.com/16x12/fr.png" width="16" height="12" alt="FR"> FR</a>
   </nav>
 
   <div class="coming-soon" data-i18n="coming_soon"></div>
