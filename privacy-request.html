@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MapPet — Pedido de Dados</title>
+  <style>
+    :root {
+      --primary: #2d9a4e;
+      --bg: #f8faf8;
+      --text: #1a2e1d;
+      --secondary: #4a6550;
+      --muted: #8fa896;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 72px;
+    }
+
+    .lang-selector {
+      position: fixed;
+      top: 12px;
+      right: 16px;
+      z-index: 20;
+      font-size: 13px;
+      line-height: 1.4;
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0;
+    }
+
+    .lang-selector a {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: normal;
+      transition: color 0.15s ease;
+    }
+
+    .lang-selector a:hover {
+      color: var(--primary);
+    }
+
+    .lang-selector a.active {
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .lang-selector img {
+      width: 16px;
+      height: 12px;
+      display: block;
+      border-radius: 1px;
+      object-fit: cover;
+    }
+
+    .lang-selector .sep {
+      color: var(--muted);
+      margin: 0 6px;
+      user-select: none;
+    }
+
+    .site-header {
+      width: 100%;
+      background: var(--primary);
+      margin-top: 44px;
+      padding: 14px 24px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .site-header a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .site-header a:hover {
+      opacity: 0.9;
+    }
+
+    .container {
+      max-width: 760px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 40px 24px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 32px;
+      color: var(--text);
+      font-weight: bold;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .intro {
+      font-size: 15px;
+      color: var(--secondary);
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+
+    .request-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .request-card {
+      background: #fff;
+      border: 2px solid #e0ebe3;
+      border-radius: 12px;
+      padding: 16px 18px;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+      font-family: inherit;
+      color: inherit;
+      width: 100%;
+    }
+
+    .request-card:hover {
+      border-color: #c5e5cf;
+      background: #f4faf6;
+    }
+
+    .request-card.selected {
+      border-color: var(--primary);
+      background: #e8f5ec;
+      box-shadow: 0 0 0 1px var(--primary);
+    }
+
+    .request-card .card-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .request-card .card-desc {
+      font-size: 14px;
+      color: var(--secondary);
+      line-height: 1.5;
+    }
+
+    .request-card .card-note {
+      display: none;
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--secondary);
+      line-height: 1.45;
+    }
+
+    .request-card.selected .card-note {
+      display: block;
+    }
+
+    .request-card .card-note a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .request-card .card-note a:hover {
+      text-decoration: underline;
+    }
+
+    .form-block {
+      background: #fff;
+      border: 1px solid #e0ebe3;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group:last-of-type {
+      margin-bottom: 22px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      font-family: inherit;
+      font-size: 15px;
+      color: var(--text);
+      background: var(--bg);
+      border: 1px solid #e0ebe3;
+      border-radius: 8px;
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color 0.15s ease;
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary);
+    }
+
+    .form-group textarea {
+      min-height: 110px;
+    }
+
+    .form-error {
+      display: none;
+      margin-top: 8px;
+      font-size: 13px;
+      color: #c2410c;
+    }
+
+    .form-error.visible {
+      display: block;
+    }
+
+    .submit-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 20px;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: opacity 0.15s ease, background 0.15s ease;
+    }
+
+    .submit-btn:hover {
+      opacity: 0.92;
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .info-box {
+      background: #e8f5ec;
+      border: 1px solid #c5e5cf;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      font-size: 15px;
+      color: var(--secondary);
+      line-height: 1.65;
+    }
+
+    .contact-line {
+      font-size: 15px;
+      color: var(--secondary);
+      line-height: 1.65;
+    }
+
+    .contact-line a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .contact-line a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px;
+      text-align: center;
+      background: var(--bg);
+      font-size: 14px;
+      font-family: system-ui, -apple-system, sans-serif;
+      border-top: 1px solid #e0ebe3;
+      z-index: 10;
+    }
+
+    footer a {
+      color: var(--secondary);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    footer .sep {
+      color: var(--muted);
+      margin: 0 8px;
+    }
+
+    @media (max-width: 560px) {
+      .request-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .lang-selector {
+        right: 8px;
+        left: 8px;
+        justify-content: center;
+        top: 8px;
+      }
+
+      .site-header {
+        margin-top: 40px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .form-block {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="lang-selector" aria-label="Language">
+    <a href="#" data-lang="pt" onclick="return setLanguage('pt')"><img src="https://flagcdn.com/16x12/pt.png" width="16" height="12" alt="PT"> PT</a><span class="sep">·</span>
+    <a href="#" data-lang="en" onclick="return setLanguage('en')"><img src="https://flagcdn.com/16x12/gb.png" width="16" height="12" alt="EN"> EN</a><span class="sep">·</span>
+    <a href="#" data-lang="es" onclick="return setLanguage('es')"><img src="https://flagcdn.com/16x12/es.png" width="16" height="12" alt="ES"> ES</a><span class="sep">·</span>
+    <a href="#" data-lang="de" onclick="return setLanguage('de')"><img src="https://flagcdn.com/16x12/de.png" width="16" height="12" alt="DE"> DE</a><span class="sep">·</span>
+    <a href="#" data-lang="fr" onclick="return setLanguage('fr')"><img src="https://flagcdn.com/16x12/fr.png" width="16" height="12" alt="FR"> FR</a>
+  </nav>
+
+  <header class="site-header">
+    <a href="/">🐾 MapPet</a>
+  </header>
+
+  <main class="container">
+    <div class="section-label" data-i18n="section_label"></div>
+    <h1 data-i18n="page_title"></h1>
+    <p class="intro" data-i18n="intro"></p>
+
+    <div class="request-grid" role="radiogroup" aria-label="Request type">
+      <button type="button" class="request-card selected" data-type="access" aria-pressed="true" onclick="selectType('access')">
+        <div class="card-title"><span aria-hidden="true">👁️</span> <span data-i18n="type_access_title"></span></div>
+        <div class="card-desc" data-i18n="type_access_desc"></div>
+      </button>
+      <button type="button" class="request-card" data-type="rectification" aria-pressed="false" onclick="selectType('rectification')">
+        <div class="card-title"><span aria-hidden="true">✏️</span> <span data-i18n="type_rectification_title"></span></div>
+        <div class="card-desc" data-i18n="type_rectification_desc"></div>
+      </button>
+      <button type="button" class="request-card" data-type="portability" aria-pressed="false" onclick="selectType('portability')">
+        <div class="card-title"><span aria-hidden="true">📦</span> <span data-i18n="type_portability_title"></span></div>
+        <div class="card-desc" data-i18n="type_portability_desc"></div>
+      </button>
+      <button type="button" class="request-card" data-type="erasure" aria-pressed="false" onclick="selectType('erasure')">
+        <div class="card-title"><span aria-hidden="true">🗑️</span> <span data-i18n="type_erasure_title"></span></div>
+        <div class="card-desc" data-i18n="type_erasure_desc"></div>
+        <div class="card-note">
+          <span data-i18n="type_erasure_note"></span>
+          <a href="/delete-account.html" data-i18n="type_erasure_link"></a>
+        </div>
+      </button>
+    </div>
+
+    <form class="form-block" id="request-form" onsubmit="return submitRequest(event)">
+      <input type="hidden" id="request-type" name="request_type" value="access">
+
+      <div class="form-group">
+        <label for="email" data-i18n="email_label"></label>
+        <input type="email" id="email" name="email" required placeholder="email@exemplo.com" autocomplete="email">
+        <div class="form-error" id="email-error" data-i18n="email_error"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="details" data-i18n="details_label"></label>
+        <textarea id="details" name="details" maxlength="1000" data-i18n-placeholder="details_placeholder"></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn" data-i18n="submit"></button>
+    </form>
+
+    <div class="info-box" data-i18n="response_time"></div>
+
+    <p class="contact-line">
+      <span data-i18n="contact_text"></span>
+      <a href="mailto:support@mappet.app">support@mappet.app</a>
+    </p>
+  </main>
+
+  <footer>
+    <a href="/privacy.html" data-i18n="privacy"></a><span class="sep">·</span>
+    <a href="/terms.html" data-i18n="terms"></a><span class="sep">·</span>
+    <a href="/cookies.html" data-i18n="cookies"></a><span class="sep">·</span>
+    <a href="/privacy-request.html" data-i18n="privacy_request"></a><span class="sep">·</span>
+    <a href="/delete-account.html" data-i18n="delete_account"></a><span class="sep">·</span>
+    <a href="mailto:support@mappet.app" data-i18n="support"></a>
+  </footer>
+
+  <script>
+    const translations = {
+      pt: {
+        page_title: "Pedido de Dados Pessoais / Personal Data Request",
+        document_title: "MapPet — Pedido de Dados",
+        section_label: "RGPD / GDPR",
+        intro: "Ao abrigo do RGPD, tens direito a aceder, corrigir, exportar ou eliminar os teus dados pessoais. Selecciona o tipo de pedido abaixo.",
+        type_access_title: "Acesso",
+        type_access_desc: "Receber uma cópia de todos os dados que temos sobre ti",
+        type_rectification_title: "Rectificação",
+        type_rectification_desc: "Corrigir dados incorrectos ou incompletos",
+        type_portability_title: "Portabilidade",
+        type_portability_desc: "Receber os teus dados num formato estruturado (JSON)",
+        type_erasure_title: "Eliminação",
+        type_erasure_desc: "Solicitar a eliminação permanente dos teus dados",
+        type_erasure_note: "Para processamento mais rápido: ",
+        type_erasure_link: "eliminar conta",
+        email_label: "Email associado à tua conta",
+        email_error: "Selecciona um tipo de pedido e indica um email válido.",
+        details_label: "Detalhes adicionais (opcional)",
+        details_placeholder: "Descreve o teu pedido com mais detalhe...",
+        submit: "Enviar pedido",
+        response_time: "✓ Respondemos a todos os pedidos RGPD em até 30 dias, conforme exigido por lei.",
+        contact_text: "Preferes contactar directamente? Envia um email para",
+        mailto_type_label: "Tipo de pedido",
+        mailto_email_label: "Email",
+        mailto_details_label: "Detalhes",
+        mailto_details_none: "(nenhum)",
+        type_labels: {
+          access: "Acesso",
+          rectification: "Rectificação",
+          portability: "Portabilidade",
+          erasure: "Eliminação"
+        },
+        privacy: "Privacidade",
+        terms: "Termos",
+        cookies: "Cookies",
+        privacy_request: "Dados pessoais",
+        delete_account: "Eliminar conta",
+        support: "Suporte"
+      },
+      en: {
+        page_title: "Personal Data Request",
+        document_title: "MapPet — Data Request",
+        section_label: "GDPR",
+        intro: "Under GDPR, you have the right to access, correct, export or delete your personal data. Select the type of request below.",
+        type_access_title: "Access",
+        type_access_desc: "Receive a copy of all data we hold about you",
+        type_rectification_title: "Rectification",
+        type_rectification_desc: "Correct inaccurate or incomplete data",
+        type_portability_title: "Portability",
+        type_portability_desc: "Receive your data in a structured format (JSON)",
+        type_erasure_title: "Erasure",
+        type_erasure_desc: "Request permanent deletion of your data",
+        type_erasure_note: "For faster processing: ",
+        type_erasure_link: "delete account",
+        email_label: "Email associated with your account",
+        email_error: "Select a request type and enter a valid email.",
+        details_label: "Additional details (optional)",
+        details_placeholder: "Describe your request in more detail...",
+        submit: "Submit request",
+        response_time: "✓ We respond to all GDPR requests within 30 days, as required by law.",
+        contact_text: "Prefer to contact us directly? Send an email to",
+        mailto_type_label: "Request type",
+        mailto_email_label: "Email",
+        mailto_details_label: "Details",
+        mailto_details_none: "(none)",
+        type_labels: {
+          access: "Access",
+          rectification: "Rectification",
+          portability: "Portability",
+          erasure: "Erasure"
+        },
+        privacy: "Privacy",
+        terms: "Terms",
+        cookies: "Cookies",
+        privacy_request: "Personal data",
+        delete_account: "Delete account",
+        support: "Support"
+      },
+      es: {
+        page_title: "Solicitud de Datos Personales",
+        document_title: "MapPet — Solicitud de Datos",
+        section_label: "RGPD",
+        intro: "En virtud del RGPD, tienes derecho a acceder, corregir, exportar o eliminar tus datos personales. Selecciona el tipo de solicitud a continuación.",
+        type_access_title: "Acceso",
+        type_access_desc: "Recibir una copia de todos los datos que tenemos sobre ti",
+        type_rectification_title: "Rectificación",
+        type_rectification_desc: "Corregir datos incorrectos o incompletos",
+        type_portability_title: "Portabilidad",
+        type_portability_desc: "Recibir tus datos en un formato estructurado (JSON)",
+        type_erasure_title: "Supresión",
+        type_erasure_desc: "Solicitar la eliminación permanente de tus datos",
+        type_erasure_note: "Para un procesamiento más rápido: ",
+        type_erasure_link: "eliminar cuenta",
+        email_label: "Email asociado a tu cuenta",
+        email_error: "Selecciona un tipo de solicitud e indica un email válido.",
+        details_label: "Detalles adicionales (opcional)",
+        details_placeholder: "Describe tu solicitud con más detalle...",
+        submit: "Enviar solicitud",
+        response_time: "✓ Respondemos a todas las solicitudes RGPD en un plazo de 30 días, según exige la ley.",
+        contact_text: "¿Prefieres contactarnos directamente? Envía un email a",
+        mailto_type_label: "Tipo de solicitud",
+        mailto_email_label: "Email",
+        mailto_details_label: "Detalles",
+        mailto_details_none: "(ninguno)",
+        type_labels: {
+          access: "Acceso",
+          rectification: "Rectificación",
+          portability: "Portabilidad",
+          erasure: "Supresión"
+        },
+        privacy: "Privacidad",
+        terms: "Términos",
+        cookies: "Cookies",
+        privacy_request: "Datos personales",
+        delete_account: "Eliminar cuenta",
+        support: "Soporte"
+      },
+      de: {
+        page_title: "Antrag auf personenbezogene Daten",
+        document_title: "MapPet — Datenanfrage",
+        section_label: "DSGVO",
+        intro: "Gemäß der DSGVO hast du das Recht, deine personenbezogenen Daten einzusehen, zu berichtigen, zu exportieren oder zu löschen. Wähle unten die Art der Anfrage aus.",
+        type_access_title: "Auskunft",
+        type_access_desc: "Eine Kopie aller Daten erhalten, die wir über dich speichern",
+        type_rectification_title: "Berichtigung",
+        type_rectification_desc: "Unrichtige oder unvollständige Daten korrigieren",
+        type_portability_title: "Datenübertragbarkeit",
+        type_portability_desc: "Deine Daten in einem strukturierten Format (JSON) erhalten",
+        type_erasure_title: "Löschung",
+        type_erasure_desc: "Die dauerhafte Löschung deiner Daten beantragen",
+        type_erasure_note: "Für eine schnellere Bearbeitung: ",
+        type_erasure_link: "Konto löschen",
+        email_label: "E-Mail, die mit deinem Konto verknüpft ist",
+        email_error: "Wähle eine Anfrageart und gib eine gültige E-Mail ein.",
+        details_label: "Zusätzliche Details (optional)",
+        details_placeholder: "Beschreibe deine Anfrage ausführlicher...",
+        submit: "Anfrage senden",
+        response_time: "✓ Wir beantworten alle DSGVO-Anfragen innerhalb von 30 Tagen, wie gesetzlich vorgeschrieben.",
+        contact_text: "Lieber direkt kontaktieren? Sende eine E-Mail an",
+        mailto_type_label: "Art der Anfrage",
+        mailto_email_label: "E-Mail",
+        mailto_details_label: "Details",
+        mailto_details_none: "(keine)",
+        type_labels: {
+          access: "Auskunft",
+          rectification: "Berichtigung",
+          portability: "Datenübertragbarkeit",
+          erasure: "Löschung"
+        },
+        privacy: "Datenschutz",
+        terms: "Nutzungsbedingungen",
+        cookies: "Cookies",
+        privacy_request: "Personenbezogene Daten",
+        delete_account: "Konto löschen",
+        support: "Support"
+      },
+      fr: {
+        page_title: "Demande de Données Personnelles",
+        document_title: "MapPet — Demande de Données",
+        section_label: "RGPD",
+        intro: "En vertu du RGPD, vous avez le droit d'accéder, de corriger, d'exporter ou de supprimer vos données personnelles. Sélectionnez le type de demande ci-dessous.",
+        type_access_title: "Accès",
+        type_access_desc: "Recevoir une copie de toutes les données que nous détenons sur vous",
+        type_rectification_title: "Rectification",
+        type_rectification_desc: "Corriger des données inexactes ou incomplètes",
+        type_portability_title: "Portabilité",
+        type_portability_desc: "Recevoir vos données dans un format structuré (JSON)",
+        type_erasure_title: "Effacement",
+        type_erasure_desc: "Demander la suppression permanente de vos données",
+        type_erasure_note: "Pour un traitement plus rapide : ",
+        type_erasure_link: "supprimer le compte",
+        email_label: "Email associé à votre compte",
+        email_error: "Sélectionnez un type de demande et indiquez un email valide.",
+        details_label: "Détails supplémentaires (optionnel)",
+        details_placeholder: "Décrivez votre demande plus en détail...",
+        submit: "Envoyer la demande",
+        response_time: "✓ Nous répondons à toutes les demandes RGPD dans un délai de 30 jours, comme l'exige la loi.",
+        contact_text: "Vous préférez nous contacter directement ? Envoyez un email à",
+        mailto_type_label: "Type de demande",
+        mailto_email_label: "Email",
+        mailto_details_label: "Détails",
+        mailto_details_none: "(aucun)",
+        type_labels: {
+          access: "Accès",
+          rectification: "Rectification",
+          portability: "Portabilité",
+          erasure: "Effacement"
+        },
+        privacy: "Confidentialité",
+        terms: "Conditions",
+        cookies: "Cookies",
+        privacy_request: "Données personnelles",
+        delete_account: "Supprimer le compte",
+        support: "Support"
+      }
+    };
+
+    const supported = ['pt', 'en', 'es', 'de', 'fr'];
+    let currentLang = 'pt';
+    let selectedType = 'access';
+
+    function selectType(type) {
+      selectedType = type;
+      document.getElementById('request-type').value = type;
+      document.querySelectorAll('.request-card').forEach(function (card) {
+        const isSelected = card.getAttribute('data-type') === type;
+        card.classList.toggle('selected', isSelected);
+        card.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+      });
+      document.getElementById('email-error').classList.remove('visible');
+    }
+
+    function submitRequest(event) {
+      event.preventDefault();
+      const t = translations[currentLang];
+      const email = document.getElementById('email').value.trim();
+      const details = document.getElementById('details').value.trim();
+      const errorEl = document.getElementById('email-error');
+
+      if (!selectedType || !email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        errorEl.classList.add('visible');
+        return false;
+      }
+
+      errorEl.classList.remove('visible');
+
+      const typeLabel = t.type_labels[selectedType] || selectedType;
+      const subject = 'RGPD - ' + typeLabel + ' - ' + email;
+      const body = [
+        t.mailto_type_label + ': ' + typeLabel,
+        t.mailto_email_label + ': ' + email,
+        t.mailto_details_label + ': ' + (details || t.mailto_details_none)
+      ].join('\n');
+
+      const mailto = 'mailto:support@mappet.app'
+        + '?subject=' + encodeURIComponent(subject)
+        + '&body=' + encodeURIComponent(body);
+
+      window.location.href = mailto;
+      return false;
+    }
+
+    function setLanguage(lang) {
+      if (!supported.includes(lang)) lang = 'pt';
+      currentLang = lang;
+      localStorage.setItem('mappet_lang', lang);
+      document.documentElement.lang = lang;
+
+      const t = translations[lang];
+
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined && typeof t[key] === 'string') {
+          el.textContent = t[key];
+        }
+      });
+
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (t[key] !== undefined) el.setAttribute('placeholder', t[key]);
+      });
+
+      if (t.document_title) document.title = t.document_title;
+
+      document.querySelectorAll('.lang-selector a[data-lang]').forEach(function (el) {
+        el.classList.toggle('active', el.getAttribute('data-lang') === lang);
+      });
+
+      return false;
+    }
+
+    (function init() {
+      const stored = localStorage.getItem('mappet_lang');
+      const browserLang = navigator.language.slice(0, 2);
+      const defaultLang = supported.includes(browserLang) ? browserLang : 'pt';
+      const lang = (stored && supported.includes(stored)) ? stored : defaultLang;
+      setLanguage(lang);
+      selectType('access');
+    })();
+  </script>
+</body>
+</html>
