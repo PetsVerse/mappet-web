@@ -1,10 +1,10 @@
-[
-  {
-    "relation": ["delegate_permission/common.handle_all_urls"],
-    "target": {
-      "namespace": "android_app",
-      "package_name": "com.savagesimplicity.mappet",
-      "sha256_cert_fingerprints": ["PLACEHOLDER_SHA256"]
-    }
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.savagesimplicity.mappet",
+    "sha256_cert_fingerprints": [
+      "C3:3F:DB:1B:CC:9D:77:E3:0F:53:3D:5B:F0:86:E9:43:1B:06:42:BF:36:6A:CF:0F:D4:BE:83:D3:2B:7B:2C:18"
+    ]
   }
-]
+}]
