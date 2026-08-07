@@ -81,14 +81,20 @@
       user-select: none;
     }
 
-    .main {
+    .page {
       flex: 1;
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      text-align: center;
       padding: 80px 24px 100px;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
       max-width: 560px;
       width: 100%;
     }
@@ -121,8 +127,79 @@
       color: var(--secondary);
       max-width: 400px;
       line-height: 1.5;
-      margin-bottom: 32px;
+      margin-bottom: 0;
       font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .features {
+      max-width: 800px;
+      width: 100%;
+      margin: 48px auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: #f8faf8;
+      border: 1px solid #e0ebe3;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .feature-icon {
+      font-size: 28px;
+      line-height: 1;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .feature-card h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--secondary);
+    }
+
+    .about {
+      max-width: 600px;
+      width: 100%;
+      margin: 48px auto;
+      text-align: center;
+    }
+
+    .about h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+      font-family: system-ui, -apple-system, sans-serif;
+      font-style: normal;
+    }
+
+    .about p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #4a6550;
+      font-style: italic;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-top: 16px;
     }
 
     .store-buttons {
@@ -190,6 +267,12 @@
       margin: 0 8px;
     }
 
+    @media (max-width: 600px) {
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (max-width: 480px) {
       .lang-selector {
         right: 8px;
@@ -198,7 +281,7 @@
         top: 8px;
       }
 
-      .main {
+      .page {
         padding-top: 72px;
       }
     }
@@ -213,22 +296,50 @@
     <a href="#" data-lang="fr" onclick="return setLanguage('fr')"><img src="https://flagcdn.com/16x12/fr.png" width="16" height="12" alt="FR"> FR</a>
   </nav>
 
-  <main class="main">
-    <img class="app-icon" src="/android-chrome-192x192.png" width="192" height="192" alt="MapPet">
-    <h1>MapPet</h1>
-    <p class="tagline" data-i18n="tagline"></p>
-    <div class="store-buttons">
-      <a href="https://play.google.com/store/apps/details?id=com.savagesimplicity.mappet"
-         target="_blank" rel="noopener noreferrer">
-        <img
-          src="https://play.google.com/intl/en_us/badges/static/images/badges/pt_badge_web_generic.png"
-          alt="Disponível no Google Play"
-          style="height: 60px;"
-        />
-      </a>
-    </div>
-    <div class="availability" data-i18n="availability"></div>
-  </main>
+  <div class="page">
+    <section class="hero">
+      <img class="app-icon" src="/android-chrome-192x192.png" width="192" height="192" alt="MapPet">
+      <h1>MapPet</h1>
+      <p class="tagline" data-i18n="tagline"></p>
+    </section>
+
+    <section class="features" aria-label="Features">
+      <article class="feature-card">
+        <span class="feature-icon" aria-hidden="true">🗺️</span>
+        <h2 data-i18n="feature1_title"></h2>
+        <p data-i18n="feature1_text"></p>
+      </article>
+      <article class="feature-card">
+        <span class="feature-icon" aria-hidden="true">✓</span>
+        <h2 data-i18n="feature2_title"></h2>
+        <p data-i18n="feature2_text"></p>
+      </article>
+      <article class="feature-card">
+        <span class="feature-icon" aria-hidden="true">📍</span>
+        <h2 data-i18n="feature3_title"></h2>
+        <p data-i18n="feature3_text"></p>
+      </article>
+    </section>
+
+    <section class="about">
+      <h2 data-i18n="about_title"></h2>
+      <p data-i18n="about_text"></p>
+    </section>
+
+    <section class="cta">
+      <div class="store-buttons">
+        <a href="https://play.google.com/store/apps/details?id=com.savagesimplicity.mappet"
+           target="_blank" rel="noopener noreferrer">
+          <img
+            src="https://play.google.com/intl/en_us/badges/static/images/badges/pt_badge_web_generic.png"
+            alt="Disponível no Google Play"
+            style="height: 60px;"
+          />
+        </a>
+      </div>
+      <div class="availability" data-i18n="availability"></div>
+    </section>
+  </div>
 
   <footer>
     <a href="/privacy.html" data-i18n="privacy"></a><span class="sep">·</span>
@@ -243,7 +354,15 @@
   <script>
     const translations = {
       pt: {
-        tagline: "Descobre cafés, parques, praias e muito mais locais que aceitam o teu animal de estimação.",
+        tagline: "O mapa pet-friendly feito pela comunidade",
+        feature1_title: "Descobre locais pet-friendly",
+        feature1_text: "Mais de 8.000 locais em Portugal — parques, cafés, praias, restaurantes e muito mais que aceitam o teu animal.",
+        feature2_title: "Confirmado pela comunidade",
+        feature2_text: "Cada local é verificado por tutores reais. Votes, comentários e fotos da comunidade ajudam-te a escolher melhor.",
+        feature3_title: "Contribui para a comunidade",
+        feature3_text: "Conheces um local pet-friendly que não está no mapa? Adiciona-o e ajuda outros tutores a descobri-lo.",
+        about_title: "Sobre o projeto",
+        about_text: "O MapPet nasceu da experiência de um veterinário português com 18 anos de clínica. Todos os dias via tutores preocupados que não sabiam onde podiam ir com os seus animais. Criei o MapPet para mudar isso — um guia honesto, feito pela comunidade, de locais que realmente aceitam os nossos animais de estimação.",
         privacy: "Privacidade",
         terms: "Termos",
         cookies: "Cookies",
@@ -254,7 +373,15 @@
         availability: "📍 Disponível em Portugal 🇵🇹 · A expandir para mais países em breve"
       },
       en: {
-        tagline: "Discover cafés, parks, beaches and many more places that welcome your pet.",
+        tagline: "The pet-friendly map made by the community",
+        feature1_title: "Discover pet-friendly places",
+        feature1_text: "Over 8,000 places in Portugal — parks, cafés, beaches, restaurants and much more that welcome your pet.",
+        feature2_title: "Confirmed by the community",
+        feature2_text: "Every place is verified by real pet owners. Votes, comments and community photos help you choose better.",
+        feature3_title: "Contribute to the community",
+        feature3_text: "Know a pet-friendly place that isn't on the map? Add it and help other pet owners discover it.",
+        about_title: "About the project",
+        about_text: "MapPet was born from the experience of a Portuguese vet with 18 years in practice. Every day I saw worried pet owners who didn't know where they could go with their animals. I created MapPet to change that — an honest guide, made by the community, of places that truly welcome our pets.",
         privacy: "Privacy",
         terms: "Terms",
         cookies: "Cookies",
@@ -265,7 +392,15 @@
         availability: "📍 Available in Portugal 🇵🇹 · Expanding to more countries soon"
       },
       es: {
-        tagline: "Descubre cafés, parques, playas y muchos más lugares que aceptan a tu mascota.",
+        tagline: "El mapa pet-friendly hecho por la comunidad",
+        feature1_title: "Descubre lugares pet-friendly",
+        feature1_text: "Más de 8.000 lugares en Portugal — parques, cafés, playas, restaurantes y mucho más que aceptan a tu mascota.",
+        feature2_title: "Confirmado por la comunidad",
+        feature2_text: "Cada lugar es verificado por tutores reales. Votos, comentarios y fotos de la comunidad te ayudan a elegir mejor.",
+        feature3_title: "Contribuye a la comunidad",
+        feature3_text: "¿Conoces un lugar pet-friendly que no está en el mapa? Añádelo y ayuda a otros tutores a descubrirlo.",
+        about_title: "Sobre el proyecto",
+        about_text: "MapPet nació de la experiencia de un veterinario portugués con 18 años de clínica. Cada día veía tutores preocupados que no sabían adónde podían ir con sus animales. Creé MapPet para cambiar eso — una guía honesta, hecha por la comunidad, de lugares que realmente aceptan a nuestras mascotas.",
         privacy: "Privacidad",
         terms: "Términos",
         cookies: "Cookies",
@@ -276,7 +411,15 @@
         availability: "📍 Disponible en Portugal 🇵🇹 · Próximamente en más países"
       },
       de: {
-        tagline: "Entdecke Cafés, Parks, Strände und viele weitere Orte, die dein Haustier willkommen heißen.",
+        tagline: "Die tierfreundliche Karte von der Community",
+        feature1_title: "Entdecke tierfreundliche Orte",
+        feature1_text: "Über 8.000 Orte in Portugal — Parks, Cafés, Strände, Restaurants und vieles mehr, die dein Haustier willkommen heißen.",
+        feature2_title: "Von der Community bestätigt",
+        feature2_text: "Jeder Ort wird von echten Tierhaltern verifiziert. Stimmen, Kommentare und Community-Fotos helfen dir, besser zu wählen.",
+        feature3_title: "Trage zur Community bei",
+        feature3_text: "Kennst du einen tierfreundlichen Ort, der nicht auf der Karte ist? Füge ihn hinzu und hilf anderen Tierhaltern, ihn zu entdecken.",
+        about_title: "Über das Projekt",
+        about_text: "MapPet entstand aus der Erfahrung eines portugiesischen Tierarztes mit 18 Jahren Praxis. Jeden Tag sah ich besorgte Tierhalter, die nicht wussten, wohin sie mit ihren Tieren gehen konnten. Ich habe MapPet gegründet, um das zu ändern — ein ehrlicher Leitfaden, von der Community erstellt, mit Orten, die unsere Haustiere wirklich willkommen heißen.",
         privacy: "Datenschutz",
         terms: "Nutzungsbedingungen",
         cookies: "Cookies",
@@ -287,7 +430,15 @@
         availability: "📍 Verfügbar in Portugal 🇵🇹 · Bald in weiteren Ländern"
       },
       fr: {
-        tagline: "Découvrez des cafés, parcs, plages et bien d'autres endroits qui accueillent votre animal.",
+        tagline: "La carte pet-friendly faite par la communauté",
+        feature1_title: "Découvrez des lieux pet-friendly",
+        feature1_text: "Plus de 8 000 lieux au Portugal — parcs, cafés, plages, restaurants et bien plus qui accueillent votre animal.",
+        feature2_title: "Confirmé par la communauté",
+        feature2_text: "Chaque lieu est vérifié par de vrais propriétaires. Votes, commentaires et photos de la communauté vous aident à mieux choisir.",
+        feature3_title: "Contribuez à la communauté",
+        feature3_text: "Vous connaissez un lieu pet-friendly qui n'est pas sur la carte ? Ajoutez-le et aidez d'autres propriétaires à le découvrir.",
+        about_title: "À propos du projet",
+        about_text: "MapPet est né de l'expérience d'un vétérinaire portugais avec 18 ans de pratique. Chaque jour, je voyais des propriétaires d'animaux inquiets qui ne savaient pas où ils pouvaient aller avec leurs animaux. J'ai créé MapPet pour changer cela — un guide honnête, fait par la communauté, de lieux qui accueillent vraiment nos animaux.",
         privacy: "Confidentialité",
         terms: "Conditions",
         cookies: "Cookies",
