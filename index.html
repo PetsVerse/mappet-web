@@ -11,7 +11,6 @@
       --text: #1a2e1d;
       --secondary: #4a6550;
       --muted: #8fa896;
-      --coming-soon: #f97316;
     }
 
     * {
@@ -78,20 +77,6 @@
       user-select: none;
     }
 
-    .coming-soon {
-      position: fixed;
-      top: 44px;
-      left: 0;
-      right: 0;
-      z-index: 15;
-      background: var(--coming-soon);
-      color: #fff;
-      font-size: 14px;
-      text-align: center;
-      padding: 10px 16px;
-      font-family: system-ui, -apple-system, sans-serif;
-    }
-
     .main {
       flex: 1;
       display: flex;
@@ -99,7 +84,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 120px 24px 100px;
+      padding: 80px 24px 100px;
       max-width: 560px;
       width: 100%;
     }
@@ -138,25 +123,24 @@
       gap: 12px;
       flex-wrap: wrap;
       justify-content: center;
+      align-items: center;
       margin-bottom: 20px;
     }
 
-    .store-btn {
+    .store-buttons a {
       display: inline-block;
-      background: var(--primary);
-      color: #fff;
-      text-decoration: none;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 600;
-      font-family: system-ui, -apple-system, sans-serif;
-      transition: transform 0.15s ease, background 0.15s ease;
+      line-height: 0;
+      transition: transform 0.15s ease;
     }
 
-    .store-btn:hover {
-      background: #248a42;
+    .store-buttons a:hover {
       transform: translateY(-2px);
+    }
+
+    .store-buttons img {
+      height: 60px;
+      width: auto;
+      display: block;
     }
 
     .availability {
@@ -207,22 +191,8 @@
         top: 8px;
       }
 
-      .coming-soon {
-        top: 40px;
-        font-size: 13px;
-      }
-
       .main {
-        padding-top: 110px;
-      }
-
-      .store-buttons {
-        flex-direction: column;
-        width: 100%;
-      }
-
-      .store-btn {
-        width: 100%;
+        padding-top: 72px;
       }
     }
   </style>
@@ -236,15 +206,19 @@
     <a href="#" data-lang="fr" onclick="return setLanguage('fr')"><img src="https://flagcdn.com/16x12/fr.png" width="16" height="12" alt="FR"> FR</a>
   </nav>
 
-  <div class="coming-soon" data-i18n="coming_soon"></div>
-
   <main class="main">
     <div class="paw" aria-hidden="true">🐾</div>
     <h1>MapPet</h1>
     <p class="tagline" data-i18n="tagline"></p>
     <div class="store-buttons">
-      <a class="store-btn" href="https://apps.apple.com" data-i18n="appstore" target="_blank" rel="noopener noreferrer"></a>
-      <a class="store-btn" href="https://play.google.com" data-i18n="playstore" target="_blank" rel="noopener noreferrer"></a>
+      <a href="https://play.google.com/store/apps/details?id=com.savagesimplicity.mappet"
+         target="_blank" rel="noopener noreferrer">
+        <img
+          src="https://play.google.com/intl/en_us/badges/static/images/badges/pt_badge_web_generic.png"
+          alt="Disponível no Google Play"
+          style="height: 60px;"
+        />
+      </a>
     </div>
     <div class="availability" data-i18n="availability"></div>
   </main>
@@ -263,8 +237,6 @@
     const translations = {
       pt: {
         tagline: "Descobre cafés, parques, praias e muito mais locais que aceitam o teu animal de estimação.",
-        appstore: "App Store",
-        playstore: "Google Play",
         privacy: "Privacidade",
         terms: "Termos",
         cookies: "Cookies",
@@ -272,13 +244,10 @@
         privacy_request: "Dados pessoais",
         delete_account: "Eliminar conta",
         support: "Suporte",
-        coming_soon: "🚀 Em desenvolvimento — brevemente disponível nas stores",
-        availability: "📍 Disponível em Portugal · A expandir para mais países em breve"
+        availability: "📍 Disponível em Portugal 🇵🇹 · A expandir para mais países em breve"
       },
       en: {
         tagline: "Discover cafés, parks, beaches and many more places that welcome your pet.",
-        appstore: "App Store",
-        playstore: "Google Play",
         privacy: "Privacy",
         terms: "Terms",
         cookies: "Cookies",
@@ -286,13 +255,10 @@
         privacy_request: "Personal data",
         delete_account: "Delete account",
         support: "Support",
-        coming_soon: "🚀 In development — coming soon to the app stores",
-        availability: "📍 Available in Portugal · Expanding to more countries soon"
+        availability: "📍 Available in Portugal 🇵🇹 · Expanding to more countries soon"
       },
       es: {
         tagline: "Descubre cafés, parques, playas y muchos más lugares que aceptan a tu mascota.",
-        appstore: "App Store",
-        playstore: "Google Play",
         privacy: "Privacidad",
         terms: "Términos",
         cookies: "Cookies",
@@ -300,13 +266,10 @@
         privacy_request: "Datos personales",
         delete_account: "Eliminar cuenta",
         support: "Soporte",
-        coming_soon: "🚀 En desarrollo — próximamente en las tiendas de apps",
-        availability: "📍 Disponible en Portugal · Próximamente en más países"
+        availability: "📍 Disponible en Portugal 🇵🇹 · Próximamente en más países"
       },
       de: {
         tagline: "Entdecke Cafés, Parks, Strände und viele weitere Orte, die dein Haustier willkommen heißen.",
-        appstore: "App Store",
-        playstore: "Google Play",
         privacy: "Datenschutz",
         terms: "Nutzungsbedingungen",
         cookies: "Cookies",
@@ -314,13 +277,10 @@
         privacy_request: "Personenbezogene Daten",
         delete_account: "Konto löschen",
         support: "Support",
-        coming_soon: "🚀 In Entwicklung — bald in den App Stores verfügbar",
-        availability: "📍 Verfügbar in Portugal · Bald in weiteren Ländern"
+        availability: "📍 Verfügbar in Portugal 🇵🇹 · Bald in weiteren Ländern"
       },
       fr: {
         tagline: "Découvrez des cafés, parcs, plages et bien d'autres endroits qui accueillent votre animal.",
-        appstore: "App Store",
-        playstore: "Google Play",
         privacy: "Confidentialité",
         terms: "Conditions",
         cookies: "Cookies",
@@ -328,8 +288,7 @@
         privacy_request: "Données personnelles",
         delete_account: "Supprimer le compte",
         support: "Support",
-        coming_soon: "🚀 En développement — bientôt disponible sur les stores",
-        availability: "📍 Disponible au Portugal · Bientôt dans d'autres pays"
+        availability: "📍 Disponible au Portugal 🇵🇹 · Bientôt dans d'autres pays"
       }
     };
 
