@@ -85,7 +85,7 @@
     <p>A redirecionar para a app...</p>
   </div>
 
-  <!-- STATE 3: Success - iOS (manual tap required) -->
+  <!-- STATE 3: Success - iOS (manual tap required — Universal Link) -->
   <div class="card hidden" id="state-success-ios">
     <div class="emoji">✅</div>
     <h1>Email verificado!</h1>
@@ -127,7 +127,7 @@
 
   <script>
     function isIOS() {
-      return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      return /iphone|ipad|ipod/i.test(navigator.userAgent);
     }
 
     function show(id) {
@@ -137,14 +137,31 @@
       document.getElementById(id).classList.remove('hidden');
     }
 
+    function buildDeepLink(accessToken, refreshToken, type) {
+      if (isIOS()) {
+        // Universal Link — opens the app via associatedDomains
+        var url = 'https://mappet.app/auth/callback?type=' + encodeURIComponent(type);
+        if (accessToken) url += '&access_token=' + encodeURIComponent(accessToken);
+        if (refreshToken) url += '&refresh_token=' + encodeURIComponent(refreshToken);
+        return url;
+      }
+      // Android custom scheme
+      if (accessToken && refreshToken) {
+        return 'mappet://auth#access_token=' + encodeURIComponent(accessToken) +
+          '&refresh_token=' + encodeURIComponent(refreshToken) +
+          '&type=' + encodeURIComponent(type);
+      }
+      return 'mappet://auth';
+    }
+
     window.addEventListener('DOMContentLoaded', function () {
       var hash = window.location.hash || '';
       var search = window.location.search || '';
-      
+
       // Supabase can send tokens in hash or query string
       var paramStr = hash.replace('#', '') || search.replace('?', '');
       var params = new URLSearchParams(paramStr);
-      
+
       var accessToken = params.get('access_token');
       var refreshToken = params.get('refresh_token');
       var type = params.get('type') || 'signup';
@@ -162,38 +179,22 @@
         return;
       }
 
-      if (accessToken && refreshToken) {
-        var deepLink = 'mappet://auth#access_token=' + encodeURIComponent(accessToken) +
-          '&refresh_token=' + encodeURIComponent(refreshToken) +
-          '&type=' + encodeURIComponent(type);
+      var deepLink = buildDeepLink(accessToken, refreshToken, type);
 
-        if (isIOS()) {
-          // iOS: show button, user must tap manually
-          show('state-success-ios');
-          var btn = document.getElementById('open-btn');
-          if (btn) btn.href = deepLink;
-        } else {
-          // Android: auto-redirect works
-          show('state-success-android');
-          setTimeout(function() {
-            window.location.href = deepLink;
-          }, 1000);
-        }
+      if (isIOS()) {
+        // iOS: show button with Universal Link — user must tap
+        // No mappet:// fallback timeout
+        show('state-success-ios');
+        var btn = document.getElementById('open-btn');
+        if (btn) btn.href = deepLink;
         return;
       }
 
-      // No tokens in URL — show generic success
-      // (Supabase may have already confirmed server-side)
-      if (isIOS()) {
-        show('state-success-ios');
-        var btn = document.getElementById('open-btn');
-        if (btn) btn.href = 'mappet://auth';
-      } else {
-        show('state-success-android');
-        setTimeout(function() {
-          window.location.href = 'mappet://auth';
-        }, 1000);
-      }
+      // Android: auto-redirect via custom scheme
+      show('state-success-android');
+      setTimeout(function() {
+        window.location.href = deepLink;
+      }, 1000);
     });
   </script>
 
