@@ -5,7 +5,6 @@
       {
         "appID": "32N46GA7P6.com.savagesimplicity.mappet",
         "paths": [
-          "/auth/callback",
           "/auth/*",
           "/download",
           "/"

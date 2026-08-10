@@ -85,7 +85,7 @@
     <p>A redirecionar para a app...</p>
   </div>
 
-  <!-- STATE 3: Success - iOS (manual tap required — Universal Link) -->
+  <!-- STATE 3: Success - iOS (button + auto-redirect via custom scheme) -->
   <div class="card hidden" id="state-success-ios">
     <div class="emoji">✅</div>
     <h1>Email verificado!</h1>
@@ -148,20 +148,12 @@
     }
 
     function buildDeepLink(accessToken, refreshToken, type) {
-      if (isIOS()) {
-        // Universal Link — opens the app via associatedDomains
-        var url = 'https://mappet.app/auth/callback?type=' + encodeURIComponent(type);
-        if (accessToken) url += '&access_token=' + encodeURIComponent(accessToken);
-        if (refreshToken) url += '&refresh_token=' + encodeURIComponent(refreshToken);
-        return url;
-      }
-      // Android custom scheme
       if (accessToken && refreshToken) {
         return 'mappet://auth#access_token=' + encodeURIComponent(accessToken) +
           '&refresh_token=' + encodeURIComponent(refreshToken) +
-          '&type=' + encodeURIComponent(type);
+          '&type=' + encodeURIComponent(type || 'signup');
       }
-      return 'mappet://auth#type=' + encodeURIComponent(type);
+      return 'mappet://auth';
     }
 
     function isUserAlreadyExists(errorCode, error, errorDescription) {
@@ -212,16 +204,14 @@
       var deepLink = buildDeepLink(accessToken, refreshToken, type);
 
       if (isIOS()) {
-        // iOS: show button with Universal Link — user must tap
-        // No mappet:// fallback timeout
         show('state-success-ios');
         var btn = document.getElementById('open-btn');
         if (btn) btn.href = deepLink;
-        return;
+      } else {
+        show('state-success-android');
       }
 
-      // Android: auto-redirect via custom scheme
-      show('state-success-android');
+      // Custom scheme: auto-redirect on all platforms after 1s
       setTimeout(function() {
         window.location.href = deepLink;
       }, 1000);
