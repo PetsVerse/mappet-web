@@ -115,6 +115,16 @@
     </p>
   </div>
 
+  <!-- STATE 5: Email already has an account -->
+  <div class="card hidden" id="state-already-exists">
+    <div class="emoji">👤</div>
+    <h1>Este email já tem conta</h1>
+    <p>Já existe uma conta com este email. Inicia sessão na app com as tuas credenciais.</p>
+    <a href="#" id="open-btn-login" class="btn">
+      Abrir o MapPet
+    </a>
+  </div>
+
   <footer>
     <a href="https://mappet.app">mappet.app</a>
     <a href="/privacy.html">Privacidade / Privacy</a>
@@ -151,24 +161,44 @@
           '&refresh_token=' + encodeURIComponent(refreshToken) +
           '&type=' + encodeURIComponent(type);
       }
-      return 'mappet://auth';
+      return 'mappet://auth#type=' + encodeURIComponent(type);
+    }
+
+    function isUserAlreadyExists(errorCode, error, errorDescription) {
+      var combined = [errorCode, error, errorDescription]
+        .filter(Boolean)
+        .join(' ')
+        .toLowerCase();
+      return combined.indexOf('user_already_exists') !== -1;
     }
 
     window.addEventListener('DOMContentLoaded', function () {
       var hash = window.location.hash || '';
       var search = window.location.search || '';
 
-      // Supabase can send tokens in hash or query string
-      var paramStr = hash.replace('#', '') || search.replace('?', '');
-      var params = new URLSearchParams(paramStr);
+      // Supabase can send tokens in hash or query string — merge both
+      var params = new URLSearchParams(search.replace(/^\?/, ''));
+      var hashParams = new URLSearchParams(hash.replace(/^#/, ''));
+      hashParams.forEach(function (value, key) {
+        if (!params.has(key)) params.set(key, value);
+      });
 
       var accessToken = params.get('access_token');
       var refreshToken = params.get('refresh_token');
       var type = params.get('type') || 'signup';
-      var errorCode = params.get('error_code') || params.get('error');
+      var error = params.get('error');
+      var errorCode = params.get('error_code');
       var errorDescription = params.get('error_description');
 
-      if (errorCode || errorDescription) {
+      if (isUserAlreadyExists(errorCode, error, errorDescription)) {
+        var loginLink = buildDeepLink(null, null, 'login');
+        show('state-already-exists');
+        var loginBtn = document.getElementById('open-btn-login');
+        if (loginBtn) loginBtn.href = loginLink;
+        return;
+      }
+
+      if (errorCode || error || errorDescription) {
         show('state-error');
         var detail = document.getElementById('error-detail');
         if (detail && errorDescription) {
