@@ -308,7 +308,7 @@
   </footer>
 
   <script>
-    const IOS_URL = 'https://apps.apple.com/app/mappet/id000000000';
+    const IOS_URL = 'https://apps.apple.com/app/id6792010147';
     const ANDROID_URL = 'https://play.google.com/store/apps/details?id=com.savagesimplicity.mappet';
 
     const translations = {
@@ -318,7 +318,7 @@
         redirecting: "A redirecionar para a store...",
         appstore: "Descarregar na App Store",
         playstore: "Descarregar no Google Play",
-        availability: "Disponível em Portugal · A expandir para mais países em breve",
+        availability: "Disponível na App Store e Google Play · Portugal 🇵🇹",
         privacy: "Privacidade",
         terms: "Termos",
         cookies: "Cookies",
@@ -334,7 +334,7 @@
         redirecting: "Redirecting to the store...",
         appstore: "Download on the App Store",
         playstore: "Get it on Google Play",
-        availability: "Available in Portugal · Expanding to more countries soon",
+        availability: "Available on the App Store and Google Play · Portugal 🇵🇹",
         privacy: "Privacy",
         terms: "Terms",
         cookies: "Cookies",
@@ -350,7 +350,7 @@
         redirecting: "Redirigiendo a la tienda...",
         appstore: "Descargar en App Store",
         playstore: "Disponible en Google Play",
-        availability: "Disponible en Portugal · Próximamente en más países",
+        availability: "Disponible en App Store y Google Play · Portugal 🇵🇹",
         privacy: "Privacidad",
         terms: "Términos",
         cookies: "Cookies",
@@ -366,7 +366,7 @@
         redirecting: "Weiterleitung zum Store...",
         appstore: "Im App Store laden",
         playstore: "Bei Google Play laden",
-        availability: "Verfügbar in Portugal · Bald in weiteren Ländern",
+        availability: "Im App Store und bei Google Play · Portugal 🇵🇹",
         privacy: "Datenschutz",
         terms: "Nutzungsbedingungen",
         cookies: "Cookies",
@@ -382,7 +382,7 @@
         redirecting: "Redirection vers le store...",
         appstore: "Télécharger sur l'App Store",
         playstore: "Disponible sur Google Play",
-        availability: "Disponible au Portugal · Bientôt dans d'autres pays",
+        availability: "Disponible sur l'App Store et Google Play · Portugal 🇵🇹",
         privacy: "Confidentialité",
         terms: "Conditions",
         cookies: "Cookies",
@@ -434,13 +434,11 @@
       btnAndroid.href = ANDROID_URL;
 
       if (isIOS) {
-        btnAndroid.hidden = true;
         redirecting.hidden = false;
         setTimeout(function () {
           window.location.href = IOS_URL;
         }, 1500);
       } else if (isAndroid) {
-        btnIos.hidden = true;
         redirecting.hidden = false;
         setTimeout(function () {
           window.location.href = ANDROID_URL;

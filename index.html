@@ -35,7 +35,7 @@
 
     .lang-selector {
       position: fixed;
-      top: 12px;
+      top: 44px;
       right: 16px;
       z-index: 20;
       font-size: 13px;
@@ -81,13 +81,28 @@
       user-select: none;
     }
 
+    .live-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 15;
+      background: var(--primary);
+      color: #fff;
+      font-size: 14px;
+      text-align: center;
+      padding: 10px 16px;
+      font-family: system-ui, -apple-system, sans-serif;
+      font-weight: 600;
+    }
+
     .page {
       flex: 1;
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 80px 24px 100px;
+      padding: 100px 24px 100px;
     }
 
     .hero {
@@ -278,16 +293,24 @@
         right: 8px;
         left: 8px;
         text-align: center;
-        top: 8px;
+        top: 40px;
+        justify-content: center;
+      }
+
+      .live-banner {
+        font-size: 13px;
+        padding: 8px 12px;
       }
 
       .page {
-        padding-top: 72px;
+        padding-top: 96px;
       }
     }
   </style>
 </head>
 <body>
+  <div class="live-banner" data-i18n="live_banner"></div>
+
   <nav class="lang-selector" aria-label="Language">
     <a href="#" data-lang="pt" onclick="return setLanguage('pt')"><img src="https://flagcdn.com/16x12/pt.png" width="16" height="12" alt="PT"> PT</a><span class="sep">·</span>
     <a href="#" data-lang="en" onclick="return setLanguage('en')"><img src="https://flagcdn.com/16x12/gb.png" width="16" height="12" alt="EN"> EN</a><span class="sep">·</span>
@@ -328,6 +351,14 @@
 
     <section class="cta">
       <div class="store-buttons">
+        <a href="https://apps.apple.com/app/id6792010147"
+           target="_blank" rel="noopener noreferrer">
+          <img
+            src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/pt-pt?size=250x83"
+            alt="Descarregar na App Store"
+            style="height: 60px;"
+          />
+        </a>
         <a href="https://play.google.com/store/apps/details?id=com.savagesimplicity.mappet"
            target="_blank" rel="noopener noreferrer">
           <img
@@ -354,6 +385,7 @@
   <script>
     const translations = {
       pt: {
+        live_banner: "🎉 Já disponível na App Store e Google Play!",
         tagline: "O mapa pet-friendly feito pela comunidade",
         feature1_title: "Descobre locais pet-friendly",
         feature1_text: "Mais de 8.000 locais em Portugal — parques, cafés, praias, restaurantes e muito mais que aceitam o teu animal.",
@@ -370,9 +402,10 @@
         privacy_request: "Dados pessoais",
         delete_account: "Eliminar conta",
         support: "Suporte",
-        availability: "📍 Disponível em Portugal 🇵🇹 · A expandir para mais países em breve"
+        availability: "📍 Disponível na App Store e Google Play · Portugal 🇵🇹"
       },
       en: {
+        live_banner: "🎉 Now available on the App Store and Google Play!",
         tagline: "The pet-friendly map made by the community",
         feature1_title: "Discover pet-friendly places",
         feature1_text: "Over 8,000 places in Portugal — parks, cafés, beaches, restaurants and much more that welcome your pet.",
@@ -389,9 +422,10 @@
         privacy_request: "Personal data",
         delete_account: "Delete account",
         support: "Support",
-        availability: "📍 Available in Portugal 🇵🇹 · Expanding to more countries soon"
+        availability: "📍 Available on the App Store and Google Play · Portugal 🇵🇹"
       },
       es: {
+        live_banner: "🎉 ¡Ya disponible en App Store y Google Play!",
         tagline: "El mapa pet-friendly hecho por la comunidad",
         feature1_title: "Descubre lugares pet-friendly",
         feature1_text: "Más de 8.000 lugares en Portugal — parques, cafés, playas, restaurantes y mucho más que aceptan a tu mascota.",
@@ -408,9 +442,10 @@
         privacy_request: "Datos personales",
         delete_account: "Eliminar cuenta",
         support: "Soporte",
-        availability: "📍 Disponible en Portugal 🇵🇹 · Próximamente en más países"
+        availability: "📍 Disponible en App Store y Google Play · Portugal 🇵🇹"
       },
       de: {
+        live_banner: "🎉 Jetzt im App Store und bei Google Play!",
         tagline: "Die tierfreundliche Karte von der Community",
         feature1_title: "Entdecke tierfreundliche Orte",
         feature1_text: "Über 8.000 Orte in Portugal — Parks, Cafés, Strände, Restaurants und vieles mehr, die dein Haustier willkommen heißen.",
@@ -427,9 +462,10 @@
         privacy_request: "Personenbezogene Daten",
         delete_account: "Konto löschen",
         support: "Support",
-        availability: "📍 Verfügbar in Portugal 🇵🇹 · Bald in weiteren Ländern"
+        availability: "📍 Im App Store und bei Google Play · Portugal 🇵🇹"
       },
       fr: {
+        live_banner: "🎉 Déjà disponible sur l'App Store et Google Play !",
         tagline: "La carte pet-friendly faite par la communauté",
         feature1_title: "Découvrez des lieux pet-friendly",
         feature1_text: "Plus de 8 000 lieux au Portugal — parcs, cafés, plages, restaurants et bien plus qui accueillent votre animal.",
@@ -446,7 +482,7 @@
         privacy_request: "Données personnelles",
         delete_account: "Supprimer le compte",
         support: "Support",
-        availability: "📍 Disponible au Portugal 🇵🇹 · Bientôt dans d'autres pays"
+        availability: "📍 Disponible sur l'App Store et Google Play · Portugal 🇵🇹"
       }
     };
 
